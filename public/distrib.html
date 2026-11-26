@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eletrotécnica — Módulos Interativos</title>
+    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+    <script src="assets/js/core/theme.js"></script>
+    <script src="assets/js/core/icons.js"></script>
+
+    <!-- Bibliotecas para exportação de Memorial de Cálculo (.docx) -->
+
+
+    <!-- ══ NAV PROJETOS INDUSTRIAIS ══ -->
+
+
+    <script src="assets/js/core/loader.js"></script>
+    <script src="assets/vendor/xlsx-js-style-1.2.0.bundle.js"></script>
+
+    <link rel="stylesheet" href="assets/css/fonts.css">
+    <link rel="stylesheet" href="assets/css/tokens.css">
+    <link rel="stylesheet" href="assets/css/legacy.css">
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/actionbar.css">
+    <link rel="stylesheet" href="assets/css/nav.css">
+</head>
+
+<body data-eo-module="distrib" data-eo-area="profissional">
+
+    <!-- ══ NAV I.A ══ -->
+
+
+    <!-- ══ NAV APOSTILAS ══ -->
+
+
+    <!-- ══ NAV SOBRE ══ -->
+
+
+
+    <!-- ══ TELA INICIAL DE SELEÇÃO DE MÓDULO ══ -->
+
+
+    <!-- ══ NAV DISTRIBUIÇÃO ELÉTRICA ══ -->
+    <nav id="nav-distrib" aria-label="Módulo">
+        <div class="eo-topbar">
+            <a class="eo-brand" href="eletrotec.html" aria-label="EletroLabz: ir para o início"><img width="32" height="32" alt="" src="./assets/icons/favicon.svg"><span class="eo-brand__name">EletroLabz</span></a>
+            <a class="ms-back-btn eo-modules" href="eletrotec.html"><svg class="eo-icon" data-icon="arrow-left" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg> Módulos</a>
+            <button class="theme-toggle" type="button" onclick="toggleTheme()" data-eo-action="distrib:alternar-tema" id="theme-btn" aria-pressed="false"><svg class="eo-icon" data-icon="moon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg><svg class="eo-icon" data-icon="sun" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg><span class="tt-label"><span class="tt-to-dark">Modo escuro</span><span class="tt-to-light">Modo claro</span></span></button>
+        </div>
+        <div class="nav-inner">
+            <button class="nav-btn active" data-dpage="distrib-home" onclick="showDistribPage('distrib-home',this)"><svg class="eo-icon" data-icon="house" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg> Início</button>
+            <button class="nav-btn" data-dpage="distrib-demanda" onclick="showDistribPage('distrib-demanda',this)"><svg class="eo-icon" data-icon="table" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3v18"/><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/></svg> Demanda</button>
+            <button class="nav-btn" data-dpage="distrib-padrao" onclick="showDistribPage('distrib-padrao',this)"><svg class="eo-icon" data-icon="list-checks" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M13 5h8"/><path d="M13 12h8"/><path d="M13 19h8"/><path d="m3 17 2 2 4-4"/><path d="m3 7 2 2 4-4"/></svg> Padrão de Entrada</button>
+            <button class="nav-btn" data-dpage="distrib-ramal" onclick="showDistribPage('distrib-ramal',this)"><svg class="eo-icon" data-icon="zap" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z"/></svg> Ramal</button>
+            <button class="nav-btn" data-dpage="distrib-aterramento"
+                onclick="showDistribPage('distrib-aterramento',this)"><svg class="eo-icon" data-icon="zap" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z"/></svg> Aterramento</button>
+            <button class="nav-btn" data-dpage="distrib-projeto" onclick="showDistribPage('distrib-projeto',this)"><svg class="eo-icon" data-icon="folder-open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2"/></svg> Dimensionar Projeto</button>
+        </div>
+    </nav>
+    <div class="eo-crumbs" role="navigation" aria-label="Trilha de navegação"><ol></ol></div>
+
+    <main id="main-distrib">
+
+        <!-- HOME DISTRIBUIÇÃO -->
+        <div id="page-distrib-home" class="page active">
+            <div class="industrial-hero">
+                <h1><svg class="eo-icon" data-icon="utility-pole" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 2v20"/><path d="M2 5h20"/><path d="M3 3v2"/><path d="M7 3v2"/><path d="M17 3v2"/><path d="M21 3v2"/><path d="m19 5-7 7-7-7"/></svg> Distribuição Elétrica</h1>
+                <p>Dimensionamento de entrada de energia conforme normas das concessionárias — CEMIG, Equatorial e Enel.
+                </p>
+            </div>
+
+            <div class="card" style="margin-bottom:1rem">
+                <div class="card-header">
+                    <div class="dot" style="background:var(--ok)"></div>
+                    <h2>Selecione a Concessionária</h2>
+                </div>
+                <div class="predial-input-grid">
+                    <div class="predial-input-group">
+                        <label>Norma da Concessionária</label>
+                        <select id="distrib-norma" onchange="onDistribNormaChange()" style="font-size:.9rem">
+                            <option value="cemig" selected>CEMIG — ND 5.1 / ND 5.2</option>
+                            <option value="equatorial">Equatorial — NT.00001.EQTL</option>
+                            <option value="enel">Enel — GRI-EDBR-CNC-GRI-0018</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="distrib-norma-info" class="info-box" style="margin-top:.7rem">
+                    <p id="distrib-norma-desc"></p>
+                </div>
+            </div>
+
+            <div class="hero-grid" style="max-width:600px;margin:0 auto">
+                <a class="hero-card" href="#demanda">
+                    <div class="icon"><svg class="eo-icon" data-icon="table" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3v18"/><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/></svg> </div>
+                    <div class="label">Demanda</div>
+                </a>
+                <a class="hero-card" href="#padrao">
+                    <div class="icon"><svg class="eo-icon" data-icon="list-checks" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M13 5h8"/><path d="M13 12h8"/><path d="M13 19h8"/><path d="m3 17 2 2 4-4"/><path d="m3 7 2 2 4-4"/></svg> </div>
+                    <div class="label">Padrão de Entrada</div>
+                </a>
+                <a class="hero-card" href="#ramal">
+                    <div class="icon"><svg class="eo-icon" data-icon="zap" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z"/></svg> </div>
+                    <div class="label">Ramal</div>
+                </a>
+                <a class="hero-card" href="#aterramento">
+                    <div class="icon"><svg class="eo-icon" data-icon="zap" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z"/></svg> </div>
+                    <div class="label">Aterramento</div>
+                </a>
+                <a class="hero-card" href="#projeto">
+                    <div class="icon"><svg class="eo-icon" data-icon="folder-open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2"/></svg> </div>
+                    <div class="label">Dimensionar Projeto</div>
+                </a>
+            </div>
+
+            <div class="card" style="margin-top:1.5rem">
+                <div class="card-header">
+                    <div class="dot" style="background:var(--ok)"></div>
+                    <h2>Sobre este módulo</h2>
+                </div>
+                <div class="theory">Este módulo realiza o dimensionamento completo da entrada de energia de unidades
+                    consumidoras conforme as normas das concessionárias. Inclui cálculo de demanda, determinação da
+                    faixa de fornecimento, dimensionamento do ramal de entrada (condutores, eletrodutos, disjuntores) e
+                    aterramento.</div>
+                <div class="info-box">
+                    <p><svg class="eo-icon" data-icon="triangle-alert" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg> As normas podem sofrer atualizações. Consulte sempre a versão vigente da concessionária local.
+                        Os resultados são orientativos para fins didáticos.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- DEMANDA -->
+        <div id="page-distrib-demanda" class="page">
+            <div class="section-title">
+                <h2><svg class="eo-icon" data-icon="table" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3v18"/><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/></svg> Cálculo de Demanda</h2><span class="badge" style="background:var(--ok)"
+                    id="distrib-badge-demanda">CEMIG</span>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="dot" style="background:var(--ok)"></div>
+                    <h3>Concessionária</h3>
+                </div>
+                <div class="predial-input-grid">
+                    <div class="predial-input-group">
+                        <label>Norma</label>
+                        <select id="distrib-norma2" onchange="syncDistribNorma(this.value)">
+                            <option value="cemig" selected>CEMIG — ND 5.1</option>
+                            <option value="equatorial">Equatorial — NT.00001.EQTL</option>
+                            <option value="enel">Enel — Especificação Técnica</option>
+                        </select>
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Tensão de fornecimento</label>
+                        <select id="distrib-tensao-forn">
+                            <option value="127/220" selected>127/220 V</option>
+                            <option value="220/380">220/380 V</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top:.8rem">
+                <div class="card-header">
+                    <div class="dot dot-blue"></div>
+                    <h3>Cargas Instaladas</h3>
+                </div>
+                <div class="predial-input-grid">
+                    <div class="predial-input-group">
+                        <label>Iluminação + Tomadas (W)</label>
+                        <input type="number" id="distrib-da-w" value="5000" min="0" step="100"
+                            oninput="calcDistribDemanda()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Chuveiro/Aquecedor (W)</label>
+                        <input type="number" id="distrib-db-w" value="5500" min="0" step="100"
+                            oninput="calcDistribDemanda()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Ar-condicionado (W)</label>
+                        <input type="number" id="distrib-ac-w" value="3500" min="0" step="100"
+                            oninput="calcDistribDemanda()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Fogão/Forno elétrico (W)</label>
+                        <input type="number" id="distrib-dc-w" value="0" min="0" step="100"
+                            oninput="calcDistribDemanda()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Motores (W total)</label>
+                        <input type="number" id="distrib-dd-w" value="0" min="0" step="100"
+                            oninput="calcDistribDemanda()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Outras cargas especiais (W)</label>
+                        <input type="number" id="distrib-de-w" value="0" min="0" step="100"
+                            oninput="calcDistribDemanda()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Fator de Potência</label>
+                        <input type="number" id="distrib-fp" value="0.92" min="0.5" max="1" step="0.01"
+                            oninput="calcDistribDemanda()">
+                    </div>
+                </div>
+                <div class="eo-actionbar" role="group" aria-label="Ações — demanda">
+                    <div class="eo-ab-group" role="group" aria-label="Cálculo" data-label="Cálculo">
+                        <button type="button" class="btn eo-ab-primary" onclick="calcDistribDemanda()" data-eo-action="distrib:calc-demanda"><svg class="eo-icon" data-icon="calculator" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></svg> Calcular Demanda</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="distrib-demanda-result" class="predial-result">
+                <h4 style="color:var(--ok)"><svg class="eo-icon" data-icon="table" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3v18"/><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/></svg> Resultado do Cálculo de Demanda</h4>
+                <div class="predial-result-grid" id="distrib-demanda-grid"></div>
+                <div id="distrib-demanda-detail"></div>
+            </div>
+        </div>
+
+        <!-- PADRÃO DE ENTRADA -->
+        <div id="page-distrib-padrao" class="page">
+            <div class="section-title">
+                <h2><svg class="eo-icon" data-icon="list-checks" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M13 5h8"/><path d="M13 12h8"/><path d="M13 19h8"/><path d="m3 17 2 2 4-4"/><path d="m3 7 2 2 4-4"/></svg> Padrão de Entrada</h2><span class="badge" style="background:var(--ok)"
+                    id="distrib-badge-padrao">CEMIG</span>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="dot" style="background:var(--ok)"></div>
+                    <h3>Dimensionamento do Padrão</h3>
+                </div>
+                <div class="predial-input-grid">
+                    <div class="predial-input-group">
+                        <label>Concessionária</label>
+                        <select id="distrib-norma3" onchange="syncDistribNorma(this.value)">
+                            <option value="cemig" selected>CEMIG — ND 5.1</option>
+                            <option value="equatorial">Equatorial — NT.00001.EQTL</option>
+                            <option value="enel">Enel — Especificação Técnica</option>
+                        </select>
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Demanda calculada (kVA)</label>
+                        <input type="number" id="distrib-dem-kva" value="20" min="0" step="0.5"
+                            oninput="calcDistribPadrao()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Carga instalada total (W)</label>
+                        <input type="number" id="distrib-ci-total" value="14000" min="0" step="100"
+                            oninput="calcDistribPadrao()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Necessita tensão 220V?</label>
+                        <select id="distrib-precisa220" onchange="calcDistribPadrao()">
+                            <option value="nao" selected>Não</option>
+                            <option value="sim">Sim — Bifásico</option>
+                            <option value="tri">Sim — Trifásico</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="eo-actionbar" role="group" aria-label="Ações — padrao">
+                    <div class="eo-ab-group" role="group" aria-label="Cálculo" data-label="Cálculo">
+                        <button type="button" class="btn eo-ab-primary" onclick="calcDistribPadrao()" data-eo-action="distrib:calc-padrao"><svg class="eo-icon" data-icon="calculator" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></svg> Dimensionar Padrão</button>
+                    </div>
+                </div>
+            </div>
+            <div id="distrib-padrao-result" class="predial-result">
+                <h4 style="color:var(--ok)"><svg class="eo-icon" data-icon="list-checks" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M13 5h8"/><path d="M13 12h8"/><path d="M13 19h8"/><path d="m3 17 2 2 4-4"/><path d="m3 7 2 2 4-4"/></svg> Padrão de Entrada</h4>
+                <div id="distrib-padrao-detail"></div>
+            </div>
+        </div>
+
+        <!-- RAMAL -->
+        <div id="page-distrib-ramal" class="page">
+            <div class="section-title">
+                <h2><svg class="eo-icon" data-icon="zap" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z"/></svg> Ramal de Entrada</h2><span class="badge" style="background:var(--ok)"
+                    id="distrib-badge-ramal">CEMIG</span>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="dot dot-blue"></div>
+                    <h3>Dimensionamento do Ramal de Ligação</h3>
+                </div>
+                <div class="predial-input-grid">
+                    <div class="predial-input-group">
+                        <label>Concessionária</label>
+                        <select id="distrib-norma4" onchange="syncDistribNorma(this.value)">
+                            <option value="cemig" selected>CEMIG — ND 5.1</option>
+                            <option value="equatorial">Equatorial — NT.00001.EQTL</option>
+                            <option value="enel">Enel — Especificação Técnica</option>
+                        </select>
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Demanda (kVA)</label>
+                        <input type="number" id="distrib-ramal-kva" value="20" min="0" step="0.5"
+                            oninput="calcDistribRamal()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Tipo de fornecimento</label>
+                        <select id="distrib-ramal-tipo" onchange="calcDistribRamal()">
+                            <option value="mono">Monofásico</option>
+                            <option value="bi">Bifásico</option>
+                            <option value="tri" selected>Trifásico</option>
+                        </select>
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Comprimento do ramal (m)</label>
+                        <input type="number" id="distrib-ramal-comp" value="30" min="1" step="1"
+                            oninput="calcDistribRamal()">
+                    </div>
+                </div>
+                <div class="eo-actionbar" role="group" aria-label="Ações — ramal">
+                    <div class="eo-ab-group" role="group" aria-label="Cálculo" data-label="Cálculo">
+                        <button type="button" class="btn eo-ab-primary" onclick="calcDistribRamal()" data-eo-action="distrib:calc-ramal"><svg class="eo-icon" data-icon="calculator" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></svg> Dimensionar Ramal</button>
+                    </div>
+                </div>
+            </div>
+            <div id="distrib-ramal-result" class="predial-result">
+                <h4 style="color:var(--ok)"><svg class="eo-icon" data-icon="zap" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z"/></svg> Resultado — Ramal de Entrada</h4>
+                <div class="predial-result-grid" id="distrib-ramal-grid"></div>
+                <div id="distrib-ramal-detail"></div>
+            </div>
+        </div>
+
+        <!-- ATERRAMENTO -->
+        <div id="page-distrib-aterramento" class="page">
+            <div class="section-title">
+                <h2><svg class="eo-icon" data-icon="zap" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z"/></svg> Aterramento</h2><span class="badge" style="background:var(--ok)"
+                    id="distrib-badge-aterr">CEMIG</span>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="dot dot-orange"></div>
+                    <h3>Dimensionamento do Aterramento</h3>
+                </div>
+                <div class="predial-input-grid">
+                    <div class="predial-input-group">
+                        <label>Concessionária</label>
+                        <select id="distrib-norma5" onchange="syncDistribNorma(this.value)">
+                            <option value="cemig" selected>CEMIG — ND 5.1</option>
+                            <option value="equatorial">Equatorial — NT.00001.EQTL</option>
+                            <option value="enel">Enel — Especificação Técnica</option>
+                        </select>
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Faixa de fornecimento</label>
+                        <select id="distrib-aterr-faixa" onchange="calcDistribAterr()">
+                            <option value="A1">Monofásico — até 8 kW</option>
+                            <option value="B1">Bifásico — até 16 kW</option>
+                            <option value="C1" selected>Trifásico — até 24 kVA</option>
+                            <option value="C3">Trifásico — até 38,1 kVA</option>
+                            <option value="C5">Trifásico — até 57,1 kVA</option>
+                            <option value="C6">Trifásico — até 75 kVA</option>
+                            <option value="F1">Trifásico — até 86 kVA</option>
+                            <option value="F3">Trifásico — até 114 kVA</option>
+                            <option value="F6">Trifásico — até 188 kVA</option>
+                            <option value="F9">Trifásico — até 304 kVA</option>
+                        </select>
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Resistividade do solo (Ω·m)</label>
+                        <input type="number" id="distrib-aterr-rho" value="100" min="10" step="10"
+                            oninput="calcDistribAterr()">
+                    </div>
+                </div>
+                <div class="eo-actionbar" role="group" aria-label="Ações — aterramento">
+                    <div class="eo-ab-group" role="group" aria-label="Cálculo" data-label="Cálculo">
+                        <button type="button" class="btn eo-ab-primary" onclick="calcDistribAterr()" data-eo-action="distrib:calc-aterramento"><svg class="eo-icon" data-icon="calculator" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></svg> Calcular Aterramento</button>
+                    </div>
+                </div>
+            </div>
+            <div id="distrib-aterr-result" class="predial-result">
+                <h4 style="color:var(--ok)"><svg class="eo-icon" data-icon="zap" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z"/></svg> Resultado — Aterramento</h4>
+                <div class="predial-result-grid" id="distrib-aterr-grid"></div>
+                <div id="distrib-aterr-detail"></div>
+            </div>
+        </div>
+
+        <!-- ── PÁGINA: DIMENSIONAR PROJETO COMPLETO ── -->
+        <div id="page-distrib-projeto" class="page">
+            <div class="section-title">
+                <h2><svg class="eo-icon" data-icon="folder-open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2"/></svg> Dimensionar Projeto de Distribuição</h2>
+                <span class="badge" style="background:var(--ok)" id="distrib-badge-projeto">CEMIG</span>
+            </div>
+
+            <!-- DADOS GERAIS -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="dot" style="background:var(--ok)"></div>
+                    <h3><svg class="eo-icon" data-icon="list-checks" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M13 5h8"/><path d="M13 12h8"/><path d="M13 19h8"/><path d="m3 17 2 2 4-4"/><path d="m3 7 2 2 4-4"/></svg> Dados Gerais do Projeto</h3>
+                </div>
+                <div class="predial-input-grid">
+                    <div class="predial-input-group" style="grid-column:1/-1">
+                        <label>Nome / Identificação do Projeto</label>
+                        <input type="text" id="proj-nome"
+                            placeholder="Ex: Condomínio Residencial Parque Verde — Rua das Flores, 100">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Responsável Técnico (RT)</label>
+                        <input type="text" id="proj-rt" placeholder="Nome do engenheiro / técnico">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>CREA / CFT</label>
+                        <input type="text" id="proj-crea" placeholder="Ex: CREA-AL 00.000/D">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Concessionária (Norma)</label>
+                        <select id="distrib-norma-proj" onchange="syncDistribNorma(this.value);calcDistribProjeto()">
+                            <option value="cemig">CEMIG — ND 5.1 / ND 5.2</option>
+                            <option value="equatorial">Equatorial — NT.00001.EQTL</option>
+                            <option value="enel">Enel — GRI-EDBR-CNC-GRI-0018</option>
+                        </select>
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Tipo de Edificação</label>
+                        <select id="proj-tipo-edif" onchange="onProjTipoChange()">
+                            <option value="residencial_unif">Residencial Unifamiliar</option>
+                            <option value="residencial_multi">Residencial Multifamiliar / Condomínio</option>
+                            <option value="comercial">Comercial / Escritório</option>
+                            <option value="industrial">Industrial</option>
+                            <option value="misto">Misto (Comercial + Residencial)</option>
+                        </select>
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Tensão de Fornecimento</label>
+                        <select id="proj-tensao-forn" onchange="calcDistribProjeto()">
+                            <option value="127220">127/220 V (Monofásico / Bifásico)</option>
+                            <option value="220380">220/380 V (Trifásico)</option>
+                        </select>
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Norma de Referência</label>
+                        <select id="proj-norma-ref" onchange="calcDistribProjeto()">
+                            <option value="nbr5410">NBR 5410 — Instalações de BT</option>
+                            <option value="nbr14039">NBR 14039 — Instalações de MT</option>
+                            <option value="ndcemig">ND 5.1 / ND 5.2 (CEMIG)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DEMANDA RESIDÊNCIAS / CONDOMÍNIO -->
+            <div class="card" id="card-cond-data">
+                <div class="card-header">
+                    <div class="dot" style="background:var(--ok)"></div>
+                    <h3><svg class="eo-icon" data-icon="utility-pole" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 2v20"/><path d="M2 5h20"/><path d="M3 3v2"/><path d="M7 3v2"/><path d="M17 3v2"/><path d="M21 3v2"/><path d="m19 5-7 7-7-7"/></svg> Demanda de Residências / Condomínio</h3>
+                </div>
+                <div class="info-box" style="margin-bottom:.7rem">
+                    <p>Metodologia: ABNT NBR 5410 / critérios CEMIG ND 5.2 — fator de demanda simultânea por número
+                        de unidades.</p>
+                </div>
+                <div class="predial-input-grid">
+                    <div class="predial-input-group">
+                        <label>Nº de Unidades Residenciais</label>
+                        <input type="number" id="proj-n-unidades" value="1" min="1" step="1"
+                            oninput="calcDistribProjeto()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Padrão da Residência</label>
+                        <select id="proj-padrao-res" onchange="onProjPadraoChange()">
+                            <option value="baixo">Baixo (até 3 kW/unidade)</option>
+                            <option value="medio" selected>Médio (3–6 kW/unidade)</option>
+                            <option value="alto">Alto (6–12 kW/unidade)</option>
+                            <option value="luxo">Luxo (>12 kW/unidade)</option>
+                            <option value="custom">Personalizado</option>
+                        </select>
+                    </div>
+                    <div class="predial-input-group">
+                        <label>CI por Unidade (W)</label>
+                        <input type="number" id="proj-ci-unidade" value="5000" min="500" step="100"
+                            oninput="calcDistribProjeto()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Área da Unidade (m²) — para iluminação</label>
+                        <input type="number" id="proj-area-unid" value="80" min="10" step="5"
+                            oninput="calcDistribProjeto()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Iluminação das Áreas Comuns (W)</label>
+                        <input type="number" id="proj-ilum-comum" value="1000" min="0" step="100"
+                            oninput="calcDistribProjeto()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Cargas Comuns — Bombas, Portão etc. (W)</label>
+                        <input type="number" id="proj-cargas-comuns" value="2200" min="0" step="100"
+                            oninput="calcDistribProjeto()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Elevadores (W total — se houver)</label>
+                        <input type="number" id="proj-elev" value="0" min="0" step="500" oninput="calcDistribProjeto()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Fator de Potência das Unidades (fp)</label>
+                        <input type="number" id="proj-fp" value="0.92" min="0.5" max="1" step="0.01"
+                            oninput="calcDistribProjeto()">
+                    </div>
+                </div>
+            </div>
+
+            <!-- LEVANTAMENTO DE CARGAS INDIVIDUAIS -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="dot" style="background:var(--ok)"></div>
+                    <h3><svg class="eo-icon" data-icon="zap" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z"/></svg> Levantamento de Cargas Individuais (por unidade)</h3>
+                </div>
+                <div class="predial-input-grid">
+                    <div class="predial-input-group">
+                        <label>Iluminação (W)</label>
+                        <input type="number" id="proj-ilum" value="1200" min="0" step="100"
+                            oninput="calcDistribProjeto()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Tomadas de Uso Geral — TUG (W)</label>
+                        <input type="number" id="proj-tug" value="1500" min="0" step="100"
+                            oninput="calcDistribProjeto()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Chuveiro(s) Elétrico(s) (W)</label>
+                        <input type="number" id="proj-chuv" value="5500" min="0" step="100"
+                            oninput="calcDistribProjeto()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Ar Condicionado (W total)</label>
+                        <input type="number" id="proj-ar" value="3500" min="0" step="100"
+                            oninput="calcDistribProjeto()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Forno / Fogão Elétrico (W)</label>
+                        <input type="number" id="proj-forno" value="0" min="0" step="100"
+                            oninput="calcDistribProjeto()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Aquecedor de Passagem (W)</label>
+                        <input type="number" id="proj-aquec" value="0" min="0" step="100"
+                            oninput="calcDistribProjeto()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Motores / Bombas individuais (W)</label>
+                        <input type="number" id="proj-motor" value="0" min="0" step="100"
+                            oninput="calcDistribProjeto()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Outras Cargas (W)</label>
+                        <input type="number" id="proj-outras" value="0" min="0" step="100"
+                            oninput="calcDistribProjeto()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Fator de Demanda Global (%)</label>
+                        <input type="number" id="proj-fd" value="60" min="10" max="100" step="5"
+                            oninput="calcDistribProjeto()">
+                    </div>
+                </div>
+            </div>
+
+            <!-- TRANSFORMADOR -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="dot" style="background:var(--ok)"></div>
+                    <h3><svg class="eo-icon" data-icon="rotate-ccw" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg> Transformador / Subestação</h3>
+                </div>
+                <div class="predial-input-grid">
+                    <div class="predial-input-group">
+                        <label>Tensão Primária MT (kV)</label>
+                        <select id="proj-trafo-vp" onchange="calcDistribProjeto()">
+                            <option value="13.8">13,8 kV (padrão Brasil)</option>
+                            <option value="11.4">11,4 kV</option>
+                            <option value="34.5">34,5 kV</option>
+                        </select>
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Reserva de Crescimento (%)</label>
+                        <input type="number" id="proj-trafo-reserva" value="20" min="0" max="50" step="5"
+                            oninput="calcDistribProjeto()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Eficiência do Trafo (%)</label>
+                        <input type="number" id="proj-trafo-eff" value="98" min="90" max="100" step="0.5"
+                            oninput="calcDistribProjeto()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Tensão de Curto-Circuito Vcc (%)</label>
+                        <input type="number" id="proj-trafo-vcc" value="4" min="2" max="10" step="0.5"
+                            oninput="calcDistribProjeto()">
+                    </div>
+                </div>
+            </div>
+
+            <!-- ILUMINAÇÃO PÚBLICA / ÁREAS COMUNS -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="dot" style="background:var(--ok)"></div>
+                    <h3><svg class="eo-icon" data-icon="lightbulb" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg> Dimensionamento de Iluminação</h3>
+                </div>
+                <div class="predial-input-grid">
+                    <div class="predial-input-group">
+                        <label>Área Total a Iluminar (m²)</label>
+                        <input type="number" id="proj-ilum-area" value="200" min="0" step="10"
+                            oninput="calcDistribProjeto()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Iluminância Desejada — E (lux)</label>
+                        <select id="proj-ilum-lux" onchange="calcDistribProjeto()">
+                            <option value="50">50 lux — Áreas de circulação</option>
+                            <option value="100" selected>100 lux — Corredores / halls</option>
+                            <option value="200">200 lux — Ambientes de trabalho</option>
+                            <option value="300">300 lux — Escritórios</option>
+                            <option value="500">500 lux — Trabalho fino</option>
+                        </select>
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Tipo de Lâmpada</label>
+                        <select id="proj-ilum-lamp" onchange="calcDistribProjeto()">
+                            <option value="led" selected>LED (efic. 100 lm/W)</option>
+                            <option value="fluoresc">Fluorescente (efic. 70 lm/W)</option>
+                            <option value="vapor_sodio">Vapor de Sódio (efic. 110 lm/W)</option>
+                            <option value="vapor_mercurio">Vapor de Mercúrio (efic. 50 lm/W)</option>
+                        </select>
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Fator de Utilização (Fu)</label>
+                        <input type="number" id="proj-ilum-fu" value="0.65" min="0.3" max="1" step="0.05"
+                            oninput="calcDistribProjeto()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Fator de Manutenção (Fm)</label>
+                        <input type="number" id="proj-ilum-fm" value="0.80" min="0.5" max="1" step="0.05"
+                            oninput="calcDistribProjeto()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Potência da Lâmpada (W)</label>
+                        <input type="number" id="proj-ilum-pot" value="18" min="5" step="1"
+                            oninput="calcDistribProjeto()">
+                    </div>
+                </div>
+            </div>
+
+            <!-- QUALIDADE DE ENERGIA — THD -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="dot" style="background:var(--ok)"></div>
+                    <h3><svg class="eo-icon" data-icon="table" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3v18"/><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/></svg> Qualidade de Energia — THD e Neutro</h3>
+                </div>
+                <div class="info-box" style="margin-bottom:.7rem">
+                    <p>PRODIST Módulo 8 — THD de tensão limite: 8% (BT); NBR 5410 — neutro sobrecarregado por
+                        harmônicos de 3ª ordem (triplos).</p>
+                </div>
+                <div class="predial-input-grid">
+                    <div class="predial-input-group">
+                        <label>% de Cargas Não-Lineares (inversores, computadores, LED drivers)</label>
+                        <input type="number" id="proj-thd-nl" value="30" min="0" max="100" step="5"
+                            oninput="calcDistribProjeto()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>THD estimado de corrente (%)</label>
+                        <input type="number" id="proj-thd-i" value="20" min="0" max="100" step="5"
+                            oninput="calcDistribProjeto()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Percentual de cargas monofásicas trifásico (%)</label>
+                        <input type="number" id="proj-deseq" value="15" min="0" max="50" step="5"
+                            oninput="calcDistribProjeto()">
+                    </div>
+                </div>
+            </div>
+
+            <!-- RAMAL DE ENTRADA -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="dot" style="background:var(--ok)"></div>
+                    <h3><svg class="eo-icon" data-icon="zap" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z"/></svg> Ramal de Entrada</h3>
+                </div>
+                <div class="predial-input-grid">
+                    <div class="predial-input-group">
+                        <label>Comprimento do Ramal (m)</label>
+                        <input type="number" id="proj-ramal-comp" value="15" min="1" step="1"
+                            oninput="calcDistribProjeto()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Tipo de Ramal</label>
+                        <select id="proj-ramal-tipo" onchange="calcDistribProjeto()">
+                            <option value="aereo">Aéreo (multiplex alumínio)</option>
+                            <option value="subterraneo">Subterrâneo (XLPE cobre)</option>
+                        </select>
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Queda de Tensão Admissível (%)</label>
+                        <input type="number" id="proj-qt-max" value="2" min="0.5" max="4" step="0.5"
+                            oninput="calcDistribProjeto()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Temperatura Ambiente (°C)</label>
+                        <input type="number" id="proj-temp-amb" value="35" min="20" max="50" step="5"
+                            oninput="calcDistribProjeto()">
+                    </div>
+                </div>
+            </div>
+
+            <!-- ATERRAMENTO -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="dot" style="background:var(--ok)"></div>
+                    <h3><svg class="eo-icon" data-icon="zap" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z"/></svg> Aterramento</h3>
+                </div>
+                <div class="predial-input-grid">
+                    <div class="predial-input-group">
+                        <label>Resistividade do Solo ρ (Ω·m)</label>
+                        <input type="number" id="proj-aterr-rho" value="100" min="10" step="10"
+                            oninput="calcDistribProjeto()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Tipo de Solo</label>
+                        <select id="proj-aterr-solo" onchange="onProjSoloChange()">
+                            <option value="arenoso">Arenoso (ρ ~ 150–300 Ω·m)</option>
+                            <option value="argiloso" selected>Argiloso (ρ ~ 50–150 Ω·m)</option>
+                            <option value="umido">Úmido / Brejoso (ρ ~ 20–50 Ω·m)</option>
+                            <option value="rochoso">Rochoso (ρ ~ 500–5000 Ω·m)</option>
+                        </select>
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Resistência Máxima Exigida (Ω)</label>
+                        <select id="proj-aterr-rmax" onchange="calcDistribProjeto()">
+                            <option value="10">10 Ω (NBR 5410 — geral)</option>
+                            <option value="5">5 Ω (concessionária / rigoroso)</option>
+                            <option value="1">1 Ω (informática / hospitalar)</option>
+                        </select>
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Tipo de Eletrodo</label>
+                        <select id="proj-aterr-eletrodo" onchange="calcDistribProjeto()">
+                            <option value="haste">Haste vertical copperweld ⌀1/2" × 2,4 m</option>
+                            <option value="malha">Malha / Anel enterrado</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="eo-actionbar" role="group" aria-label="Ações — projeto de distribuição">
+                    <div class="eo-ab-group" role="group" aria-label="Cálculo" data-label="Cálculo">
+                        <button type="button" class="btn eo-ab-primary" onclick="calcDistribProjeto()" data-eo-action="distrib:calc-projeto"><svg class="eo-icon" data-icon="calculator" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></svg> Calcular e Dimensionar Projeto</button>
+                    </div>
+                    <div class="eo-ab-group" role="group" aria-label="Saída" data-label="Saída">
+                                                    <div class="eo-ab-menu">
+                                <button type="button" class="btn secondary eo-ab-menu-btn" data-eo-action="distrib:menu-export"><svg class="eo-icon" data-icon="download" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 15V3"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/></svg> <span>Exportar</span> <svg class="eo-icon" data-icon="chevron-down" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"/></svg></button>
+                                <div class="eo-ab-menu-list" role="group" aria-label="Exportar">
+                                    <button type="button" class="btn secondary" onclick="exportDistribProjetoXLSX()" data-eo-action="distrib:export-projeto-xlsx" data-eo-feature="projeto-xlsx"><svg class="eo-icon" data-icon="download" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 15V3"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/></svg> Planilha (.xlsx)</button>
+                                    <button type="button" class="btn secondary" onclick="exportDistribProjetoPDF()" data-eo-action="distrib:export-projeto-pdf" data-eo-feature="projeto-pdf" title="PDF do projeto em desenvolvimento — use a exportação XLSX" disabled aria-disabled="true"><svg class="eo-icon" data-icon="file-text" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg> Relatório PDF (em desenvolvimento)</button>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+
+            <div id="distrib-projeto-result" class="predial-result">
+                <h4 style="color:var(--ok)"><svg class="eo-icon" data-icon="folder-open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2"/></svg> Resultado — Projeto de Distribuição Elétrica</h4>
+                <div id="distrib-projeto-detail"></div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ══ NAV ELETRICIDADE II ══ -->
+
+    <!-- ══ NAV ACIONAMENTOS ══ -->
+
+
+    <!-- ══════════════════════════════════════════════════════════
+     MÓDULO: ACIONAMENTOS ELÉTRICOS
+══════════════════════════════════════════════════════════ -->
+
+    <!-- ══ NAV PROJETOS PREDIAIS ══ -->
+
+
+
+    <!-- ══ NAV PROJETOS INDUSTRIAIS ══ -->
+
+
+    <script src="assets/js/legacy/core.js"></script>
+    <script src="assets/js/legacy/distrib.js"></script>
+    <script src="assets/js/core/actionbar.js"></script>
+
+    <!-- ══ NAV LAEL ══ -->
+<script src="assets/js/core/nav.js"></script>
+</body></html>

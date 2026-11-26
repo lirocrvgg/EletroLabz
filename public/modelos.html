@@ -1,0 +1,111 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Modelos interativos · EletroLabz</title><script src="assets/js/core/theme.js"></script><link rel="icon" href="assets/icons/favicon.svg"><link rel="stylesheet" href="assets/css/fonts.css"><link rel="stylesheet" href="assets/css/tokens.css"><link rel="stylesheet" href="assets/css/base.css"><link rel="stylesheet" href="assets/css/components.css"><link rel="stylesheet" href="assets/css/nav.css"><link rel="stylesheet" href="assets/css/landing-lab.css"><link rel="stylesheet" href="assets/css/modelos.css"><script defer src="assets/js/landing-lab.js"></script><script defer src="assets/js/modelos.js"></script></head><body data-eo-area="educacao"><nav id="nav-modelos" aria-label="Módulo"><div class="eo-topbar">
+            <a class="eo-brand" href="eletrotec.html" aria-label="EletroLabz: ir para o início"><img width="32" height="32" alt="" src="./assets/icons/favicon.svg"><span class="eo-brand__name">EletroLabz</span></a>
+            <a class="ms-back-btn eo-modules" href="eletrotec.html"><svg class="eo-icon" data-icon="arrow-left" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg> Módulos</a>
+            <button class="theme-toggle" type="button" onclick="toggleTheme()" id="theme-btn" aria-pressed="false" data-eo-action="modelos:alternar-tema"><svg class="eo-icon" data-icon="moon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg><svg class="eo-icon" data-icon="sun" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg><span class="tt-label"><span class="tt-to-dark">Modo escuro</span><span class="tt-to-light">Modo claro</span></span></button>
+        </div>
+        <div class="nav-inner"><a class="nav-btn" href="#selecao">Início</a><a class="nav-btn" href="#drive">Inversor</a><a class="nav-btn" href="#pump">Bomba</a><a class="nav-btn" href="#tank">Nível</a><a class="nav-btn" href="#eo-sort-title">Triagem</a><a class="nav-btn" href="#dol-title">Partida direta</a><a class="nav-btn" href="#harm-title">Harmônicas</a><a class="nav-btn" href="#xf-title">Transformador</a><a class="nav-btn" href="#ohm-title">Lei de Ohm</a></div></nav><div class="eo-crumbs" role="navigation" aria-label="Trilha de navegação"><ol><li><a href="eletrotec.html">Início</a></li><li><a href="eletrotec.html#educacao">Educação</a></li><li id="model-crumb"></li><li id="active-crumb" hidden></li></ol></div><main><div id="model-menu" class="hero"><div class="hero-tag">Guia Interativo</div><h1>Modelos interativos</h1><p>Simule equipamentos, ajuste os comandos e acompanhe a resposta dos processos industriais.</p><div class="hero-grid"><a class="hero-card" href="#drive"><span class="icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M2 12q5-12 10 0t10 0"/></svg></span><span class="label">Inversor de frequência</span></a><a class="hero-card" href="#pump"><span class="icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M2 16h5a6 6 0 1 1 6 6m0-12V4h8"/></svg></span><span class="label">Bomba centrífuga</span></a><a class="hero-card" href="#tank"><span class="icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 3v18h16V3M5 12q4-3 7 0t7 0"/></svg></span><span class="label">Transmissor de nível</span></a><a class="hero-card" href="#eo-sort-title"><span class="icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 15h18v5H3zM7 7h4v5H7zM15 3h4v6h-4z"/></svg></span><span class="label">Triagem de materiais</span></a><a class="hero-card" href="#dol-title"><span class="icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M2 12h6m0 0 7-6m0 6h7"/></svg></span><span class="label">Partida direta</span></a><a class="hero-card" href="#harm-title"><span class="icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M2 12q3-15 6 0t6 0t6 0"/></svg></span><span class="label">Motor e harmônicas</span></a><a class="hero-card" href="#xf-title"><span class="icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 5h4q5 2 0 4q5 2 0 4q5 2 0 4H3m9-14v17m3-17v17m6-15q-4 2 0 4q-4 2 0 4q-4 2 0 4"/></svg></span><span class="label">Transformador ideal</span></a><a class="hero-card" href="#ohm-title"><span class="icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M1 12h4l2-5 3 10 3-10 3 10 2-5h5"/></svg></span><span class="label">Desafio de Ohm</span></a></div></div><section id="drive" hidden><h2>Inversor de frequência</h2><p>Varie a frequência aplicada a um motor de quatro polos e acompanhe a velocidade do campo girante.</p><div class="experiment"></div><h3>Princípio de funcionamento</h3><p>A velocidade síncrona em rpm é 120 vezes a frequência em hertz dividida pelo número de polos.</p><h3>Curiosidade</h3><p>Um motor de indução entregando torque gira um pouco abaixo dessa velocidade. A diferença recebe o nome de escorregamento.</p><nav class="model-links" aria-label="Navegação entre demonstrações"><a href="#selecao">← Voltar à seleção</a><a href="#pump">Próximo · Bomba centrífuga →</a></nav></section>
+<section id="pump" hidden><h2>Bomba centrífuga</h2><p>Ajuste a rotação da bomba e observe o enchimento do tanque de 100 L. Com vazão constante e sem descarga, o nível sobe linearmente no tempo. A vazão nominal é de 5 L/s.</p><div class="experiment"></div><h3>Princípio de funcionamento</h3><p>Para o mesmo rotor, em pontos semelhantes e com rendimento aproximadamente constante, a vazão acompanha a rotação e a potência varia com seu cubo.</p><h3>Curiosidade</h3><p>A 80% da rotação, a potência prevista é cerca de 51% da nominal. A curva do sistema influencia o ponto real de operação.</p><nav class="model-links" aria-label="Navegação entre demonstrações"><a href="#selecao">← Voltar à seleção</a><a href="#tank">Próximo · Transmissor de nível →</a></nav></section>
+<section id="tank" hidden><h2>Transmissor de nível</h2><p>Altere o nível de um tanque de dois metros e leia a corrente enviada à entrada analógica do CLP.</p><div class="experiment"></div><h3>Princípio de funcionamento</h3><p>Nesta calibração linear, 0 m corresponde a 4 mA e 2 m a 20 mA. A cada metro, o sinal sobe 8 mA.</p><h3>Curiosidade</h3><p>O zero vivo de 4 mA ajuda a distinguir um tanque vazio de uma interrupção do circuito de sinal.</p><nav class="model-links" aria-label="Navegação entre demonstrações"><a href="#selecao">← Voltar à seleção</a><a href="#eo-sort-title">Próximo · Triagem de materiais →</a></nav></section>
+<section id="eo-sort-title" hidden><h2>Triagem de materiais</h2><p>Acione a esteira e acompanhe o destino de cada peça.</p><div class="education-demo eo-lab"><div class="meter-lab">
+        <div class="education-stage"><svg class="eo-sort-stage" viewBox="0 26 480 262" role="img" aria-labelledby="eo-sort-diagram">
+          <title id="eo-sort-diagram">Esteira com motor ligado à polia motriz, entrada de peças, caixa de metais e saída</title>
+          <defs>
+            <clipPath id="eo-belt-clip"><rect x="20" y="181" width="440" height="26" rx="13"/></clipPath>
+          </defs>
+          <path class="eo-machine" d="M50 227v-21m215 21v-21M286 179V48h116v61" fill="none" stroke-width="7"/>
+          <path class="eo-machine" d="M233 46h180" fill="none" stroke-width="12"/>
+          <path class="eo-machine" d="M168 149v-34h-24" fill="none" stroke-width="4"/>
+          <rect class="eo-housing" x="150" y="121" width="36" height="23" rx="4"/>
+          <circle id="eo-sensor-led" cx="168" cy="132" r="5"/>
+          <path id="eo-sensor-beam" d="M157 148l-9 28m20-28v28m11-28 9 28" fill="none" stroke-width="2" stroke-dasharray="3 4"/>
+          <rect class="eo-housing" x="20" y="181" width="440" height="26" rx="13"/>
+          <path id="eo-belt-treads" clip-path="url(#eo-belt-clip)" d="M0 194h480" fill="none" stroke-width="12" stroke-dasharray="4 14"/>
+          <path class="eo-machine" d="M442 194v46h-65" fill="none" stroke-width="9"/>
+          <rect class="eo-housing" x="427" y="225" width="30" height="30" rx="5"/>
+          <circle class="eo-housing" cx="442" cy="194" r="12"/>
+          <path id="eo-drive-pulley" class="eo-machine" d="M435 194h14m-7-7v14" stroke-width="2.5" stroke-linecap="round"/>
+          <path class="eo-machine" d="M319 257v5h61v-5" fill="none" stroke-width="4"/>
+          <rect class="eo-motor-body" x="314" y="222" width="79" height="36" rx="9"/>
+          <rect class="eo-motor-body" x="337" y="215" width="24" height="10" rx="2"/>
+          <path class="eo-motor-fins" d="M332 230h48m-48 10h48m-48 10h48" fill="none" stroke-width="2"/>
+          <text x="353" y="279" text-anchor="middle">Motor da esteira</text>
+          <path class="eo-housing" d="M355 111h92l-8 36h-76z"/>
+          <text x="401" y="134" text-anchor="middle">Metais</text>
+          <text x="20" y="234">Entrada</text>
+          <text x="460" y="168" text-anchor="end">Saída</text>
+          <g id="eo-sort-piece" visibility="hidden">
+            <rect class="eo-metal" x="-13" y="-12" width="26" height="24" rx="3"/>
+            <circle r="5" fill="var(--surface)"/>
+            <rect class="eo-polymer" x="-13" y="-12" width="26" height="24" rx="8"/>
+          </g>
+          <g id="eo-gripper">
+            <rect class="eo-housing" x="-20" y="39" width="40" height="24" rx="5"/>
+            <line id="eo-piston" class="eo-machine" x1="0" x2="0" y1="63" y2="75" stroke-width="6"/>
+            <path id="eo-jaws" class="eo-machine" d="M-15 14v-15H15v15" fill="none" stroke-width="4" stroke-linejoin="round"/>
+          </g>
+        </svg></div>
+        <dl class="eo-lab-stats">
+          <div><dt>Metais separados</dt><dd id="eo-sort-metal">0</dd></div>
+          <div><dt>Não metais na saída</dt><dd id="eo-sort-other">0</dd></div>
+        </dl>
+        <div class="eo-sort-panel" role="group" aria-labelledby="eo-sort-panel-title">
+          <div class="eo-sort-panel-info">
+            <h4 id="eo-sort-panel-title">Painel elétrico</h4>
+            <p id="eo-sort-status" role="status">Esteira desligada</p>
+          </div>
+          <div class="eo-sort-controls">
+            <button type="button" id="eo-sort-start"><span aria-hidden="true">I</span>Ligar</button>
+            <button type="button" id="eo-sort-stop" disabled><span aria-hidden="true">O</span>Desligar</button>
+          </div>
+        </div>
+      </div></div><aside class="plc"><h3>CLP · Monitor Ladder</h3><p>Linhas destacadas indicam continuidade. S memoriza, R apaga e / indica contato negado. As janelas representam as etapas temporizadas de retirada e pega.</p><div class="rung" data-rung="start"><code>─| |─ I0.0 Ligar ──(S) M0.0 Marcha</code></div><div class="rung" data-rung="stop"><code>─| |─ I0.1 Desligar ──(R) M0.0 Marcha</code></div><div class="rung" data-rung="metal"><code>─| |─ I0.2 Sensor ──(S) M0.1 Metal</code></div><div class="rung" data-rung="clear"><code>─| |─ Fim da retirada ──(R) M0.1 Metal</code></div><div class="rung" data-rung="sort"><code>─| |─ M0.0 Marcha───| |─ M0.1 Metal───| |─ Janela de retirada ──( ) M0.2 Retirada</code></div><div class="rung" data-rung="belt"><code>─| |─ M0.0 Marcha───|/|─ M0.2 Retirada ──( ) Q0.0 Esteira</code></div><div class="rung" data-rung="grip"><code>─| |─ M0.2 Retirada───| |─ Janela de pega ──( ) Q0.1 Garra</code></div></aside><h3>Princípio de funcionamento</h3><p>O sensor indutivo identifica a passagem de metal. No ponto de retirada, a correia para e a garra transfere a peça.</p><h3>Curiosidade</h3><p>O sensor pode detectar uma peça metálica sem tocá-la. O alcance depende do material e da geometria da peça.</p><nav class="model-links" aria-label="Navegação entre demonstrações"><a href="#selecao">← Voltar à seleção</a><a href="#dol-title">Próximo · Partida direta →</a></nav></section>
+<section id="dol-title" hidden><h2>Partida direta</h2><p>Ligue o motor, simule a atuação do térmico e observe o que acontece depois do rearme.</p><div class="education-demo eo-lab"><div class="meter-lab">
+        <div class="education-stage">
+          <svg id="dol-circuit" class="lab-lines lab-scope" viewBox="0 0 300 155" role="img" aria-label="Comando com parada e térmico normalmente fechados, partida em paralelo com selo K1 e bobina K1. Três polos K1 alimentam o motor.">
+            <path d="M8 39h22m0-8v16m7-16v16m-9 2 11-20m-2 10h23m0-8v16m7-16v16m-9 2 11-20m-2 10h18v39h16m8 0h24V39h15m-63 0h16m8 0h24m-32-8v16m8-16v16m-8 23v16m8-16v16"/>
+            <path class="dol-live" d="M133 39h15m0-9h25v18h-25z M173 39h18"/>
+            <path class="dol-seal" d="M101 78h8"/>
+            <path d="M214 24v23m21-23v23m21-23v23m-42 17v28l21 10m0-38v38m21-38v28l-21 10"/>
+            <path id="dol-poles" d="M214 64l-7-16m28 16-7-16m28 16-7-16"/>
+            <circle class="dol-live" cx="235" cy="119" r="17"/>
+            <g class="scope-text"><text x="9" y="21">L</text><text x="23" y="21">S0</text><text x="55" y="21">FT</text><text x="94" y="21">S1</text><text x="94" y="103">K1</text><text x="152" y="44">K1</text><text x="180" y="21">N</text><text x="202" y="16">L1 L2 L3</text><text x="226" y="124">M</text></g>
+          </svg>
+        </div>
+        <p>S1 aciona o contator K1. O contato auxiliar mantém a bobina energizada após soltar o botão. S0 ou o relé térmico interrompem o comando.</p>
+        <div class="eo-lab-actions"><button id="dol-start">S1 · Ligar</button><button id="dol-stop">S0 · Parar</button><button id="dol-trip">Atuar térmico</button></div>
+        <output id="dol-state">Motor parado</output>
+      </div></div><h3>Princípio de funcionamento</h3><p>Um contato auxiliar de K1 mantém a bobina energizada após o comando de partida. A parada ou a proteção térmica abre o circuito.</p><h3>Curiosidade</h3><p>Rearmar o térmico deixa o circuito pronto para uma nova partida. Neste comando a três fios, é preciso pressionar Ligar novamente.</p><nav class="model-links" aria-label="Navegação entre demonstrações"><a href="#selecao">← Voltar à seleção</a><a href="#harm-title">Próximo · Motor e harmônicas →</a></nav></section>
+<section id="harm-title" hidden><h2>Motor e harmônicas</h2><p>Parta o motor e compare as correntes dos enrolamentos com diferentes amplitudes de 3ª e 5ª harmônicas.</p><div class="education-demo eo-lab"><div class="meter-lab">
+        <div class="education-stage">
+          <svg class="lab-scope lab-lines" viewBox="0 0 290 134" role="img" aria-label="Motor à esquerda e correntes das três fases à direita">
+            <rect x="7" y="50" width="66" height="44" rx="10"/><path d="M73 68h12v7H73 M17 96v5h48v-5 M16 45h17v5"/><circle cx="30" cy="72" r="15"/>
+            <path id="harm-rotor" d="M30 72l11-5m-11 5-2 12m2-12-10-7"/><path d="M52 57v29m7-29v29m7-29v29"/>
+            <path d="M97 66h187" opacity=".35"/><path id="wave-a" stroke="#269c94"/><path id="wave-b" stroke="#d78630"/><path id="wave-c" stroke="#9673ce"/>
+            <g class="scope-text"><text x="108" y="121">A</text><text x="167" y="121">B</text><text x="224" y="121">C</text></g>
+            <path d="M98 116h8" stroke="#269c94"/><path d="M157 116h8" stroke="#d78630"/><path d="M214 116h8" stroke="#9673ce"/>
+          </svg>
+        </div>
+        <p>Parta o motor e observe o pico inicial das correntes. Ajuste a 3ª e a 5ª harmônicas nas correntes dos enrolamentos em triângulo. As fundamentais estão defasadas de 120°.</p>
+        <label for="harm-third">3ª harmônica em relação à fundamental · <output id="harm-third-percent">0%</output></label><input id="harm-third" type="range" min="0" max="40" value="0">
+        <label for="harm-level">5ª harmônica em relação à fundamental · <output id="harm-percent">0%</output></label><input id="harm-level" type="range" min="0" max="40" value="0">
+        <button type="button" id="harm-run">Partir motor</button><span role="status" id="harm-status"> Parado</span>
+      </div></div><h3>Princípio de funcionamento</h3><p>O modelo soma senoides à fundamental e usa uma envoltória ilustrativa para a corrente de partida. A 3ª aparece em fase nos três enrolamentos.</p><h3>Curiosidade</h3><p>Em um triângulo equilibrado, a 3ª harmônica pode circular internamente. Ela se cancela na diferença entre correntes dos enrolamentos que forma a corrente de linha.</p><nav class="model-links" aria-label="Navegação entre demonstrações"><a href="#selecao">← Voltar à seleção</a><a href="#xf-title">Próximo · Transformador ideal →</a></nav></section>
+<section id="xf-title" hidden><h2>Transformador ideal</h2><p>Mantenha a alimentação em 220 V e altere o número de espiras do secundário.</p><div class="education-demo eo-lab"><div class="meter-lab">
+        <div class="education-stage">
+          <div class="instrument"><svg viewBox="0 0 140 64" width="140" aria-hidden="true" class="lab-lines"><path d="M8 10h41q18 5 0 11q18 5 0 11q18 5 0 11q18 5 0 11H8 M132 10H91q-18 5 0 11q-18 5 0 11q-18 5 0 11q-18 5 0 11h41 M67 6v52m6-52v52"/></svg>
+          <span>Tensão no secundário</span><output id="xf-v">110 V</output></div>
+        </div>
+        <p>O primário recebe 220 V e tem 400 espiras. Varie o enrolamento secundário para elevar ou reduzir a tensão.</p>
+        <label for="xf-n">Espiras no secundário · <output id="xf-count">200</output></label><input id="xf-n" type="range" min="40" max="800" step="20" value="200">
+      </div></div><h3>Princípio de funcionamento</h3><p>No transformador ideal, a razão entre as tensões é igual à razão entre as quantidades de espiras.</p><h3>Curiosidade</h3><p>Dobrar as espiras do secundário em relação ao primário dobra sua tensão. À mesma potência aparente, sua corrente nominal cai à metade.</p><nav class="model-links" aria-label="Navegação entre demonstrações"><a href="#selecao">← Voltar à seleção</a><a href="#ohm-title">Próximo · Desafio de Ohm →</a></nav></section>
+<section id="ohm-title" hidden><h2>Desafio de Ohm</h2><p>Ajuste uma carga resistiva de 12 V até obter a corrente solicitada.</p><div class="education-demo eo-lab"><div class="meter-lab">
+        <div class="education-stage">
+          <div class="instrument"><span>Corrente medida</span><output id="ohm-current">20 mA</output><small>Fonte de 12 V</small></div>
+        </div>
+        <p>Ajuste a resistência até obter <strong id="ohm-target">40 mA</strong>.</p>
+        <label for="ohm-r">Resistência · <output id="ohm-value" for="ohm-r">600 Ω</output></label>
+        <input id="ohm-r" type="range" min="100" max="1200" step="10" value="600">
+        <div class="eo-lab-actions"><button id="ohm-next" type="button">Novo alvo</button></div>
+        <p id="ohm-result" role="status"></p>
+      </div></div><h3>Princípio de funcionamento</h3><p>Em uma carga ôhmica, a corrente é a tensão dividida pela resistência.</p><h3>Curiosidade</h3><p>Dois resistores iguais em série dividem a tensão igualmente e reduzem a corrente à metade em relação a um único resistor.</p><nav class="model-links" aria-label="Navegação entre demonstrações"><a href="#selecao">← Voltar à seleção</a><a href="#drive">Próximo · Inversor de frequência →</a></nav></section>
+</main></body></html>

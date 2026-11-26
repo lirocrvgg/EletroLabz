@@ -1,0 +1,104 @@
+/* mobile.css - Fase 3.3 (Eletricidade II, Acionamentos, Apostilas). Carregado depois de nav.css; so tokens (sem hex).
+   Mobile-first: alvos >= 44px no toque, sem rolagem horizontal da pagina, paineis do editor como gavetas,
+   abas com indicador de overflow (DESIGN_SYSTEM §7). Desktop so muda no que e acessibilidade (foco, <a> como card). */
+
+/* ── Cards de entrada como <a> (hero-card / aciona-card) ───── */
+a.hero-card, a.aciona-card { display: block; color: inherit; text-decoration: none; }
+a.hero-card, a.aciona-card, .hero-card, .aciona-card { min-height: 44px; }
+a.hero-card:focus-visible, a.aciona-card:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; border-color: var(--brand); }
+.hero-card .icon .eo-icon, .aciona-card .icon .eo-icon { width: 1.5em; height: 1.5em; }
+
+/* ── Botoes e controles do editor: foco visivel e cor herdada (sym-btn agora e <button>) ── */
+.sym-btn { font: inherit; color: var(--text); width: 100%; cursor: pointer; text-align: center; }
+.sym-btn:focus-visible, .zl-tool-btn:focus-visible, .diag-topbar-btn:focus-visible,
+.eo-drawer-close:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+.eo-drawer-toggle, .eo-drawer-close { display: none; }
+.eo-drawer-toggle.has-selection::after { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--brand); margin-left: .4em; }
+.diag-topbar-btn .eo-icon { vertical-align: -0.15em; }
+
+/* ── Abas: rolagem horizontal com indicador de overflow (sombras de borda que somem no fim) ── */
+.tabs {
+  background:
+    linear-gradient(to right, var(--surface) 30%, transparent) left center / 32px 100% no-repeat local,
+    linear-gradient(to left, var(--surface) 30%, transparent) right center / 32px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, color-mix(in srgb, var(--text) 26%, transparent), transparent) left center / 12px 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, color-mix(in srgb, var(--text) 26%, transparent), transparent) right center / 12px 100% no-repeat scroll;
+  -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain;
+}
+
+/* ── Gavetas do editor de diagramas (tela estreita) ─────────── */
+@media (max-width: 900px) {
+  .eo-drawer-toggle { display: inline-flex; align-items: center; min-height: 44px; flex-shrink: 0; box-sizing: border-box; }
+  #btn-drawer-toolbar { order: -4; }
+  #btn-drawer-props { order: -3; }
+  #btn-simulate { order: -2; }
+  #sim-status-badge { order: -1; }
+
+  /* barra do editor: uma linha rolavel em vez de 5 linhas empilhadas */
+  .diag-topbar { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain;
+    background:
+      linear-gradient(to right, var(--surface) 30%, transparent) left center / 28px 100% no-repeat local,
+      linear-gradient(to left, var(--surface) 30%, transparent) right center / 28px 100% no-repeat local,
+      radial-gradient(farthest-side at 0 50%, color-mix(in srgb, var(--text) 26%, transparent), transparent) left center / 12px 100% no-repeat scroll,
+      radial-gradient(farthest-side at 100% 50%, color-mix(in srgb, var(--text) 26%, transparent), transparent) right center / 12px 100% no-repeat scroll;
+    background-color: var(--surface); }
+  .diag-topbar::-webkit-scrollbar { display: none; }
+  .diag-topbar > * { flex-shrink: 0; }
+  .diag-topbar > div[style*="flex:1"] { flex: 0 0 0 !important; }
+  .diag-topbar-btn { min-height: 44px; padding: 0 .9rem; font-size: .8rem; }
+  .sim-status { white-space: nowrap; }
+
+  .diag-layout { min-height: 70vh; }
+  #diag-toolbar, #diag-props {
+    position: fixed !important; left: 0 !important; right: 0 !important; top: auto !important; bottom: 0 !important;
+    width: auto !important; height: auto !important; max-height: min(46dvh, 380px) !important; resize: none;
+    border-radius: var(--r-2) var(--r-2) 0 0; border-width: 1px 0 0 0; box-shadow: var(--shadow-2);
+    transform: translateY(100%); visibility: hidden;
+    transition: transform var(--t-slow, 240ms) var(--ease), visibility 0s linear var(--t-slow, 240ms);
+  }
+  #diag-toolbar.is-open, #diag-props.is-open {
+    transform: none; visibility: visible; transition: transform var(--t-slow, 240ms) var(--ease), visibility 0s;
+  }
+  .toolbar-drag-handle, .props-drag-handle { cursor: default; min-height: 44px; padding-right: 52px; }
+  .toolbar-drag-dots, .props-drag-dots, .toolbar-resize-handle { display: none; }
+  .eo-drawer-close {
+    display: inline-flex; align-items: center; justify-content: center; position: absolute; top: 0; right: 0; z-index: 2;
+    width: 44px; height: 44px; padding: 0; background: transparent; border: 0; color: var(--text); cursor: pointer; border-radius: var(--r-1);
+  }
+  .eo-drawer-close .eo-icon { width: 1.25rem; height: 1.25rem; }
+  .sym-grid { grid-template-columns: repeat(auto-fill, minmax(88px, 1fr)); }
+  .toolbar-scroll, .props-body { min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
+  .diag-canvas-wrap { min-height: 60vh; }
+  .diag-topbar { scroll-margin-top: var(--eo-nav-h, 0px); }
+  #page-diagram.active { height: auto; }
+  #diag-toolbar, #diag-props { z-index: 120; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #diag-toolbar, #diag-props { transition: none !important; }
+}
+
+/* ── Subpagina Ladder: iframe do editor (apps/ladder.html), Fase 4.L ── */
+#page-ladder .section-title { flex-wrap: wrap; }
+#page-ladder .ladder-fs-link:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+@media (pointer: coarse), (max-width: 768px) { #page-ladder .ladder-fs-link { min-height: 44px; } }
+@media (max-width: 480px) { #page-ladder .ladder-fs-link { margin-left: 0; } }
+
+/* ── Alvos de toque >= 44px (so quando o ponteiro e grosso ou a tela e estreita; desktop com mouse nao incha) ── */
+@media (pointer: coarse), (max-width: 768px) {
+  .sym-btn { min-height: 64px; }
+  .zl-tool-btn { min-width: 44px !important; min-height: 50px !important; }
+  .yd-mode-btn, .diag-topbar-btn, .btn, .tab { min-height: 44px; }
+  input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=file]), select { min-height: 44px; }
+  input[type=range] { min-height: 44px; }
+}
+
+/* ── Telas estreitas: nada de rolagem horizontal da pagina ──── */
+@media (max-width: 480px) {
+  .hero-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ── Navegacao: abas e trilha com alvo >= 44px no toque ─────── */
+@media (pointer: coarse), (max-width: 768px) {
+  .nav-inner .nav-btn { min-height: 44px; min-width: 44px; }
+  .eo-crumbs a, .eo-crumbs [aria-current="page"] { min-height: 44px; display: inline-flex; align-items: center; padding: 0 var(--sp-2); }
+}

@@ -1,0 +1,79 @@
+/* css/formula.css - componente "Formula explicada" (DESIGN_SYSTEM.md secoes 3 e 8).
+ * Somente tokens do design system, com fallback literal (tokens podem nao existir ainda). */
+.eo-formula {
+  margin: var(--sp-4, 16px) 0;
+  background: var(--surface, #fff);
+  color: var(--text, #121821);
+  border: 1px solid var(--border, #d5dae1);
+  border-radius: var(--r-2, 8px);
+  font: 400 1rem/1.55 var(--font-ui, "IBM Plex Sans", "Segoe UI", Arial, sans-serif);
+}
+.eo-formula__det { padding: 0; }
+.eo-formula__sum {
+  display: block; cursor: pointer; list-style: none;
+  padding: var(--sp-3, 12px) var(--sp-4, 16px);
+  border-radius: var(--r-2, 8px);
+  min-height: 44px;
+}
+.eo-formula__sum::-webkit-details-marker { display: none; }
+.eo-formula__sum::before {
+  content: "\25B8"; display: inline-block; margin-right: var(--sp-2, 8px);
+  color: var(--area-edu, #0f766e); transition: transform 120ms cubic-bezier(.2, 0, 0, 1);
+}
+.eo-formula__det[open] > .eo-formula__sum::before { transform: rotate(90deg); }
+.eo-formula__sum:hover { background: var(--surface-2, #eef1f4); }
+.eo-formula__sum:focus-visible { outline: 2px solid var(--brand, #1f4e8c); outline-offset: 2px; }
+.eo-formula__titulo { font-weight: 600; font-size: 1.125rem; }
+.eo-formula__prop { display: block; margin-top: 4px; color: var(--text-muted, #4a5566); font-size: .875rem; }
+.eo-formula__corpo { padding: 0 var(--sp-4, 16px) var(--sp-4, 16px); border-top: 1px solid var(--border, #d5dae1); }
+.eo-formula__h {
+  margin: var(--sp-4, 16px) 0 var(--sp-2, 8px);
+  font: 600 .875rem/1.3 var(--font-ui, "IBM Plex Sans", "Segoe UI", Arial, sans-serif);
+  color: var(--text-muted, #4a5566);
+}
+.eo-formula__eq {
+  display: block; margin: var(--sp-4, 16px) 0 0; padding: var(--sp-3, 12px);
+  background: var(--surface-2, #eef1f4); border-radius: var(--r-1, 4px);
+  text-align: center; overflow-x: auto; max-width: 100%;
+}
+.eo-formula__vars { margin: 0; padding: 0; }
+.eo-formula__var {
+  display: flex; gap: var(--sp-3, 12px); align-items: baseline;
+  padding: 6px 0; border-bottom: 1px solid var(--border, #d5dae1);
+}
+.eo-formula__var:last-child { border-bottom: 0; }
+.eo-formula__var dt { flex: 0 0 5rem; margin: 0; text-align: right; }
+.eo-formula__var dd { margin: 0; flex: 1 1 auto; }
+.eo-formula__un {
+  margin-left: var(--sp-2, 8px); padding: 0 6px; border-radius: var(--r-1, 4px);
+  background: var(--surface-2, #eef1f4); color: var(--text-muted, #4a5566);
+  font: 400 .875rem/1.5 var(--font-mono, "JetBrains Mono", ui-monospace, Consolas, monospace); white-space: nowrap;
+}
+.eo-formula__passos-lista { margin: 0; padding-left: 1.5rem; }
+.eo-formula__passo { margin: 0 0 var(--sp-2, 8px); padding-left: 4px; overflow-x: auto; max-width: 100%; }
+.eo-formula__passo::marker { color: var(--text-muted, #4a5566); font-variant-numeric: tabular-nums; }
+.eo-formula__rot { display: block; font-size: .875rem; color: var(--text-muted, #4a5566); }
+.eo-formula__txt { font-size: .9375rem; }
+.eo-formula__obs { margin: 0; padding-left: 1.25rem; }
+.eo-formula__obs li { margin: 0 0 6px; }
+.eo-formula__ref { margin: var(--sp-3, 12px) 0 0; font-size: .875rem; color: var(--info, #1f5f8b); }
+.eo-formula__vazio { margin: 0; padding: var(--sp-3, 12px); color: var(--warn, #8a5a00); font-size: .875rem; }
+/* Sem MathJax: TeX cru legivel em fonte mono */
+.eo-formula:not(.eo-formula--mj) .eo-tex {
+  font: 400 .875rem/1.6 var(--font-mono, "JetBrains Mono", ui-monospace, Consolas, monospace); font-variant-numeric: tabular-nums;
+  white-space: pre-wrap; overflow-wrap: anywhere;
+}
+.eo-formula mjx-container { max-width: 100%; }
+.eo-formula mjx-container[display="true"] { margin: 0 !important; }
+@media (max-width: 600px) {
+  .eo-formula__corpo { padding: 0 var(--sp-3, 12px) var(--sp-3, 12px); }
+  .eo-formula__var { flex-direction: column; gap: 0; }
+  .eo-formula__var dt { flex: none; text-align: left; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .eo-formula__sum::before { transition: none; }
+}
+
+/* Y<->Delta: mostra so o cartao do modo ativo (sem editar elet.js; usa as classes que setYDMode ja aplica). */
+#page-ydelta:has(#btn-d2y.active-d) [data-eo-formula="elet-yd-y2d"],
+#page-ydelta:has(#btn-y2d.active-y) [data-eo-formula="elet-yd-d2y"] { display: none; }

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eletrotécnica — Módulos Interativos</title>
+    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+    <script src="assets/js/core/theme.js"></script>
+    <script src="assets/js/core/icons.js"></script>
+
+    <!-- Bibliotecas para exportação de Memorial de Cálculo (.docx) -->
+
+
+    <!-- ══ NAV PROJETOS INDUSTRIAIS ══ -->
+
+
+
+    <link rel="stylesheet" href="assets/css/fonts.css">
+    <link rel="stylesheet" href="assets/css/tokens.css">
+    <link rel="stylesheet" href="assets/css/legacy.css">
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/nav.css">
+    <link rel="stylesheet" href="assets/css/mobile.css">
+</head>
+
+<body data-eo-module="apostilas">
+
+    <!-- ══ NAV I.A ══ -->
+
+
+    <!-- ══ NAV APOSTILAS ══ -->
+    <nav id="nav-apostilas" aria-label="Módulo">
+        <div class="eo-topbar">
+            <a class="eo-brand" href="eletrotec.html" aria-label="EletroLabz: ir para o início"><img width="32" height="32" alt="" src="./assets/icons/favicon.svg"><span class="eo-brand__name">EletroLabz</span></a>
+            <a class="ms-back-btn eo-modules" href="eletrotec.html"><svg class="eo-icon" data-icon="arrow-left" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg> Módulos</a>
+            <button class="theme-toggle" type="button" onclick="toggleTheme()" id="theme-btn" aria-pressed="false" data-eo-action="apostilas:alternar-tema"><svg class="eo-icon" data-icon="moon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg><svg class="eo-icon" data-icon="sun" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg><span class="tt-label"><span class="tt-to-dark">Modo escuro</span><span class="tt-to-light">Modo claro</span></span></button>
+        </div>
+        <div class="nav-inner">
+            <button class="nav-btn active" data-appage="apostilas-home"
+                onclick="showApostilasPage('apostilas-home',this)"><svg class="eo-icon" data-icon="house" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg> Início</button>
+            <button class="nav-btn" data-appage="apostilas-fundamentos"
+                onclick="showApostilasPage('apostilas-fundamentos',this)"><svg class="eo-icon" data-icon="zap" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z"/></svg> Fundamentos</button>
+            <button class="nav-btn" data-appage="apostilas-acionamentos"
+                onclick="showApostilasPage('apostilas-acionamentos',this)"><svg class="eo-icon" data-icon="cpu" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 20v2"/><path d="M12 2v2"/><path d="M17 20v2"/><path d="M17 2v2"/><path d="M2 12h2"/><path d="M2 17h2"/><path d="M2 7h2"/><path d="M20 12h2"/><path d="M20 17h2"/><path d="M20 7h2"/><path d="M7 20v2"/><path d="M7 2v2"/><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="8" y="8" width="8" height="8" rx="1"/></svg> Acionamentos</button>
+            <button class="nav-btn" data-appage="apostilas-predial"
+                onclick="showApostilasPage('apostilas-predial',this)"><svg class="eo-icon" data-icon="building-2" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M10 12h4"/><path d="M10 8h4"/><path d="M14 21v-3a2 2 0 0 0-4 0v3"/><path d="M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2"/><path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16"/></svg> Predial</button>
+            <button class="nav-btn" data-appage="apostilas-industrial"
+                onclick="showApostilasPage('apostilas-industrial',this)"><svg class="eo-icon" data-icon="factory" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 16h.01"/><path d="M16 16h.01"/><path d="M3 19a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.5a.5.5 0 0 0-.769-.422l-4.462 2.844A.5.5 0 0 1 15 10.5v-2a.5.5 0 0 0-.769-.422L9.77 10.922A.5.5 0 0 1 9 10.5V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2z"/><path d="M8 16h.01"/></svg> Industrial</button>
+            <button class="nav-btn" data-appage="apostilas-distribuicao"
+                onclick="showApostilasPage('apostilas-distribuicao',this)"><svg class="eo-icon" data-icon="utility-pole" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 2v20"/><path d="M2 5h20"/><path d="M3 3v2"/><path d="M7 3v2"/><path d="M17 3v2"/><path d="M21 3v2"/><path d="m19 5-7 7-7-7"/></svg> Distribuição</button>
+        </div>
+    </nav>
+    <div class="eo-crumbs" role="navigation" aria-label="Trilha de navegação"><ol></ol></div>
+
+    <main id="main-apostilas">
+
+        <!-- HOME -->
+        <div id="page-apostilas-home" class="page active">
+            <div class="industrial-hero">
+                <h1><svg class="eo-icon" data-icon="book-open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 5v16"/><path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z"/></svg> Apostilas e Material Didático</h1>
+                <p>Materiais de estudo em PDF organizados por categoria — fundamentos, acionamentos, projetos e
+                    distribuição.</p>
+            </div>
+
+            <div class="hero-grid" style="max-width:700px;margin:0 auto">
+                <a class="hero-card" href="#fundamentos" onclick="showApostilasPage('apostilas-fundamentos',null);return false"
+                    style="border-color:var(--viz-violet)">
+                    <div class="icon"><svg class="eo-icon" data-icon="zap" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z"/></svg> </div>
+                    <div class="label">Fundamentos</div>
+                </a>
+                <a class="hero-card" href="#acionamentos" onclick="showApostilasPage('apostilas-acionamentos',null);return false"
+                    style="border-color:var(--viz-violet)">
+                    <div class="icon"><svg class="eo-icon" data-icon="settings" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"/><circle cx="12" cy="12" r="3"/></svg> </div>
+                    <div class="label">Acionamentos</div>
+                </a>
+                <a class="hero-card" href="#predial" onclick="showApostilasPage('apostilas-predial',null);return false"
+                    style="border-color:var(--viz-violet)">
+                    <div class="icon"><svg class="eo-icon" data-icon="building-2" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M10 12h4"/><path d="M10 8h4"/><path d="M14 21v-3a2 2 0 0 0-4 0v3"/><path d="M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2"/><path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16"/></svg> </div>
+                    <div class="label">Predial</div>
+                </a>
+                <a class="hero-card" href="#industrial" onclick="showApostilasPage('apostilas-industrial',null);return false"
+                    style="border-color:var(--viz-violet)">
+                    <div class="icon"><svg class="eo-icon" data-icon="factory" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 16h.01"/><path d="M16 16h.01"/><path d="M3 19a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.5a.5.5 0 0 0-.769-.422l-4.462 2.844A.5.5 0 0 1 15 10.5v-2a.5.5 0 0 0-.769-.422L9.77 10.922A.5.5 0 0 1 9 10.5V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2z"/><path d="M8 16h.01"/></svg> </div>
+                    <div class="label">Industrial</div>
+                </a>
+                <a class="hero-card" href="#distribuicao" onclick="showApostilasPage('apostilas-distribuicao',null);return false"
+                    style="border-color:var(--viz-violet)">
+                    <div class="icon"><svg class="eo-icon" data-icon="utility-pole" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 2v20"/><path d="M2 5h20"/><path d="M3 3v2"/><path d="M7 3v2"/><path d="M17 3v2"/><path d="M21 3v2"/><path d="m19 5-7 7-7-7"/></svg> </div>
+                    <div class="label">Distribuição</div>
+                </a>
+            </div>
+
+            <div class="card" style="margin-top:1.5rem">
+                <div class="card-header">
+                    <div class="dot dot-purple"></div>
+                    <h2>Sobre este módulo</h2>
+                </div>
+                <div class="theory">
+                    Este módulo centraliza apostilas e materiais didáticos em PDF, organizados por categoria temática.
+                    Os materiais cobrem desde fundamentos de eletricidade até aplicações práticas em projetos prediais,
+                    industriais e de distribuição elétrica. Cada categoria contém documentos de referência, normas
+                    técnicas
+                    e exemplos práticos.
+                </div>
+                <div class="info-box">
+                    <p><svg class="eo-icon" data-icon="lightbulb" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg> Use o menu superior para navegar entre as categorias. Os PDFs podem ser baixados para estudo.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- FUNDAMENTOS -->
+        <div id="page-apostilas-fundamentos" class="page">
+            <div class="card">
+                <div class="card-header">
+                    <div class="dot dot-purple"></div>
+                    <h2><svg class="eo-icon" data-icon="zap" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z"/></svg> Fundamentos de Eletricidade</h2>
+                </div>
+                <div class="theory">
+                    Materiais sobre eletricidade básica, circuitos DC, circuitos AC, fasores, números complexos e
+                    análise de circuitos.
+                </div>
+                <div id="pdf-list-fundamentos" style="margin-top:1rem">
+                    <div class="info-box">
+                        <p><svg class="eo-icon" data-icon="folder-open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2"/></svg> Os arquivos ainda não foram publicados. Os itens abaixo indicam o que está previsto.</p>
+                    </div>
+                    <div style="display:flex;flex-wrap:wrap;gap:0.8rem;margin-top:1rem">
+                        <span class="btn secondary" aria-disabled="true" title="Em breve" style="opacity:.6;cursor:not-allowed;pointer-events:none"><svg class="eo-icon" data-icon="file-text" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg> Apostila Fundamentos 1.pdf <small style="font-weight:700;font-size:.75rem">· Em breve</small></span>
+                        <span class="btn secondary" aria-disabled="true" title="Em breve" style="opacity:.6;cursor:not-allowed;pointer-events:none"><svg class="eo-icon" data-icon="file-text" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg> Apostila Fundamentos 2.pdf <small style="font-weight:700;font-size:.75rem">· Em breve</small></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ACIONAMENTOS -->
+        <div id="page-apostilas-acionamentos" class="page">
+            <div class="card">
+                <div class="card-header">
+                    <div class="dot dot-purple"></div>
+                    <h2><svg class="eo-icon" data-icon="cpu" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 20v2"/><path d="M12 2v2"/><path d="M17 20v2"/><path d="M17 2v2"/><path d="M2 12h2"/><path d="M2 17h2"/><path d="M2 7h2"/><path d="M20 12h2"/><path d="M20 17h2"/><path d="M20 7h2"/><path d="M7 20v2"/><path d="M7 2v2"/><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="8" y="8" width="8" height="8" rx="1"/></svg> Acionamentos Elétricos</h2>
+                </div>
+                <div class="theory">
+                    Materiais sobre contatores, relés, diagramas de comando, partidas de motores, proteção e controle de
+                    motores elétricos.
+                </div>
+                <div id="pdf-list-acionamentos" style="margin-top:1rem">
+                    <div class="info-box">
+                        <p><svg class="eo-icon" data-icon="folder-open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2"/></svg> Os arquivos ainda não foram publicados. Os itens abaixo indicam o que está previsto.</p>
+                    </div>
+                    <div style="display:flex;flex-wrap:wrap;gap:0.8rem;margin-top:1rem">
+                        <span class="btn secondary" aria-disabled="true" title="Em breve" style="opacity:.6;cursor:not-allowed;pointer-events:none"><svg class="eo-icon" data-icon="file-text" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg> Apostila Acionamentos 1.pdf <small style="font-weight:700;font-size:.75rem">· Em breve</small></span>
+                        <span class="btn secondary" aria-disabled="true" title="Em breve" style="opacity:.6;cursor:not-allowed;pointer-events:none"><svg class="eo-icon" data-icon="file-text" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg> Apostila Acionamentos 2.pdf <small style="font-weight:700;font-size:.75rem">· Em breve</small></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PREDIAL -->
+        <div id="page-apostilas-predial" class="page">
+            <div class="card">
+                <div class="card-header">
+                    <div class="dot dot-purple"></div>
+                    <h2><svg class="eo-icon" data-icon="building-2" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M10 12h4"/><path d="M10 8h4"/><path d="M14 21v-3a2 2 0 0 0-4 0v3"/><path d="M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2"/><path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16"/></svg> Projetos Prediais</h2>
+                </div>
+                <div class="theory">
+                    Materiais sobre NBR 5410, dimensionamento de circuitos, iluminação, tomadas, quadros de distribuição
+                    e projetos residenciais.
+                </div>
+                <div id="pdf-list-predial" style="margin-top:1rem">
+                    <div class="info-box">
+                        <p><svg class="eo-icon" data-icon="folder-open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2"/></svg> Os arquivos ainda não foram publicados. Os itens abaixo indicam o que está previsto.</p>
+                    </div>
+                    <div style="display:flex;flex-wrap:wrap;gap:0.8rem;margin-top:1rem">
+                        <span class="btn secondary" aria-disabled="true" title="Em breve" style="opacity:.6;cursor:not-allowed;pointer-events:none"><svg class="eo-icon" data-icon="file-text" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg> Memorial de Cálculo e Diretrizes Técnicas (resumida).pdf <small style="font-weight:700;font-size:.75rem">· Em breve</small></span>
+                        <span class="btn secondary" aria-disabled="true" title="Em breve" style="opacity:.6;cursor:not-allowed;pointer-events:none"><svg class="eo-icon" data-icon="file-text" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg> Apostila Predial 2.pdf <small style="font-weight:700;font-size:.75rem">· Em breve</small></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- INDUSTRIAL -->
+        <div id="page-apostilas-industrial" class="page">
+            <div class="card">
+                <div class="card-header">
+                    <div class="dot dot-purple"></div>
+                    <h2><svg class="eo-icon" data-icon="factory" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 16h.01"/><path d="M16 16h.01"/><path d="M3 19a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.5a.5.5 0 0 0-.769-.422l-4.462 2.844A.5.5 0 0 1 15 10.5v-2a.5.5 0 0 0-.769-.422L9.77 10.922A.5.5 0 0 1 9 10.5V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2z"/><path d="M8 16h.01"/></svg> Projetos Industriais</h2>
+                </div>
+                <div class="theory">
+                    Materiais sobre dimensionamento de motores, transformadores, proteções industriais, CCM,
+                    alimentadores e subestações.
+                </div>
+                <div id="pdf-list-industrial" style="margin-top:1rem">
+                    <div class="info-box">
+                        <p><svg class="eo-icon" data-icon="folder-open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2"/></svg> Os arquivos ainda não foram publicados. Os itens abaixo indicam o que está previsto.</p>
+                    </div>
+                    <div style="display:flex;flex-wrap:wrap;gap:0.8rem;margin-top:1rem">
+                        <span class="btn secondary" aria-disabled="true" title="Em breve" style="opacity:.6;cursor:not-allowed;pointer-events:none"><svg class="eo-icon" data-icon="file-text" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg> Apostila Industrial 1.pdf <small style="font-weight:700;font-size:.75rem">· Em breve</small></span>
+                        <span class="btn secondary" aria-disabled="true" title="Em breve" style="opacity:.6;cursor:not-allowed;pointer-events:none"><svg class="eo-icon" data-icon="file-text" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg> Apostila Industrial 2.pdf <small style="font-weight:700;font-size:.75rem">· Em breve</small></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DISTRIBUIÇÃO -->
+        <div id="page-apostilas-distribuicao" class="page">
+            <div class="card">
+                <div class="card-header">
+                    <div class="dot dot-purple"></div>
+                    <h2><svg class="eo-icon" data-icon="utility-pole" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 2v20"/><path d="M2 5h20"/><path d="M3 3v2"/><path d="M7 3v2"/><path d="M17 3v2"/><path d="M21 3v2"/><path d="m19 5-7 7-7-7"/></svg> Distribuição Elétrica</h2>
+                </div>
+                <div class="theory">
+                    Materiais sobre normas de concessionárias (CEMIG, Equatorial, Enel), padrão de entrada, cálculo de
+                    demanda e entrada de energia.
+                </div>
+                <div id="pdf-list-distribuicao" style="margin-top:1rem">
+                    <div class="info-box">
+                        <p><svg class="eo-icon" data-icon="folder-open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2"/></svg> Os arquivos ainda não foram publicados. Os itens abaixo indicam o que está previsto.</p>
+                    </div>
+                    <div style="display:flex;flex-wrap:wrap;gap:0.8rem;margin-top:1rem">
+                        <span class="btn secondary" aria-disabled="true" title="Em breve" style="opacity:.6;cursor:not-allowed;pointer-events:none"><svg class="eo-icon" data-icon="file-text" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg> Apostila Distribuição 1.pdf <small style="font-weight:700;font-size:.75rem">· Em breve</small></span>
+                        <span class="btn secondary" aria-disabled="true" title="Em breve" style="opacity:.6;cursor:not-allowed;pointer-events:none"><svg class="eo-icon" data-icon="file-text" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg> Apostila Distribuição 2.pdf <small style="font-weight:700;font-size:.75rem">· Em breve</small></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ══ NAV SOBRE ══ -->
+
+
+
+    <!-- ══ TELA INICIAL DE SELEÇÃO DE MÓDULO ══ -->
+
+
+    <!-- ══ NAV DISTRIBUIÇÃO ELÉTRICA ══ -->
+
+
+    <!-- ══ NAV ELETRICIDADE II ══ -->
+
+    <!-- ══ NAV ACIONAMENTOS ══ -->
+
+
+    <!-- ══════════════════════════════════════════════════════════
+     MÓDULO: ACIONAMENTOS ELÉTRICOS
+══════════════════════════════════════════════════════════ -->
+
+    <!-- ══ NAV PROJETOS PREDIAIS ══ -->
+
+
+
+    <!-- ══ NAV PROJETOS INDUSTRIAIS ══ -->
+
+
+    <script src="assets/js/legacy/core.js"></script>
+
+    <!-- ══ NAV LAEL ══ -->
+<script src="assets/js/core/nav.js"></script>
+</body></html>

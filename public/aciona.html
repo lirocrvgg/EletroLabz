@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eletrotécnica — Módulos Interativos</title>
+    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+    <script src="assets/js/core/theme.js"></script>
+    <script src="assets/js/core/icons.js"></script>
+
+    <!-- Bibliotecas para exportação de Memorial de Cálculo (.docx) -->
+
+
+    <!-- ══ NAV PROJETOS INDUSTRIAIS ══ -->
+
+
+
+    <link rel="stylesheet" href="assets/css/fonts.css">
+    <link rel="stylesheet" href="assets/css/tokens.css">
+    <link rel="stylesheet" href="assets/css/legacy.css">
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/nav.css">
+    <link rel="stylesheet" href="assets/css/mobile.css">
+    <link rel="stylesheet" href="assets/css/sim.css">
+</head>
+
+<body data-eo-module="aciona" data-eo-area="educacao">
+
+    <!-- ══ NAV I.A ══ -->
+
+
+    <!-- ══ NAV APOSTILAS ══ -->
+
+
+    <!-- ══ NAV SOBRE ══ -->
+
+
+
+    <!-- ══ TELA INICIAL DE SELEÇÃO DE MÓDULO ══ -->
+
+
+    <!-- ══ NAV DISTRIBUIÇÃO ELÉTRICA ══ -->
+
+
+    <!-- ══ NAV ELETRICIDADE II ══ -->
+
+    <!-- ══ NAV ACIONAMENTOS ══ -->
+    <nav id="nav-aciona" aria-label="Módulo">
+        <div class="eo-topbar">
+            <a class="eo-brand" href="eletrotec.html" aria-label="EletroLabz: ir para o início"><img width="32" height="32" alt="" src="./assets/icons/favicon.svg"><span class="eo-brand__name">EletroLabz</span></a>
+            <a class="ms-back-btn eo-modules" href="eletrotec.html"><svg class="eo-icon" data-icon="arrow-left" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg> Módulos</a>
+            <button class="theme-toggle" type="button" onclick="toggleTheme()" id="theme-btn" aria-pressed="false" data-eo-action="aciona:alternar-tema"><svg class="eo-icon" data-icon="moon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg><svg class="eo-icon" data-icon="sun" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg><span class="tt-label"><span class="tt-to-dark">Modo escuro</span><span class="tt-to-light">Modo claro</span></span></button>
+        </div>
+        <div class="nav-inner">
+            <button class="nav-btn active" data-apage="aciona-home"
+                onclick="showAcionaPage('aciona-home',this)">Início</button>
+            <button class="nav-btn" data-apage="diagram" onclick="showAcionaPage('diagram',this)"><svg class="eo-icon" data-icon="puzzle" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15.39 4.39a1 1 0 0 0 1.68-.474 2.5 2.5 0 1 1 3.014 3.015 1 1 0 0 0-.474 1.68l1.683 1.682a2.414 2.414 0 0 1 0 3.414L19.61 15.39a1 1 0 0 1-1.68-.474 2.5 2.5 0 1 0-3.014 3.015 1 1 0 0 1 .474 1.68l-1.683 1.682a2.414 2.414 0 0 1-3.414 0L8.61 19.61a1 1 0 0 0-1.68.474 2.5 2.5 0 1 1-3.014-3.015 1 1 0 0 0 .474-1.68l-1.683-1.682a2.414 2.414 0 0 1 0-3.414L4.39 8.61a1 1 0 0 1 1.68.474 2.5 2.5 0 1 0 3.014-3.015 1 1 0 0 1-.474-1.68l1.683-1.682a2.414 2.414 0 0 1 3.414 0z"/></svg> Editor de
+                Diagrama</button>
+            <button class="nav-btn" data-apage="aciona-ref" onclick="showAcionaPage('aciona-ref',this)">Referência
+                ANSI</button>
+            <button class="nav-btn" data-apage="ladder" onclick="showAcionaPage('ladder',this)"><svg class="eo-icon" data-icon="table" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3v18"/><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/></svg> Simulador
+                Ladder</button>
+        </div>
+    </nav>
+    <div class="eo-crumbs" role="navigation" aria-label="Trilha de navegação"><ol></ol></div>
+
+
+    <!-- ══════════════════════════════════════════════════════════
+     MÓDULO: ACIONAMENTOS ELÉTRICOS
+══════════════════════════════════════════════════════════ -->
+    <main id="main-aciona">
+
+        <!-- HOME ACIONAMENTOS -->
+        <div id="page-aciona-home" class="page active">
+            <div class="aciona-hero">
+                <div class="hero-tag"
+                    style="background:color-mix(in srgb, var(--area-edu) 10%, transparent);border-color:color-mix(in srgb, var(--area-edu) 30%, transparent);color:var(--area-edu)">
+                    Acionamentos
+                    Elétricos</div>
+                <h1>Diagramas de Comando</h1>
+                <p style="color:var(--text-dim);font-size:.94rem;max-width:580px;margin:0 auto 2rem;line-height:1.7">
+                    Monte e
+                    simule circuitos de comando com simbologia ANSI/IEEE 315. Visualize o comportamento real da corrente
+                    em tempo
+                    real.</p>
+                <div class="aciona-grid">
+                    <a class="aciona-card" href="#diagrama" onclick="showAcionaPage('diagram',null);return false">
+                        <div class="icon"><svg class="eo-icon" data-icon="puzzle" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15.39 4.39a1 1 0 0 0 1.68-.474 2.5 2.5 0 1 1 3.014 3.015 1 1 0 0 0-.474 1.68l1.683 1.682a2.414 2.414 0 0 1 0 3.414L19.61 15.39a1 1 0 0 1-1.68-.474 2.5 2.5 0 1 0-3.014 3.015 1 1 0 0 1 .474 1.68l-1.683 1.682a2.414 2.414 0 0 1-3.414 0L8.61 19.61a1 1 0 0 0-1.68.474 2.5 2.5 0 1 1-3.014-3.015 1 1 0 0 0 .474-1.68l-1.683-1.682a2.414 2.414 0 0 1 0-3.414L4.39 8.61a1 1 0 0 1 1.68.474 2.5 2.5 0 1 0 3.014-3.015 1 1 0 0 1-.474-1.68l1.683-1.682a2.414 2.414 0 0 1 3.414 0z"/></svg> </div>
+                        <div class="label">Criar Diagrama</div>
+                    </a>
+                    <a class="aciona-card" href="#referencia" onclick="showAcionaPage('aciona-ref',null);return false">
+                        <div class="icon"><svg class="eo-icon" data-icon="list-checks" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M13 5h8"/><path d="M13 12h8"/><path d="M13 19h8"/><path d="m3 17 2 2 4-4"/><path d="m3 7 2 2 4-4"/></svg> </div>
+                        <div class="label">Referência ANSI/IEEE e IEC</div>
+                    </a>
+                    <a class="aciona-card" href="#ladder" onclick="showAcionaPage('ladder',null);return false">
+                        <div class="icon"><svg class="eo-icon" data-icon="table" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3v18"/><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/></svg> </div>
+                        <div class="label">Simulador Ladder</div>
+                    </a>
+                </div>
+            </div>
+
+            <div style="max-width:900px;margin:0 auto;padding:0 1rem">
+                <div class="section-title">
+                    <h2>Guia Rápido</h2><span class="badge" style="background:var(--accent2)">ANSI/IEEE 315</span>
+                </div>
+                <div class="grid-2">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="dot" style="background:var(--area-edu)"></div>
+                            <h3>Como usar o Editor</h3>
+                        </div>
+                        <p class="theory">1. Clique em um símbolo na barra lateral para selecioná-lo.<br>2. Clique no
+                            canvas para
+                            posicioná-lo.<br>3. Use o modo <b>Fio</b> para conectar componentes.<br>4. Configure
+                            propriedades no
+                            painel direito.<br>5. Pressione <b>Simular</b> para ver o fluxo de corrente em tempo real.
+                        </p>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="dot" style="background:var(--accent4)"></div>
+                            <h3>Comportamento da Simulação</h3>
+                        </div>
+                        <p class="theory">A simulação segue a lógica real de acionamentos:<br>• Contatos NA fecham
+                            com a
+                            bobina energizada<br>• Relé de sobrecarga desliga o circuito em falha<br>• Contatos de selo
+                            mantêm o
+                            circuito ativo<br>• A corrente flui apenas em circuitos fechados</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- SIMULADOR LADDER: editor ZelioSofrencia v6 (projeto do usuario) embutido; Fase 4.L, decisao D18. Codigo em apps/ladder.html -->
+        <div id="page-ladder" class="page">
+            <div class="section-title">
+                <h2><svg class="eo-icon" data-icon="table" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3v18"/><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/></svg> Simulador Ladder (PLC)</h2><span class="badge" style="background:var(--accent2)">BETA (não exporta para CLPs reais)</span>
+                <a class="btn ladder-fs-link" id="ladder-open-full" href="apps/ladder.html" target="_blank" rel="noopener" data-eo-action="aciona:ladder-abrir-tela-cheia"><svg class="eo-icon" data-icon="maximize" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg> Abrir em tela cheia</a>
+            </div>
+            <iframe id="ladder-frame" class="ladder-frame" src="apps/ladder.html" title="Editor Ladder" allow="fullscreen" allowfullscreen></iframe>
+            <style>
+                #page-ladder .ladder-fs-link { display: inline-flex; align-items: center; gap: .4rem; margin-left: auto; text-decoration: none; }
+                #page-ladder .ladder-fs-link .eo-icon { width: 1rem; height: 1rem; }
+                #page-ladder .ladder-frame { display: block; width: 100%; height: var(--ladder-h, calc(100dvh - 14rem)); min-height: 420px; border: 1px solid var(--border); border-radius: var(--r-2); background: var(--surface); }
+            </style>
+            <script>
+                /* Altura util = viewport menos o que esta acima do iframe; tema do site repassado ao editor (claro/escuro). */
+                (function () {
+                    var f = document.getElementById('ladder-frame'), pg = document.getElementById('page-ladder');
+                    if (!f || !pg) { return; }
+                    function fit() {
+                        if (!f.offsetParent) { return; }
+                        var top = f.getBoundingClientRect().top + window.scrollY;
+                        f.style.setProperty('--ladder-h', Math.max(420, window.innerHeight - top - 8) + 'px');
+                    }
+                    function sendTheme() {
+                        try { f.contentWindow.postMessage({ type: 'eo-theme', theme: (window.EO && EO.theme) ? EO.theme.get() : 'light' }, '*'); } catch (e) { /* editor ainda carregando */ }
+                    }
+                    f.addEventListener('load', sendTheme);
+                    window.addEventListener('resize', fit);
+                    window.addEventListener('orientationchange', fit);
+                    new MutationObserver(function () { fit(); sendTheme(); }).observe(pg, { attributes: true, attributeFilter: ['class'] });
+                    new MutationObserver(sendTheme).observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+                    fit();
+                })();
+            </script>
+        </div>
+
+        <!-- EDITOR DE DIAGRAMA -->
+        <div id="page-diagram" class="page">
+            <div class="diag-topbar">
+                <span style="font-weight:800;font-size:.82rem;color:var(--area-edu);margin-right:.3rem"><svg class="eo-icon" data-icon="settings" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"/><circle cx="12" cy="12" r="3"/></svg> Editor de
+                    Comandos</span>
+                <button type="button" class="diag-topbar-btn eo-drawer-toggle" id="btn-drawer-toolbar" aria-controls="diag-toolbar" aria-expanded="false" onclick="eoDrawerToggle('toolbar')" data-eo-action="aciona:diagrama-painel-simbolos">Símbolos</button>
+                <button type="button" class="diag-topbar-btn eo-drawer-toggle" id="btn-drawer-props" aria-controls="diag-props" aria-expanded="false" onclick="eoDrawerToggle('props')" data-eo-action="aciona:diagrama-painel-propriedades">Propriedades</button>
+                <button class="diag-topbar-btn" onclick="setDiagTool('select')" id="btn-tool-select" data-eo-action="aciona:diagrama-ferramenta-select">Selecionar</button>
+                <button class="diag-topbar-btn" onclick="setDiagTool('wire')" id="btn-tool-wire" data-eo-action="aciona:diagrama-ferramenta-wire">Fio</button>
+                <button class="diag-topbar-btn" onclick="setDiagTool('delete')" id="btn-tool-delete" data-eo-action="aciona:diagrama-ferramenta-delete"><svg class="eo-icon" data-icon="x" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg> Deletar</button>
+                <button class="diag-topbar-btn" onclick="diagramUndo()" id="btn-undo" title="Desfazer (Ctrl+Z)" data-eo-action="aciona:diagrama-desfazer"><svg class="eo-icon" data-icon="rotate-ccw" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg> Desfazer</button>
+                <button class="diag-topbar-btn" onclick="diagramRedo()" id="btn-redo" title="Refazer (Ctrl+Y)" data-eo-action="aciona:diagrama-refazer">Refazer</button>
+                <button class="diag-topbar-btn danger" onclick="clearDiagram()" data-eo-action="aciona:diagrama-limpar"><svg class="eo-icon" data-icon="trash-2" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M10 11v6"/><path d="M14 11v6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg> Limpar</button>
+                <button class="diag-topbar-btn" onclick="exportDiagram()" data-eo-action="aciona:diagrama-export-png" data-eo-feature="diagrama-png"><svg class="eo-icon" data-icon="save" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/></svg> Exportar PNG</button>
+                <button class="diag-topbar-btn" onclick="diagramSaveJSON()" data-eo-action="aciona:diagrama-salvar-json" data-eo-feature="diagrama-json">Salvar JSON</button>
+                <button class="diag-topbar-btn" onclick="document.getElementById('diag-json-input').click()" data-eo-action="aciona:diagrama-abrir-json" data-eo-feature="diagrama-json">Abrir JSON</button>
+                <button class="diag-topbar-btn" onclick="diagramNovo()" title="Descarta o autosave e volta ao exemplo inicial" data-eo-action="aciona:diagrama-novo">Novo</button>
+                <input type="file" id="diag-json-input" accept=".json,application/json" style="display:none" onchange="diagramLoadJSON(event)" aria-label="Abrir diagrama JSON">
+                <span class="wire-mode-indicator" id="shortcut-hint" title="Atalhos do editor"
+                    style="margin-left:.2rem">Ctrl+Z / Ctrl+Y · Ctrl+A · Del</span>
+                <div style="flex:1"></div>
+                <span class="sim-status" id="sim-status-badge">● Parado</span>
+                <button class="diag-topbar-btn" onclick="diagZoom(-0.25)" title="Diminuir zoom" data-eo-action="aciona:diagrama-zoom-out">−</button>
+                <span class="sim-status" id="zoom-label" style="min-width:3rem;text-align:center">100%</span>
+                <button class="diag-topbar-btn" onclick="diagZoom(+0.25)" title="Aumentar zoom" data-eo-action="aciona:diagrama-zoom-in">+</button>
+                <button class="diag-topbar-btn" onclick="diagZoomReset()" title="Resetar zoom" data-eo-action="aciona:diagrama-zoom-reset"><svg class="eo-icon" data-icon="house" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg> </button>
+                <button class="diag-topbar-btn sim-run" id="btn-simulate" onclick="toggleSimulation()" data-eo-action="aciona:sim-start"><svg class="eo-icon" data-icon="play" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/></svg> Iniciar</button>
+            </div>
+            <div class="sim-bar" id="sim-bar" role="group" aria-label="Exemplos e controles da simulação">
+                <label class="sim-bar-field" for="preset-select">
+                    <span class="sim-bar-label">Exemplo</span>
+                    <select id="preset-select" class="sim-select" data-eo-action="aciona:preset-carregar"></select>
+                </label>
+                <div class="sim-bar-ctl">
+                    <button type="button" class="diag-topbar-btn" id="btn-sim-pause" onclick="pauseSimulation()" disabled title="Pausar: congela o tempo e o estado" data-eo-action="aciona:sim-pause"><svg class="eo-icon" data-icon="pause" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="14" y="3" width="5" height="18" rx="1"/><rect x="5" y="3" width="5" height="18" rx="1"/></svg> Pausar</button>
+                    <button type="button" class="diag-topbar-btn" id="btn-sim-reset" onclick="resetSimulation()" title="Reiniciar: zera temporizadores, botoeiras, acionamentos e falhas; o diagrama fica" data-eo-action="aciona:sim-reset"><svg class="eo-icon" data-icon="rotate-ccw" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg> Reiniciar</button>
+                </div>
+                <p class="sim-bar-desc" id="preset-desc">Escolha um exemplo (partida direta, reversão, estrela-triângulo, temporizadores) ou monte o seu diagrama.</p>
+            </div>
+            <div class="diag-layout">
+                <!-- Barra de símbolos flutuante e arrastável -->
+                <div class="diag-toolbar" id="diag-toolbar" role="region" aria-label="Paleta de símbolos"><button type="button" class="eo-drawer-close" aria-label="Fechar painel de símbolos" onclick="eoDrawerClose()" data-eo-action="aciona:diagrama-fechar-painel"><svg class="eo-icon" data-icon="x" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+                    <div class="toolbar-drag-handle" id="toolbar-drag-handle">
+                        <span>Símbolos</span>
+                        <div class="toolbar-drag-dots">
+                            <i></i><i></i><i></i><i></i><i></i><i></i>
+                        </div>
+                    </div>
+                    <div class="toolbar-scroll">
+                        <div class="diag-toolbar-section">
+                            <h4>Fontes / Fases</h4>
+                            <div class="sym-grid">
+                                <button type="button" class="sym-btn" onclick="selectSymbol('power_l1', this)" title="Fase L1" data-eo-action="aciona:diagrama-simbolo-power-l1">
+                                    <svg data-eo-symbol="power_l1" aria-hidden="true" focusable="false"></svg>
+                                    <span>Fase L1</span>
+                                </button>
+                                <button type="button" class="sym-btn" onclick="selectSymbol('power_l2', this)" title="Fase L2" data-eo-action="aciona:diagrama-simbolo-power-l2">
+                                    <svg data-eo-symbol="power_l2" aria-hidden="true" focusable="false"></svg>
+                                    <span>Fase L2</span>
+                                </button>
+                                <button type="button" class="sym-btn" onclick="selectSymbol('power_l3', this)" title="Fase L3" data-eo-action="aciona:diagrama-simbolo-power-l3">
+                                    <svg data-eo-symbol="power_l3" aria-hidden="true" focusable="false"></svg>
+                                    <span>Fase L3</span>
+                                </button>
+                                <button type="button" class="sym-btn" onclick="selectSymbol('power_n', this)" title="Neutro N (retorno)" data-eo-action="aciona:diagrama-simbolo-power-n">
+                                    <svg data-eo-symbol="power_n" aria-hidden="true" focusable="false"></svg>
+                                    <span>Neutro N</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="diag-toolbar-section">
+                            <h4>Contatos</h4>
+                            <div class="sym-grid">
+                                <button type="button" class="sym-btn" onclick="selectSymbol('contact_no', this)" title="Contato NA" data-eo-action="aciona:diagrama-simbolo-contact-no">
+                                    <svg data-eo-symbol="contact_no" aria-hidden="true" focusable="false"></svg>
+                                    <span>Contato NA</span>
+                                </button>
+                                <button type="button" class="sym-btn" onclick="selectSymbol('contact_nc', this)" title="Contato NF" data-eo-action="aciona:diagrama-simbolo-contact-nc">
+                                    <svg data-eo-symbol="contact_nc" aria-hidden="true" focusable="false"></svg>
+                                    <span>Contato NF</span>
+                                </button>
+                                <button type="button" class="sym-btn" onclick="selectSymbol('contact_timer_on_no', this)"
+                                    title="Contato NA Temporizado (Ret. Energização)" data-eo-action="aciona:diagrama-simbolo-contact-timer-on-no">
+                                    <svg data-eo-symbol="contact_timer_on_no" aria-hidden="true" focusable="false"></svg>
+                                    <span>NA t↑</span>
+                                </button>
+                                <button type="button" class="sym-btn" onclick="selectSymbol('contact_timer_on_nc', this)"
+                                    title="Contato NF Temporizado (Ret. energização)" data-eo-action="aciona:diagrama-simbolo-contact-timer-on-nc">
+                                    <svg data-eo-symbol="contact_timer_on_nc" aria-hidden="true" focusable="false"></svg>
+                                    <span>NF t↑</span>
+                                </button>
+                                <button type="button" class="sym-btn" onclick="selectSymbol('contact_timer_off_no', this)"
+                                    title="Contato NA Temporizado (Ret. Desenergização)" data-eo-action="aciona:diagrama-simbolo-contact-timer-off-no">
+                                    <svg data-eo-symbol="contact_timer_off_no" aria-hidden="true" focusable="false"></svg>
+                                    <span>NA t↓</span>
+                                </button>
+                                <button type="button" class="sym-btn" onclick="selectSymbol('contact_timer_off_nc', this)"
+                                    title="Contato NF Temporizado (Ret. Desenergização)" data-eo-action="aciona:diagrama-simbolo-contact-timer-off-nc">
+                                    <svg data-eo-symbol="contact_timer_off_nc" aria-hidden="true" focusable="false"></svg>
+                                    <span>NF t↓</span>
+                                </button>
+                                <button type="button" class="sym-btn" onclick="selectSymbol('contact_phase_loss_no', this)"
+                                    title="NA Falta de Fase" data-eo-action="aciona:diagrama-simbolo-contact-phase-loss-no">
+                                    <svg data-eo-symbol="contact_phase_loss_no" aria-hidden="true" focusable="false"></svg>
+                                    <span>NA Falta</span>
+                                </button>
+                                <button type="button" class="sym-btn" onclick="selectSymbol('contact_phase_loss_nc', this)"
+                                    title="NF Falta de Fase" data-eo-action="aciona:diagrama-simbolo-contact-phase-loss-nc">
+                                    <svg data-eo-symbol="contact_phase_loss_nc" aria-hidden="true" focusable="false"></svg>
+                                    <span>NF Falta</span>
+                                </button>
+                                <button type="button" class="sym-btn" onclick="selectSymbol('contact_phase_seq_no', this)"
+                                    title="NA Seq. de Fase" data-eo-action="aciona:diagrama-simbolo-contact-phase-seq-no">
+                                    <svg data-eo-symbol="contact_phase_seq_no" aria-hidden="true" focusable="false"></svg> </text>
+                                    </svg>
+                                    <span>NA Seq.</span>
+                                </button>
+                                <button type="button" class="sym-btn" onclick="selectSymbol('contact_phase_seq_nc', this)"
+                                    title="NF Seq. de Fase" data-eo-action="aciona:diagrama-simbolo-contact-phase-seq-nc">
+                                    <svg data-eo-symbol="contact_phase_seq_nc" aria-hidden="true" focusable="false"></svg> </text>
+                                    </svg>
+                                    <span>NF Seq.</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="diag-toolbar-section">
+                            <h4>Botões / Chaves</h4>
+                            <div class="sym-grid">
+                                <button type="button" class="sym-btn" onclick="selectSymbol('pushbutton_no', this)"
+                                    title="Botoeira NA (S)" data-eo-action="aciona:diagrama-simbolo-pushbutton-no">
+                                    <svg data-eo-symbol="pushbutton_no" aria-hidden="true" focusable="false"></svg>
+                                    <span>BP NA (S)</span>
+                                </button>
+                                <button type="button" class="sym-btn" onclick="selectSymbol('pushbutton_nc', this)"
+                                    title="Botoeira NF (P)" data-eo-action="aciona:diagrama-simbolo-pushbutton-nc">
+                                    <svg data-eo-symbol="pushbutton_nc" aria-hidden="true" focusable="false"></svg>
+                                    <span>BP NF (P)</span>
+                                </button>
+                                <button type="button" class="sym-btn" onclick="selectSymbol('limit_switch_no', this)"
+                                    title="Fim de Curso NA" data-eo-action="aciona:diagrama-simbolo-limit-switch-no">
+                                    <svg data-eo-symbol="limit_switch_no" aria-hidden="true" focusable="false"></svg>
+                                    <span>FC NA</span>
+                                </button>
+                                <button type="button" class="sym-btn" onclick="selectSymbol('selector_2pos', this)"
+                                    title="Chave Seletora 2 Posições" data-eo-action="aciona:diagrama-simbolo-selector-2pos">
+                                    <svg data-eo-symbol="selector_2pos" aria-hidden="true" focusable="false"></svg>
+                                    <span>Sel. 2 Pos.</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="diag-toolbar-section">
+                            <h4>Bobinas / Rel.</h4>
+                            <div class="sym-grid">
+                                <button type="button" class="sym-btn" onclick="selectSymbol('coil', this)" title="Bobina (CADe SIMU)" data-eo-action="aciona:diagrama-simbolo-coil">
+                                    <svg data-eo-symbol="coil" aria-hidden="true" focusable="false"></svg>
+                                    <span>Bobina (A1)</span>
+                                </button>
+                                <button type="button" class="sym-btn" onclick="selectSymbol('relay_phase_loss', this)"
+                                    title="Relé Falta de Fase" data-eo-action="aciona:diagrama-simbolo-relay-phase-loss">
+                                    <svg data-eo-symbol="relay_phase_loss" aria-hidden="true" focusable="false"></svg>
+                                    <span>Falta Fase</span>
+                                </button>
+                                <button type="button" class="sym-btn" onclick="selectSymbol('relay_phase_seq', this)"
+                                    title="Relé Sequência de Fase" data-eo-action="aciona:diagrama-simbolo-relay-phase-seq">
+                                    <svg data-eo-symbol="relay_phase_seq" aria-hidden="true" focusable="false"></svg>
+                                    <span>Seq. Fase</span>
+                                </button>
+                                <button type="button" class="sym-btn" onclick="selectSymbol('overload_relay', this)"
+                                    title="Contato Relé Térmico NF" data-eo-action="aciona:diagrama-simbolo-overload-relay">
+                                    <svg data-eo-symbol="overload_relay" aria-hidden="true" focusable="false"></svg>
+                                    <span>Rel. Térm.</span>
+                                </button>
+                                <button type="button" class="sym-btn" onclick="selectSymbol('timer_relay', this)"
+                                    title="Bobina Temporizada Ligação" data-eo-action="aciona:diagrama-simbolo-timer-relay">
+                                    <svg data-eo-symbol="timer_relay" aria-hidden="true" focusable="false"></svg>
+                                    <span>Bobina t↑</span>
+                                </button>
+                                <button type="button" class="sym-btn" onclick="selectSymbol('timer_relay_off', this)"
+                                    title="Bobina Temporizada com retardo na Desenergização" data-eo-action="aciona:diagrama-simbolo-timer-relay-off">
+                                    <svg data-eo-symbol="timer_relay_off" aria-hidden="true" focusable="false"></svg>
+                                    <span>Bobina t↓</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="diag-toolbar-section">
+                            <h4>Proteção</h4>
+                            <div class="sym-grid">
+                                <button type="button" class="sym-btn" onclick="selectSymbol('fuse', this)" title="Fusível" data-eo-action="aciona:diagrama-simbolo-fuse">
+                                    <svg data-eo-symbol="fuse" aria-hidden="true" focusable="false"></svg>
+                                    <span>Fusível</span>
+                                </button>
+                                <button type="button" class="sym-btn" onclick="selectSymbol('circuit_breaker', this)" title="Disjuntor" data-eo-action="aciona:diagrama-simbolo-circuit-breaker">
+                                    <svg data-eo-symbol="circuit_breaker" aria-hidden="true" focusable="false"></svg>
+                                    <span>Disjuntor</span>
+                                </button>
+                                <button type="button" class="sym-btn" onclick="selectSymbol('lamp', this)"
+                                    title="Lâmpada Sinalizadora (ANSI)" data-eo-action="aciona:diagrama-simbolo-lamp">
+                                    <svg data-eo-symbol="lamp" aria-hidden="true" focusable="false"></svg>
+                                    <span>Lâmpada</span>
+                                </button>
+                                <button type="button" class="sym-btn" onclick="selectSymbol('motor_3ph', this)"
+                                    title="Motor trifásico (3~)" data-eo-action="aciona:diagrama-simbolo-motor-3ph">
+                                    <svg data-eo-symbol="motor_3ph" aria-hidden="true" focusable="false"></svg>
+                                    <span>Motor 3~</span>
+                                </button>
+                                <button type="button" class="sym-btn" onclick="selectSymbol('ground', this)" title="Terra (PE)" data-eo-action="aciona:diagrama-simbolo-ground">
+                                    <svg data-eo-symbol="ground" aria-hidden="true" focusable="false"></svg>
+                                    <span>Terra (PE)</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="diag-toolbar-section">
+                            <h4>Potência e motores (4.4)</h4>
+                            <div class="sym-grid">
+                                <button type="button" class="sym-btn" onclick="selectSymbol('contactor_main_3p', this)" title="Contator de potência 3 polos (nomenclatura a confirmar)" data-eo-action="aciona:diagrama-simbolo-contactor-main-3p">
+                                    <svg data-eo-symbol="contactor_main_3p" aria-hidden="true" focusable="false"></svg>
+                                    <span>Contator 3P</span>
+                                </button>
+                                <button type="button" class="sym-btn" onclick="selectSymbol('motor_3ph_6t', this)" title="Motor 3~ com 6 terminais U1 V1 W1 / U2 V2 W2 (a confirmar)" data-eo-action="aciona:diagrama-simbolo-motor-3ph-6t">
+                                    <svg data-eo-symbol="motor_3ph_6t" aria-hidden="true" focusable="false"></svg>
+                                    <span>Motor 3~ 6T</span>
+                                </button>
+                                <button type="button" class="sym-btn" onclick="selectSymbol('motor_3ph_3t', this)" title="Motor 3~ com 3 terminais U V W (a confirmar)" data-eo-action="aciona:diagrama-simbolo-motor-3ph-3t">
+                                    <svg data-eo-symbol="motor_3ph_3t" aria-hidden="true" focusable="false"></svg>
+                                    <span>Motor 3~ 3T</span>
+                                </button>
+                                <button type="button" class="sym-btn" onclick="selectSymbol('junction', this)" title="Junção (ponto de ligação, ex.: ponto estrela)" data-eo-action="aciona:diagrama-simbolo-junction">
+                                    <svg data-eo-symbol="junction" aria-hidden="true" focusable="false"></svg>
+                                    <span>Junção</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div><!-- /toolbar-scroll -->
+                    <div class="toolbar-resize-handle" id="toolbar-resize-handle">
+                        <svg width="10" height="10" viewBox="0 0 10 10">
+                            <path d="M9 1L1 9M9 5L5 9M9 9" stroke="currentColor" stroke-width="1.5"
+                                stroke-linecap="round" />
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Canvas principal -->
+                <div class="diag-canvas-wrap" id="diag-canvas-wrap">
+                    <canvas id="diag-canvas"></canvas>
+                </div>
+
+                <!-- Painel de propriedades -->
+                <div class="diag-props" id="diag-props" role="region" aria-label="Propriedades do componente"><button type="button" class="eo-drawer-close" aria-label="Fechar painel de propriedades" onclick="eoDrawerClose()" data-eo-action="aciona:diagrama-fechar-painel"><svg class="eo-icon" data-icon="x" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+                    <div class="props-drag-handle" id="props-drag-handle">
+                        <span>Propriedades</span>
+                        <div class="props-drag-dots">
+                            <i></i><i></i><i></i><i></i><i></i><i></i>
+                        </div>
+                    </div>
+                    <div class="props-body">
+                        <div id="props-empty"
+                            style="color:var(--text-dim);font-size:.75rem;text-align:center;margin-top:1.5rem;line-height:1.6">
+                            Selecione um componente para editar suas propriedades
+                        </div>
+                        <div id="props-content">
+                            <div class="prop-row">
+                                <label>Identificação</label>
+                                <input type="text" id="prop-id" placeholder="ex: KM1"
+                                    oninput="updateSelectedProp('id',this.value)">
+                            </div>
+                            <div class="prop-row">
+                                <label>Descrição</label>
+                                <input type="text" id="prop-label" placeholder="ex: Contator principal"
+                                    oninput="updateSelectedProp('label',this.value)">
+                            </div>
+                            <div class="prop-row" id="prop-color-row">
+                                <label>Cor (lâmpada)</label>
+                                <select id="prop-color" onchange="updateSelectedProp('color',this.value)">
+                                    <option value="green">Verde</option>
+                                    <option value="red">Vermelho</option>
+                                    <option value="amber">Âmbar</option>
+                                    <option value="white">Branco</option>
+                                    <option value="blue">Azul</option>
+                                </select>
+                            </div>
+                            <div class="prop-row" id="prop-time-row">
+                                <label>Tempo T (s)</label>
+                                <input type="number" id="prop-time" value="3" min="0.1" step="0.1"
+                                    oninput="updateSelectedProp('time',this.value)">
+                            </div>
+                            <div class="prop-row" id="prop-timer-mode-row">
+                                <label>Modo temporizador</label>
+                                <select id="prop-timer-mode" onchange="updateSelectedProp('timerMode',this.value)">
+                                    <option value="onDelay">Retardo na energização (fecha após T)</option>
+                                    <option value="offDelay">Retardo na desenerização (mantém T após OFF)</option>
+                                </select>
+                            </div>
+                            <div class="prop-row">
+                                <label>Estado inicial</label>
+                                <select id="prop-state" onchange="updateSelectedProp('forceState',this.value)">
+                                    <option value="">Padrão</option>
+                                    <option value="closed">Fechado (ativo)</option>
+                                    <option value="open">Aberto (inativo)</option>
+                                </select>
+                            </div>
+                            <div style="margin-top:1rem">
+                                <button class="diag-topbar-btn danger" style="width:100%;justify-content:center"
+                                    onclick="deleteSelected()" data-eo-action="aciona:diagrama-remover-selecao"><svg class="eo-icon" data-icon="x" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg> Remover</button>
+                            </div>
+                        </div>
+                    </div><!-- /props-body -->
+                </div>
+            </div>
+            <div class="sim-info" id="sim-info">
+                <ul class="sim-legend" id="sim-legend" aria-label="Legenda de estados">
+                    <li class="sim-legend-item"><span class="sim-sw sim-sw--live" aria-hidden="true"></span><span><strong>Energizado</strong>: traço laranja (<code>--live</code>), com animação.</span></li>
+                    <li class="sim-legend-item"><span class="sim-sw sim-sw--dead" aria-hidden="true"></span><span><strong>Desenergizado ou aberto</strong>: traço cinza (<code>--dead</code>).</span></li>
+                    <li class="sim-legend-item"><span class="sim-sw sim-sw--fault" aria-hidden="true"><svg class="eo-icon" data-icon="triangle-alert" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span><span><strong>Falha ou curto-circuito</strong>: vermelho (<code>--fault</code>) com hachura e ícone, nunca só cor.</span></li>
+                    <li class="sim-legend-item sim-legend-note">Fusível, disjuntor e relé térmico iniciam <strong>armados</strong>; clique para atuar e clique de novo para rearmar. Disputa simultânea: vence o primeiro na ordem de criação.</li>
+                </ul>
+                <div class="sim-panel" role="group" aria-label="Estados em tempo real">
+                    <h4 class="sim-panel-title">Temporizadores e motores</h4>
+                    <ul class="sim-estados" id="sim-estados"></ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- REFERÊNCIA ANSI -->
+        <div id="page-aciona-ref" class="page" style="padding:1.4rem 1rem 5rem;max-width:1200px;margin:0 auto">
+            <div class="section-title">
+                <h2>Referência ANSI/IEEE 315 e IEC</h2><span class="badge"
+                    style="background:var(--accent2)">SIMBOLOGIA</span>
+            </div>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="dot dot-blue"></div>
+                        <h3>Contatos</h3>
+                    </div>
+                    <p class="theory" style="margin-bottom:.8rem">Segundo ANSI/IEEE 315 e IEC 60617, os contatos são
+                        representados
+                        por pares
+                        de linhas com uma barra inclinada que pode ser conectadas a outra extremidade (NF) ou não
+                        (NA):</p>
+                    <div style="display:flex;flex-direction:column;gap:.6rem">
+                        <div
+                            style="display:flex;align-items:center;gap:1rem;background:var(--surface2);border-radius:var(--r-2);padding:.7rem .9rem">
+                            <svg class="eo-ref-sym" data-eo-symbol="contact_no" data-eo-estado="aberto" aria-hidden="true" focusable="false"></svg>
+
+                            <div>
+                                <div style="font-size:.8rem;font-weight:700">Contato NA (Normalmente Aberto)</div>
+                                <div style="font-size:.8125rem;color:var(--text-dim)">Normally Open — fecha quando a
+                                    bobina é energizada
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            style="display:flex;align-items:center;gap:1rem;background:var(--surface2);border-radius:var(--r-2);padding:.7rem .9rem">
+                            <svg class="eo-ref-sym" data-eo-symbol="contact_nc" data-eo-estado="fechado" aria-hidden="true" focusable="false"></svg>
+
+                            <div>
+                                <div style="font-size:.8rem;font-weight:700">Contato NF (Normalmente Fechado)</div>
+                                <div style="font-size:.8125rem;color:var(--text-dim)">Normally Closed — abre quando a
+                                    bobina é energizada
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="dot dot-orange"></div>
+                        <h3>Bobinas</h3>
+                    </div>
+                    <p class="theory" style="margin-bottom:.8rem">A bobina é representada por um círculo/fiação enrolada
+                        (IEEE C37.2) ou Retangulo (IEC 60617). Quando
+                        energizada, atua
+                        sobre todos os contatos com o mesmo identificador:</p>
+                    <div style="display:flex;flex-direction:column;gap:.6rem">
+                        <div
+                            style="display:flex;align-items:center;gap:1rem;background:var(--surface2);border-radius:var(--r-2);padding:.7rem .9rem">
+                            <svg class="eo-ref-sym" data-eo-symbol="coil" aria-hidden="true" focusable="false"></svg>
+
+                            <div>
+                                <div style="font-size:.8rem;font-weight:700">Bobina de Contator (K / KA [IEC])</div>
+                                <div style="font-size:.8125rem;color:var(--text-dim)">Aciona todos os contatos com mesmo
+                                    ID</div>
+                            </div>
+                        </div>
+                        <div
+                            style="display:flex;align-items:center;gap:1rem;background:var(--surface2);border-radius:var(--r-2);padding:.7rem .9rem">
+                            <svg class="eo-ref-sym" role="img" aria-label="Bobina padrão ANSI" width="60" height="30" viewBox="0 0 40 28">
+
+                                <line x1="4" y1="14" x2="11" y2="14" stroke="var(--accent)" stroke-width="2" />
+
+                                <circle cx="20" cy="14" r="9" fill="none" stroke="var(--accent)" stroke-width="2" />
+
+                                <line x1="29" y1="14" x2="36" y2="14" stroke="var(--accent)" stroke-width="2" />
+
+                            </svg>
+                            <div>
+                                <div style="font-size:.8rem;font-weight:700">Bobina (padrão ANSI/US Standard)</div>
+                                <div style="font-size:.8125rem;color:var(--text-dim)">Aciona todos os contatos com mesmo
+                                    ID
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="dot dot-purple"></div>
+                        <h3>Botões Pulsadores</h3>
+                    </div>
+                    <p class="theory" style="margin-bottom:.8rem">As Botoeiras de pulso (ou botões de Pulsadores)
+                        são representados por contatos NA ou NF com uma base em paralelo a simbologia de contato e
+                        interligado por uma "haste"
+                        Parecido com um "T", indicando que deve ser pressionado para o acionamento da mesma
+                    </p>
+                    <div style="display:flex;flex-direction:column;gap:.6rem">
+                        <div
+                            style="display:flex;align-items:center;gap:1rem;background:var(--surface2);border-radius:var(--r-2);padding:.7rem .9rem">
+                            <svg class="eo-ref-sym" data-eo-symbol="pushbutton_no" data-eo-estado="aberto" aria-hidden="true" focusable="false"></svg>
+
+
+                            <div>
+                                <div style="font-size:.8rem;font-weight:700">Botão Pulsador NA — "S" (Start)</div>
+                                <div style="font-size:.8125rem;color:var(--text-dim)">Fecha momentaneamente ao ser
+                                    pressionado</div>
+                            </div>
+                        </div>
+                        <div
+                            style="display:flex;align-items:center;gap:1rem;background:var(--surface2);border-radius:var(--r-2);padding:.7rem .9rem">
+                            <svg class="eo-ref-sym" data-eo-symbol="pushbutton_nc" data-eo-estado="fechado" aria-hidden="true" focusable="false"></svg>
+
+
+                            <div>
+                                <div style="font-size:.8rem;font-weight:700">Botão Pulsador NF — "P" (Parada/Stop)</div>
+                                <div style="font-size:.8125rem;color:var(--text-dim)">Abre momentaneamente ao ser
+                                    pressionado</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="dot dot-blue"></div>
+                        <h3>Potência e motores</h3>
+                    </div>
+                    <p class="theory" style="margin-bottom:.8rem">Símbolos usados nos exemplos de reversão e estrela-triângulo.
+                        Nomenclatura e simbologia (IEC 60617, bornes IEC 60034-8): <strong>a confirmar</strong>.</p>
+                    <div style="display:flex;flex-direction:column;gap:.6rem">
+                        <div class="eo-ref-row"><svg class="eo-ref-sym" data-eo-symbol="contactor_main_3p" aria-hidden="true" focusable="false"></svg>
+                            <div><div style="font-size:.8rem;font-weight:700">Contator de potência 3P (KM / K)</div>
+                                <div style="font-size:.8125rem;color:var(--text-dim)">Três polos NA acoplados; fecham juntos quando a bobina de mesmo identificador é energizada. A confirmar.</div></div></div>
+                        <div class="eo-ref-row"><svg class="eo-ref-sym" data-eo-symbol="motor_3ph_6t" aria-hidden="true" focusable="false"></svg>
+                            <div><div style="font-size:.8rem;font-weight:700">Motor 3~ de 6 terminais (U1 V1 W1 / U2 V2 W2)</div>
+                                <div style="font-size:.8125rem;color:var(--text-dim)">Permite ligação em estrela (Y) ou triângulo (Δ). A confirmar.</div></div></div>
+                        <div class="eo-ref-row"><svg class="eo-ref-sym" data-eo-symbol="motor_3ph_3t" aria-hidden="true" focusable="false"></svg>
+                            <div><div style="font-size:.8rem;font-weight:700">Motor 3~ de 3 terminais (U V W)</div>
+                                <div style="font-size:.8125rem;color:var(--text-dim)">Partida direta e reversão. A confirmar.</div></div></div>
+                        <div class="eo-ref-row"><svg class="eo-ref-sym" data-eo-symbol="junction" aria-hidden="true" focusable="false"></svg>
+                            <div><div style="font-size:.8rem;font-weight:700">Junção</div>
+                                <div style="font-size:.8125rem;color:var(--text-dim)">Ponto de ligação de vários fios (ex.: ponto estrela).</div></div></div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="dot dot-green"></div>
+                        <h3>Nomenclatura ANSI</h3>
+                    </div>
+                    <p class="theory" style="margin-bottom:.8rem">Designações padrão ANSI para dispositivos em diagramas
+                        de
+                        comando elétrico:</p>
+                    <div
+                        style="font-family:var(--font-mono);font-size:.8125rem;color:var(--text-dim);line-height:2;background:var(--surface2);border-radius:var(--r-2);padding:.8rem 1rem">
+                        <div><span style="color:var(--accent);font-weight:700">52.</span> Disjuntor de corrente
+                            alternada</div>
+                        <div><span style="color:var(--accent);font-weight:700">27.</span> Relé de subtensão</div>
+                        <div><span style="color:var(--accent);font-weight:700">43.</span> Seletor de modo</div>
+                        <div><span style="color:var(--accent);font-weight:700">50/51.</span> Relé de sobrecorrente</div>
+                        <div><span style="color:var(--accent);font-weight:700">59.</span> Relé de sobretensão</div>
+                        <div><span style="color:var(--accent);font-weight:700">67.</span> Relé de sobrecorrente
+                            direcional</div>
+                        <div><span style="color:var(--accent);font-weight:700">87.</span> Relé diferencial</div>
+                        <div><span style="color:var(--accent);font-weight:700">Não possuem um especifico</span> —
+                            Lâmpada sinalizadora
+                            (pilot lamp)
+                        </div>
+                        <div><span style="color:var(--accent);font-weight:700">33.1</span> — Fim de curso (limit
+                            switch)</div>
+                    </div>
+
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="dot dot-blue"></div>
+                        <h3>Chaves Seletoras</h3>
+                    </div>
+                    <p class="theory" style="margin-bottom:.8rem">Chaves seletoras possuem um símbolo de alavanca e
+                        indicam a posição (0, 1, 2, etc.).</p>
+                    <div
+                        style="font-family:var(--font-mono);font-size:.8125rem;color:var(--text-dim);line-height:2;background:var(--surface2);border-radius:var(--r-2);padding:.8rem 1rem">
+                        <div><span style="color:var(--accent);font-weight:700">43.</span> Seletor de modo</div>
+                        <div><span style="color:var(--accent);font-weight:700">43.1</span> — Seletora 3 posições</div>
+                        <div><span style="color:var(--accent);font-weight:700">43.2</span> — Seletora 4 posições</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="dot dot-green"></div>
+                        <h3>Nomenclatura IEC 81346</h3>
+                    </div>
+                    <p class="theory" style="margin-bottom:.8rem">Designações padrão IEC para identificação de
+                        dispositivos em diagramas:</p>
+                    <div
+                        style="font-family:var(--font-mono);font-size:.8125rem;color:var(--text-dim);line-height:2;background:var(--surface2);border-radius:var(--r-2);padding:.8rem 1rem">
+                        <div><span style="color:var(--accent);font-weight:700">K / KA</span> — Relés e Contatores
+                            Auxiliares</div>
+                        <div><span style="color:var(--accent);font-weight:700">KM</span> — Contator de Potência (Motor)
+                        </div>
+                        <div><span style="color:var(--accent);font-weight:700">Q</span> — Disjuntor / Seccionadora</div>
+                        <div><span style="color:var(--accent);font-weight:700">F</span> — Fusível / Relé Térmico</div>
+                        <div><span style="color:var(--accent);font-weight:700">S</span> — Botões e Chaves Seletoras
+                        </div>
+                        <div><span style="color:var(--accent);font-weight:700">H</span> — Sinalização (Lâmpadas/Sirenes)
+                        </div>
+                        <div><span style="color:var(--accent);font-weight:700">M</span> — Motores Elétricos</div>
+                        <div><span style="color:var(--accent);font-weight:700">T</span> — Transformadores</div>
+                        <div><span style="color:var(--accent);font-weight:700">B</span> — Sensores e Fins de Curso</div>
+                        <div><span style="color:var(--accent);font-weight:700">X</span> — Bornes e Conectores</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ══ NAV PROJETOS PREDIAIS ══ -->
+
+
+
+    <!-- ══ NAV PROJETOS INDUSTRIAIS ══ -->
+
+
+    <script src="assets/js/legacy/core.js"></script>
+    <script src="assets/js/core/dom.js"></script>
+    <script src="assets/js/sim/netlist.js"></script>
+    <script src="assets/js/sim/timers.js"></script>
+    <script src="assets/js/sim/circuit-engine.js"></script>
+    <script src="assets/js/sim/defs-extra.js"></script>
+    <script src="assets/js/sim/diagram-io.js"></script>
+    <script src="assets/js/render/symbols.js"></script>
+    <script src="assets/js/render/diagram-canvas.js"></script>
+    <script src="assets/data/presets/index.js"></script>
+    <script src="assets/data/presets/partida-direta.js"></script>
+    <script src="assets/data/presets/reversao-intertravada.js"></script>
+    <script src="assets/data/presets/estrela-triangulo.js"></script>
+    <script src="assets/data/presets/temporizadores.js"></script>
+    <script src="assets/js/legacy/aciona.js"></script>
+
+    <!-- ══ NAV LAEL ══ -->
+<script src="assets/js/core/nav.js"></script>
+</body></html>

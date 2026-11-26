@@ -1,0 +1,61 @@
+/* Barra de acoes das ferramentas documentaveis (DESIGN_SYSTEM.md 7).
+   Grupos Arquivo | Calculo | Saida (+ destrutivas ao final). Uma primaria por tela (.eo-ab-primary).
+   Desktop: tudo visivel, "Exportar" abre um menu. Mobile (<= 640px): primaria visivel + botao "Mais ações"
+   (actionbar.js); sem JS, tudo permanece visivel. Somente tokens. */
+.eo-actionbar {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2) var(--sp-4);
+  margin: var(--sp-4) 0; padding: var(--sp-3); position: relative;
+  background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--r-2);
+}
+.eo-ab-group { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2); }
+.eo-ab-group + .eo-ab-group:not(.eo-ab-group--danger) { padding-left: var(--sp-4); border-left: 1px solid var(--border); }
+.eo-ab-group--danger { margin-left: auto; }
+.eo-actionbar .btn { margin: 0; }
+.eo-actionbar .btn.eo-ab-primary { font-weight: 700; }
+.eo-actionbar .btn[disabled], .eo-actionbar .btn[aria-disabled="true"] { opacity: .55; cursor: not-allowed; }
+.eo-actionbar .btn:focus-visible, .eo-actionbar label.btn:focus-within { outline: 2px solid var(--brand); outline-offset: 2px; }
+.eo-ab-hint { flex: 1 1 100%; font-size: .8125rem; color: var(--text-muted); margin: 0; }
+
+/* Botao destrutivo (contorno; o preenchimento so no hover) e discreto; valem dentro e fora da barra */
+.btn-quiet { background: transparent; color: var(--brand); border-color: transparent; }
+.btn-quiet:hover { background: var(--surface-2); }
+.btn-danger-outline { background: transparent; color: var(--danger); border: 1px solid var(--danger); }
+.btn-danger-outline:hover { background: var(--danger); color: var(--on-brand); border-color: var(--danger); }
+
+/* Menu "Exportar" (desktop) */
+.eo-ab-menu { position: relative; display: inline-flex; }
+.eo-ab-menu-btn .eo-icon:last-child { transition: transform var(--t-fast) var(--ease); }
+.eo-ab-menu.is-open .eo-ab-menu-btn .eo-icon:last-child { transform: rotate(180deg); }
+.eo-ab-menu-list {
+  display: none; position: absolute; z-index: 30; top: calc(100% + var(--sp-1)); left: 0; min-width: 100%; width: max-content; max-width: min(22rem, 86vw);
+  flex-direction: column; gap: 2px; padding: var(--sp-2);
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-2); box-shadow: var(--shadow-2);
+}
+.eo-ab-menu.is-open .eo-ab-menu-list { display: flex; }
+.eo-ab-menu-list .btn { justify-content: flex-start; width: 100%; background: transparent; color: var(--text); border-color: transparent; font-weight: 500; text-align: left; }
+.eo-ab-menu-list .btn:hover { background: var(--surface-2); color: var(--brand); border-color: transparent; }
+.eo-ab-menu-list .btn[disabled] { color: var(--text-muted); }
+
+/* "Mais acoes": so existe depois que actionbar.js roda e so aparece no mobile */
+.eo-ab-more { display: none; }
+
+@media (max-width: 640px) {
+  .eo-actionbar { gap: var(--sp-2); padding: var(--sp-2); }
+  .eo-actionbar .btn { min-height: 44px; }
+  .eo-actionbar.is-enh .eo-ab-group, .eo-actionbar.is-enh .eo-ab-menu, .eo-actionbar.is-enh .eo-ab-menu-list { display: contents; }
+  .eo-actionbar.is-enh .eo-ab-menu-btn { display: none; }
+  .eo-actionbar.is-enh .eo-ab-primary { order: -2; flex: 1 1 9rem; }
+  .eo-actionbar.is-enh .eo-ab-more { display: inline-flex; order: -1; flex: 0 0 auto; }
+  .eo-actionbar.is-enh:not(.is-open) .eo-ab-group > :not(.eo-ab-primary) { display: none; }
+  .eo-actionbar.is-enh .eo-ab-group > *:not(.eo-ab-primary):not(.eo-ab-menu) { flex: 1 1 100%; justify-content: flex-start; }
+  .eo-actionbar.is-enh .eo-ab-menu-list .btn { flex: 1 1 100%; width: auto; background: transparent; color: var(--text); border: 1px solid var(--border); font-weight: 600; }
+  .eo-actionbar.is-enh .eo-ab-menu-list .btn:hover { border-color: var(--brand); }
+  .eo-actionbar.is-enh .eo-ab-menu-list { gap: var(--sp-2); }
+  .eo-actionbar.is-enh.is-open .eo-ab-group::before {
+    content: attr(data-label); flex: 1 1 100%; margin-top: var(--sp-2); font-size: .75rem; font-weight: 700; color: var(--text-muted);
+  }
+  .eo-actionbar.is-enh .eo-ab-group--solo::before { display: none; }
+  .eo-actionbar.is-enh .eo-ab-group--danger::before { color: var(--danger); }
+  .eo-actionbar.is-open .eo-ab-more { background: var(--surface); border-color: var(--brand); color: var(--brand); }
+  .eo-ab-hint { order: 5; }
+}

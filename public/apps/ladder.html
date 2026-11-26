@@ -1,0 +1,2111 @@
+<!doctype html>
+<!-- Editor Ladder do EletroLabz. Origem: ZelioSofrencia v6, projeto do usuario, integrado na Fase 4.L.
+     Removidos na integracao: config.js, auth.js, prefs.js, editor-nuvem.js, allisson.js e maleta-link.js (conta, nuvem, login,
+     preferencias, Allisson e maleta). Autonomo: sem rede, sem URL externa; funciona em file:// e http. -->
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Editor Ladder — ZelioSofrência</title>
+<script>
+/* Tema do site: ?tema=dark|light  >  localStorage "eo_theme"  >  prefers-color-scheme.
+   Mudanças em tempo real chegam por postMessage da página que embute (tipo "eo-theme") ou pelo evento "storage". */
+(function(){var t=null;
+try{var q=new URLSearchParams(location.search).get('tema');if(q==='dark'||q==='light')t=q}catch(e){}
+if(!t){try{var v=localStorage.getItem('eo_theme');if(v==='dark'||v==='light')t=v}catch(e){}}
+if(!t)t=(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';
+document.documentElement.setAttribute('data-theme',t)})();
+</script>
+
+<style>
+:root{
+  --blue:#336fae; --blue2:#25598f; --blue3:#1a426d; --navy:#0e2b52;
+  --hdr-contact:#fff2ad; --hdr-coil:#b9d2f0; --hdr-com:#d9d9d9;
+  --gridv:#d7dbe2; --rowline:#c3c9d2;
+  --wire:#202020; --pwr:#e3211c; --pwrfill:#ffd9d6;
+  --sel:#fff6c4; --rh:64px;
+  --cols:42px repeat(5,minmax(112px,1fr)) minmax(118px,1fr) minmax(170px,1.5fr);
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{height:100dvh}
+body{display:flex;flex-direction:column;font:12px Tahoma,"Segoe UI",Verdana,Arial,sans-serif;color:#111;background:#dfe3e8;user-select:none;-webkit-user-select:none;overflow:hidden}
+button{font:inherit;cursor:pointer}
+input,select{font:inherit}
+
+/* ---------- barra de menus ---------- */
+#menubar{display:flex;align-items:center;background:#fff;border-bottom:1px solid #c9ccd1;height:24px;padding-left:4px;position:relative;z-index:50}
+#menubar .logo{width:16px;height:16px;margin:0 6px 0 2px;border-radius:2px;background:linear-gradient(135deg,#2db34a,#167a2c);color:#fff;font:bold 10px/16px Tahoma;text-align:center}
+.mi{position:relative;padding:3px 8px;cursor:default;border-radius:2px}
+.mi:hover,.mi.open{background:#dce8f7}
+.dd{display:none;position:absolute;left:0;top:100%;min-width:230px;background:#fff;border:1px solid #9aa4b1;box-shadow:2px 3px 8px rgba(0,0,0,.25);padding:3px 0}
+.mi.open .dd{display:block}
+.dd div{padding:5px 22px 5px 24px;display:flex;justify-content:space-between;gap:20px;white-space:nowrap;position:relative}
+.dd div:hover{background:#2f6aa8;color:#fff}
+.dd div.chk::before{content:"✓";position:absolute;left:8px}
+.dd div.dis{color:#999;pointer-events:none}
+.dd hr{border:0;border-top:1px solid #dde;margin:3px 2px}
+.dd .sub{font-weight:bold;color:#56606c;padding-top:7px;pointer-events:none;font-size:11px}
+.dd kbd{font:inherit;color:#8a929c}
+.dd div:hover kbd{color:#dbe7f5}
+
+/* ---------- barra de ferramentas ---------- */
+#toolbar{height:42px;background:linear-gradient(#3b78b8,#2a5d95);display:flex;align-items:center;padding:0 8px;gap:4px;border-bottom:1px solid #1d4470}
+.tb{width:28px;height:28px;border:1px solid transparent;border-radius:4px;background:transparent;display:grid;place-items:center;color:#fff;padding:0}
+.tb:hover{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.3)}
+.tb.on{background:#ffd75e;border-color:#b98d00;color:#222}
+.tb:disabled{opacity:.35;pointer-events:none}
+.tb svg{width:18px;height:18px}
+.tsep{width:1px;height:24px;background:rgba(255,255,255,.25);margin:0 6px}
+#zoom{height:22px;border:1px solid #1d4470;border-radius:2px;margin-left:6px}
+#modeLabel{margin-left:auto;font:900 21px/1 "Arial Black",Impact,Arial,sans-serif;letter-spacing:2px;color:#fff;text-shadow:0 1px 0 #10345c;transform:scaleX(1.25);transform-origin:right;margin-right:14px;white-space:nowrap}
+body.simmode #modeLabel{color:#b6ff9e}
+.mbtn{height:28px;min-width:28px;border-radius:3px;border:1px solid #173d66;background:linear-gradient(#f4f6f9,#cdd5df);font:bold 14px Tahoma;color:#16365c;display:grid;place-items:center;padding:0 5px}
+.mbtn.on{background:linear-gradient(#ffe089,#f0b52b);border-color:#8a6200}
+
+/* ---------- abas ---------- */
+#tabs{height:22px;background:var(--blue2);display:flex;align-items:flex-end;padding:0 6px;gap:2px;border-bottom:2px solid #8db1db}
+.tab{background:#8db1db;color:#0d2b4f;padding:3px 14px 2px;border-radius:9px 9px 0 0;cursor:pointer;font-size:12px}
+.tab.on{background:#e9f1fb;font-weight:bold}
+
+/* ---------- área principal ---------- */
+#main{flex:1;display:flex;min-height:0;position:relative}
+#ladderWrap{flex:1;overflow:auto;background:#fff;position:relative}
+#ladder{min-width:880px;zoom:var(--z,1)}
+.hdr,.row{display:grid;grid-template-columns:var(--cols)}
+.hdr{position:sticky;top:0;z-index:20;height:20px}
+.hdr div{border:1px solid #9aa3ae;border-left:0;padding:2px 5px;font-size:11px;white-space:nowrap;overflow:hidden;background:var(--hdr-contact)}
+.hdr div:first-child{background:#e4e7eb;border-left:1px solid #9aa3ae}
+.hdr .hc{background:var(--hdr-coil)}
+.hdr .hm{background:var(--hdr-com)}
+.row{height:var(--rh)}
+.num{background:#c9ced7;border-right:1px solid #9aa3ae;border-bottom:1px solid #aab1bb;box-shadow:inset 4px 0 0 var(--blue);display:grid;place-items:center;font-size:11px;color:#1d2a3a}
+.cell{position:relative;height:var(--rh);border-right:1px dashed var(--gridv);border-bottom:1px solid #e6e9ee;--cbg:#fff;background:linear-gradient(to bottom,transparent calc(50% - .5px),#eef0f3 calc(50% - .5px),#eef0f3 calc(50% + .5px),transparent calc(50% + .5px))}
+.cell.k:nth-child(6){border-right:1px solid #b9c0ca}
+.cell[data-c="0"]::before{content:"";position:absolute;left:0;top:-1px;bottom:-1px;width:3px;background:#3a3f46;z-index:2}
+.cell.coil{border-right:1px solid #b9c0ca}
+.cell.coil::after{content:"";position:absolute;right:-1px;top:-1px;bottom:-1px;width:3px;background:#3a3f46;z-index:2}
+body.running .cell[data-c="0"]::before{background:var(--pwr)}
+.cell.sel{--cbg:var(--sel);background-color:var(--sel)}
+.cell.dropok{--cbg:#dcf5df;background-color:#dcf5df;outline:2px solid #2e9e44;outline-offset:-2px}
+.cell.dropbad{--cbg:#fde2e2;background-color:#fde2e2;outline:2px solid #d33;outline-offset:-2px}
+.com{border-bottom:1px solid #e6e9ee;display:flex;align-items:center;padding:0 4px}
+.com input{width:100%;border:0;background:transparent;font-size:12px;color:#334;padding:4px;border-radius:2px}
+.com input:focus{outline:1px solid #8db1db;background:#f6faff}
+body.simmode .com input{pointer-events:none}
+svg.cs{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.w{stroke:var(--wire);stroke-width:2}
+.w.on{stroke:var(--pwr);stroke-width:3}
+.mask{fill:var(--cbg)}
+.sym line,.sym path,.sym rect.box{stroke:var(--wire);stroke-width:2;fill:none;stroke-linecap:round}
+.sym.on line,.sym.on path,.sym.on rect.box{stroke:var(--pwr);stroke-width:2.6}
+.cbg{fill:none}
+.cbg.on{fill:var(--pwrfill)}
+.lbl{font:bold 11.5px Tahoma,Verdana,sans-serif;text-anchor:middle;fill:#122}
+.cm{font:10px Tahoma,Verdana,sans-serif;text-anchor:middle;fill:#5b6573}
+.info{font:bold 10px Tahoma,Verdana,sans-serif;text-anchor:middle;fill:#1b5fb0}
+.cl{font:bold 11px Tahoma,Verdana,sans-serif;text-anchor:middle;fill:#122}
+.sym.on + .cl, .cl.on{fill:var(--pwr)}
+.vl{position:absolute;right:-1.5px;top:50%;width:2px;height:var(--rh);background:var(--wire);z-index:6;pointer-events:none}
+.vl.on{background:var(--pwr);width:3px;right:-2px}
+.cell.cur{box-shadow:inset 0 0 0 2px #c99a00}
+.num{cursor:pointer}
+.num.sel{background:#f3d667}
+body.tool-move #ladderWrap{cursor:move}
+body.tool-select #ladderWrap,body.tool-select .cell.item{cursor:cell}
+body.tool-pan #ladderWrap,body.panready #ladderWrap{cursor:grab}
+body.panning,body.panning *{cursor:grabbing!important}
+body.moving,body.moving *{cursor:move!important}
+.term{fill:var(--wire)}
+.act line,.act path{stroke:#3c4652;stroke-width:1.4;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.act .dash{stroke-dasharray:3 2.2}
+.sym .fillb{fill:var(--wire);stroke:var(--wire);stroke-width:1}
+.sym.on .fillb{fill:var(--pwr);stroke:var(--pwr)}
+.lbl.le{text-anchor:end}
+.tt{font:7.5px Tahoma,Verdana,sans-serif;fill:#6b7480}
+.tt.e{text-anchor:end}.tt.s{text-anchor:start}
+.gmask{fill:#fffbe6}
+.big line,.big path,.big rect{vector-effect:non-scaling-stroke}
+.vseg{display:inline-flex;margin-left:8px;border:1px solid #173d66;border-radius:3px;overflow:hidden;height:24px}
+.vseg button{border:0;border-right:1px solid #8d9db1;background:linear-gradient(#f4f6f9,#cdd5df);padding:0 9px;display:flex;align-items:center;gap:5px;font-size:11.5px;color:#16365c}
+.vseg button:last-child{border-right:0}
+.vseg button.on{background:linear-gradient(#ffe089,#f0b52b);font-weight:bold;color:#3a2a00}
+.vseg svg{width:22px;height:12px}
+#rows .cell{touch-action:none}
+body.erasing,body.erasing *{cursor:crosshair!important}
+body:not(.simmode) .cell.item{cursor:grab}
+body.simmode .cell.k{cursor:default}
+body.simmode .cell.k.clickable{cursor:pointer}
+
+/* ---------- parametrização ---------- */
+#paramView{display:none;flex:1;overflow:auto;background:#f3f5f8;padding:18px}
+body.tab-param #paramView{display:block}
+body.tab-param #ladderWrap{display:none}
+#paramView h3{margin:0 0 10px;font-size:14px;color:#1a426d}
+#paramView table{border-collapse:collapse;background:#fff;margin-bottom:22px;min-width:520px}
+#paramView th,#paramView td{border:1px solid #b9c0ca;padding:5px 8px;text-align:left}
+#paramView th{background:#dbe6f3;font-weight:bold}
+#paramView td input[type=number]{width:80px}
+#paramView .empty{color:#6a7380;font-style:italic}
+
+/* ---------- painel de simulação ---------- */
+#sim{display:none;width:312px;flex:none;background:#2b3138;color:#e7ecf2;overflow:auto;border-left:2px solid #11161b}
+body.simmode #sim{display:block}
+.mod{padding:12px}
+.modtop{display:flex;justify-content:space-between;align-items:center;font:bold 11px Tahoma;letter-spacing:1px;color:#9fb0c3;margin-bottom:8px}
+.modtop b{color:#fff;font-size:13px;letter-spacing:.5px}
+.lcd{background:#9fc28a;color:#1f2d16;border:3px solid #1a1f24;border-radius:4px;padding:6px 10px;font:bold 15px/1.25 "Consolas","Courier New",monospace;display:flex;justify-content:space-between;box-shadow:inset 0 0 10px rgba(0,0,0,.25)}
+.ctrls{display:flex;gap:6px;margin:10px 0 4px}
+.ctrls button{flex:1;padding:6px 4px;border-radius:4px;border:1px solid #11161b;background:#454e59;color:#fff;font-weight:bold}
+.ctrls button.on{background:#2e9e44}
+.ctrls #bStop.on{background:#c0392b}
+#sim h4{margin:14px 0 6px;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#9fb0c3;display:flex;justify-content:space-between;align-items:baseline}
+#sim h4 small{text-transform:none;letter-spacing:0;font-weight:normal;color:#7f8d9c}
+.ins{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.inp{background:#3a424c;border:1px solid #1b2026;border-radius:5px;padding:4px;display:flex;flex-direction:column;align-items:center;gap:3px}
+.ib{width:100%;border:1px solid #11161b;border-radius:4px;background:linear-gradient(#5d6875,#454e59);color:#fff;font-weight:bold;padding:5px 0;display:flex;align-items:center;justify-content:center;gap:5px;touch-action:none}
+.ib.on{background:linear-gradient(#6fd36b,#2e9e44);color:#06290c}
+.led{width:8px;height:8px;border-radius:50%;background:#1b1f24;box-shadow:inset 0 0 2px #000}
+.on>.led,.led.on{background:#7dff5a;box-shadow:0 0 6px #7dff5a}
+.im{border:0;background:none;color:#8fa1b5;font-size:9.5px;padding:0;text-decoration:underline dotted}
+.ic{font-size:9px;color:#aebccb;max-width:100%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;min-height:11px}
+.outs{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.out{background:#3a424c;border:1px solid #1b2026;border-radius:5px;padding:6px 2px 4px;text-align:center;font-weight:bold}
+.lamp{width:22px;height:22px;border-radius:50%;margin:0 auto 4px;background:radial-gradient(circle at 35% 35%,#6b2b2b,#2a1010);border:2px solid #15191d}
+.out.on .lamp{background:radial-gradient(circle at 35% 35%,#fff3c4,#ff4b2b 60%,#a61c0d);box-shadow:0 0 12px #ff5a36}
+.out .ic{margin-top:2px}
+.zk{display:flex;gap:6px}
+.zk .ib{flex:1}
+.chips{display:flex;flex-wrap:wrap;gap:5px}
+.chip{background:#3a424c;border:1px solid #1b2026;border-radius:10px;padding:2px 8px;font-size:11px;display:flex;align-items:center;gap:5px}
+.tmr{background:#3a424c;border:1px solid #1b2026;border-radius:5px;padding:6px 8px;margin-bottom:5px}
+.tmr .t1{display:flex;justify-content:space-between;font-size:11px}
+.bar{height:5px;background:#1b2026;border-radius:3px;margin-top:5px;overflow:hidden}
+.bar i{display:block;height:100%;background:#4aa3ff;width:0}
+.none{color:#7f8d9c;font-size:11px;font-style:italic}
+.warn{background:#4a3a1c;border:1px solid #8a6a20;color:#ffd98a;border-radius:5px;padding:6px 8px;font-size:11px;margin-top:10px;line-height:1.45}
+
+/* ---------- paleta inferior ---------- */
+#palette{height:36px;background:linear-gradient(#3b78b8,#2a5d95);display:flex;align-items:center;gap:6px;padding:0 10px;border-top:1px solid #1d4470;position:relative;z-index:30}
+.pb{height:28px;min-width:50px;border:1px solid #1d4470;border-radius:3px;background:linear-gradient(#f7f9fc,#c9d4e2);display:flex;align-items:center;justify-content:center;gap:2px;padding:0 6px;color:#123}
+.pb:hover,.pb.open{background:linear-gradient(#fff4c2,#ffd75e);border-color:#9b7600}
+.pb svg{width:22px;height:20px}
+.pb sup{font:bold 11px Tahoma;margin-top:-8px}
+body.simmode .pb{opacity:.4;pointer-events:none}
+.ptip{color:#cfe0f3;font-size:11px;margin-left:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ---------- popup de itens ---------- */
+#pop{position:fixed;z-index:60;background:#fff;border:1px solid #2a5d95;box-shadow:3px 4px 14px rgba(0,0,0,.3);display:none;max-width:calc(100vw - 16px);max-height:calc(100vh - 140px);overflow:auto}
+#pop .ph{display:flex;align-items:center;gap:8px;padding:5px 8px;background:#e7eef7;border-bottom:1px solid #b9c7d8;position:sticky;top:0;left:0;white-space:nowrap}
+#pop .ph b{font-size:12px;color:#1a426d}
+#pop .ph span{color:#5a6573;font-size:11px}
+.seg{display:inline-flex;border:1px solid #7f95b0;border-radius:3px;overflow:hidden;margin-left:auto}
+.seg button{border:0;background:#fff;padding:2px 8px;font-size:11px}
+.seg button.on{background:#2f6aa8;color:#fff}
+.pgroups{display:flex;align-items:flex-start;padding:4px;gap:4px}
+.ptab{border-collapse:collapse;font-size:11px}
+.ptab th{background:#fff2ad;border:1px solid #9aa3ae;padding:1px 4px;font-weight:normal}
+.ptab th.bc{background:var(--hdr-coil)}
+.ptab th.cm{background:var(--hdr-com)}
+.ptab td{border:1px solid #9cb3cc;padding:0 3px;height:17px;text-align:center}
+.ptab td.n{background:#c9ced7;color:#223;font-size:10px}
+.pi-name,.pi-coil{touch-action:none}
+.pi-name{cursor:grab;min-width:36px;font-weight:bold;color:#0d2b4f}
+.pi-coil{cursor:grab;min-width:16px;color:#0d2b4f}
+.pi-name:hover,.pi-coil:hover{background:#ffd75e}
+.ptab td.c input{width:110px;border:0;font-size:11px;padding:1px 2px;background:transparent}
+.ptab td.c input:focus{outline:1px solid #2f6aa8;background:#f4f8ff}
+.ptab td.c{padding:0}
+
+/* ---------- arraste ---------- */
+#ghost{position:fixed;z-index:100;pointer-events:none;display:none;background:#fffbe6;border:1px solid #b98d00;border-radius:4px;padding:2px 6px 2px 2px;align-items:center;gap:4px;font:bold 12px Tahoma;box-shadow:2px 3px 8px rgba(0,0,0,.25)}
+#ghost svg{width:56px;height:38px}
+
+/* ---------- barra de status ---------- */
+#status1{height:30px;background:var(--navy);display:flex;align-items:center;padding:0 10px;gap:12px;color:#fff}
+#lines{background:#c8ced6;color:#111;border:1px solid #7a8593;padding:3px 0;width:180px;text-align:center;font-size:12px}
+.modref{margin-left:auto;display:flex;gap:4px}
+.modref span{background:#4f86c6;border:1px solid #9fc0e6;padding:2px 7px;font-size:11px}
+#status2{height:20px;background:#ececec;border-top:1px solid #c5c5c5;display:flex;align-items:center;padding:0 6px;font-size:11.5px;gap:10px}
+#msg{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#msg.err{color:#c0392b;font-weight:bold}
+#msg.ok{color:#1d7a33}
+
+/* ---------- menus de contexto e diálogos ---------- */
+#ctx{position:fixed;z-index:120;display:none;max-height:calc(100dvh - 8px);overflow-y:auto;background:#fff;border:1px solid #9aa4b1;box-shadow:2px 3px 10px rgba(0,0,0,.28);padding:3px 0;min-width:210px}
+#ctx div{padding:5px 18px;white-space:nowrap}
+#ctx div:hover{background:#2f6aa8;color:#fff}
+#ctx hr{border:0;border-top:1px solid #dde;margin:3px 2px}
+#ctx .t{font-weight:bold;color:#56606c;pointer-events:none;font-size:11px}
+#modal{position:fixed;inset:0;background:rgba(10,25,45,.45);z-index:150;display:none;align-items:center;justify-content:center}
+#modal .box{background:#f3f5f8;border:1px solid #2a5d95;box-shadow:0 8px 30px rgba(0,0,0,.4);width:min(560px,calc(100vw - 24px));max-height:calc(100vh - 40px);display:flex;flex-direction:column}
+#modal .mt{background:linear-gradient(#3b78b8,#2a5d95);color:#fff;font-weight:bold;padding:6px 10px;display:flex;justify-content:space-between;align-items:center}
+#modal .mt button{background:none;border:0;color:#fff;font-size:16px;line-height:1}
+#modal .mb{padding:14px 16px;overflow:auto;user-select:text;-webkit-user-select:text;line-height:1.5}
+#modal .mf{padding:8px 12px;display:flex;justify-content:flex-end;gap:8px;border-top:1px solid #cfd6df}
+#modal .mf button{padding:5px 16px;border:1px solid #6d7f95;border-radius:3px;background:linear-gradient(#fff,#e2e7ee)}
+#modal .mf button.pri{background:linear-gradient(#4b8ad0,#2a5d95);color:#fff;border-color:#1d4470}
+.opt{display:flex;gap:8px;align-items:flex-start;padding:6px 8px;border:1px solid #cfd6df;border-radius:4px;margin-bottom:5px;background:#fff;cursor:pointer}
+.opt:hover{border-color:#2f6aa8}
+.opt b{display:inline-block;width:18px;color:#1a426d}
+.opt small{color:#5a6573}
+.frm{display:flex;gap:10px;align-items:center;margin-top:10px}
+.frm input{width:100px;padding:3px 5px}
+.frm.neg{flex-wrap:wrap;gap:6px 16px}
+.frm.neg label{display:flex;align-items:center;gap:5px;white-space:nowrap}
+.frm.neg input{width:auto;margin:0}
+#modal kbd{background:#fff;border:1px solid #aab;border-radius:3px;padding:0 4px;font:11px Consolas,monospace}
+#modal ul{margin:6px 0;padding-left:20px}
+#modal li{margin:3px 0}
+
+/* ---------- botões extras (tela cheia / painel) ---------- */
+#bPanel{display:none}
+body:not(.simmode) #bPanel{display:none!important}
+body.simhide #bPanel{background:linear-gradient(#f4f6f9,#cdd5df)}
+
+/* ---------- aviso de orientação ---------- */
+#rotate{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;padding:24px;background:linear-gradient(160deg,#1a426d,#0e2b52);color:#fff;text-align:center}
+#rotate .rbox{max-width:360px;display:flex;flex-direction:column;align-items:center;gap:14px}
+#rotate h2{margin:0;font:900 22px/1.15 "Arial Black",Impact,Arial,sans-serif;letter-spacing:1px}
+#rotate p{margin:0;font-size:14px;line-height:1.5;color:#d6e4f5}
+#rotate .phone{width:62px;height:104px;border:4px solid #fff;border-radius:12px;position:relative;margin:10px 0 18px;animation:rot 2.4s ease-in-out infinite}
+#rotate .phone::before{content:"";position:absolute;left:50%;bottom:5px;width:14px;height:3px;margin-left:-7px;border-radius:2px;background:#fff}
+#rotate .phone::after{content:"";position:absolute;inset:8px 6px 14px;background:repeating-linear-gradient(#ffd75e 0 2px,transparent 2px 10px)}
+@keyframes rot{0%,20%{transform:rotate(0)}50%,80%{transform:rotate(-90deg)}100%{transform:rotate(0)}}
+#rotate button{width:100%;padding:12px 14px;border-radius:6px;font-size:14px;font-weight:bold;border:1px solid #9fc0e6;background:transparent;color:#fff}
+#rotate button.pri{background:#ffd75e;border-color:#b98d00;color:#2a2000}
+@media (orientation:portrait) and (max-width:1024px){
+  body:not(.rot-ok) #rotate{display:flex}
+}
+
+@media (max-width:1400px){#modeLabel{font-size:15px;letter-spacing:1px;transform:none;margin-right:10px}}
+/* ---------- tablets e telas médias ---------- */
+@media (max-width:1100px),(max-height:600px){
+  :root{--rh:56px;--cols:36px repeat(5,minmax(84px,1fr)) minmax(92px,1fr) minmax(110px,1.2fr)}
+  #ladder{min-width:660px}
+  #toolbar{overflow-x:auto;overflow-y:hidden;scrollbar-width:none;gap:2px;padding:0 4px}
+  #toolbar::-webkit-scrollbar{display:none}
+  #toolbar>*{flex:none}
+  #modeLabel{font-size:14px;letter-spacing:1px;transform:none;margin-right:8px}
+  .tsep{margin:0 3px}
+  .ptip{display:none}
+  #palette{overflow-x:auto;scrollbar-width:none}
+  .pb{flex:none}
+  #lines{width:auto;padding:2px 8px;font-size:11px}
+  #status1{height:26px}
+}
+/* ---------- celulares (painel do CLP vira gaveta sobre a grade) ---------- */
+@media (max-width:900px),(max-height:500px){
+  #sim{position:absolute;right:0;top:0;bottom:0;z-index:40;width:min(290px,80vw);box-shadow:-4px 0 14px rgba(0,0,0,.35)}
+  body.simmode.simhide #sim{display:none}
+  #bPanel{display:grid}
+  .modref{display:none}
+  .mod{padding:8px}
+  #modeLabel{display:none}
+  .vseg button{padding:0 6px}
+  #pop{max-height:calc(100dvh - 110px)}
+}
+/* ---------- celular na horizontal (pouca altura) ---------- */
+@media (max-height:500px){
+  :root{--rh:56px}
+  .cell .cm{font-size:9px}
+  #menubar{height:22px}
+  #toolbar{height:36px}
+  #tabs{height:20px}
+  #palette{height:34px}
+  #status1{display:none}
+  #modal .box{max-height:calc(100dvh - 16px)}
+}
+/* ---------- telas de toque: alvos maiores ---------- */
+@media (pointer:coarse){
+  .tb{width:34px;height:34px}
+  .mbtn{height:32px;min-width:32px}
+  .dd div{padding:9px 22px 9px 24px}
+  #ctx div{padding:10px 18px}
+  .ib{padding:8px 0}
+  .ptab td{height:26px}
+  .pi-name{min-width:44px}
+  .pi-coil{min-width:26px}
+}
+
+/* ================= EletroLabz (Fase 4.L): tema escuro, importação .zld, embutido ================= */
+:root{--muted:#5a6573;color-scheme:light}
+.mhint{color:var(--muted);font-size:11px}
+#modal .zwarn{color:#8a5a00;font-weight:bold;margin:10px 0 2px}
+#modal details{margin-top:10px}
+#modal summary{cursor:pointer;font-weight:bold;color:#1a426d}
+#modal table.zmap{border-collapse:collapse;margin-top:6px;font-size:11.5px}
+#modal table.zmap th,#modal table.zmap td{border:1px solid #b9c0ca;padding:2px 8px;text-align:left}
+#modal table.zmap th{background:#dbe6f3}
+#modal .zlist{max-height:30vh;overflow:auto;border:1px solid #cfd6df;border-radius:3px;background:#fff;margin:4px 0;padding:6px 6px 6px 24px}
+
+html[data-theme="dark"]{
+  color-scheme:dark;--muted:#9aa5b4;
+  --gridv:#2f3742;--rowline:#3a4350;--wire:#c5ced9;--pwr:#ff6b5e;--pwrfill:#4a2220;--sel:#3d3817;
+  --hdr-contact:#4d4519;--hdr-coil:#25405f;--hdr-com:#323840;
+}
+html[data-theme="dark"] body{color:#e6eaf0;background:#0e1116}
+html[data-theme="dark"] #menubar{background:#161b22;border-bottom-color:#2c3440}
+html[data-theme="dark"] .mi:hover,html[data-theme="dark"] .mi.open{background:#243044}
+html[data-theme="dark"] .dd{background:#1d232c;border-color:#3a4452;box-shadow:2px 3px 10px rgba(0,0,0,.6)}
+html[data-theme="dark"] .dd div:hover{background:#2f6aa8;color:#fff}
+html[data-theme="dark"] .dd div.dis{color:#6b7584}
+html[data-theme="dark"] .dd hr,html[data-theme="dark"] #ctx hr{border-top-color:#2c3440}
+html[data-theme="dark"] .dd .sub,html[data-theme="dark"] #ctx .t{color:#9aa5b4}
+html[data-theme="dark"] .dd kbd{color:#8793a3}
+html[data-theme="dark"] #toolbar,html[data-theme="dark"] #palette{background:linear-gradient(#2a4a73,#1f3a5c);border-color:#16283f}
+html[data-theme="dark"] #zoom{background:#1d232c;color:#e6eaf0;border-color:#16283f}
+html[data-theme="dark"] .mbtn,html[data-theme="dark"] body.simhide #bPanel{background:linear-gradient(#2e3846,#1f2631);border-color:#11161b;color:#cfe0f3}
+html[data-theme="dark"] .mbtn.on{background:linear-gradient(#ffe089,#f0b52b);border-color:#8a6200;color:#3a2a00}
+html[data-theme="dark"] #tabs{background:#16283f;border-bottom-color:#35557f}
+html[data-theme="dark"] .tab{background:#35557f;color:#dbe7f5}
+html[data-theme="dark"] .tab.on{background:#161b22;color:#e6eaf0}
+html[data-theme="dark"] #ladderWrap{background:#0e1116}
+html[data-theme="dark"] .hdr div{border-color:#3a4452;color:#e6eaf0}
+html[data-theme="dark"] .hdr div:first-child{background:#232a33}
+html[data-theme="dark"] .num{background:#232a33;border-right-color:#3a4452;border-bottom-color:#2f3742;color:#c3ccd8}
+html[data-theme="dark"] .num.sel{background:#6b5b1a;color:#fff}
+html[data-theme="dark"] .cell{--cbg:#0e1116;border-bottom-color:#1d232c;background:linear-gradient(to bottom,transparent calc(50% - .5px),#232a33 calc(50% - .5px),#232a33 calc(50% + .5px),transparent calc(50% + .5px))}
+html[data-theme="dark"] .cell.sel{--cbg:var(--sel);background-color:var(--sel)}
+html[data-theme="dark"] .cell.dropok{--cbg:#143a20;background-color:#143a20;outline-color:#3fbf5a}
+html[data-theme="dark"] .cell.dropbad{--cbg:#3d1a1a;background-color:#3d1a1a;outline-color:#e5534b}
+html[data-theme="dark"] .cell.k:nth-child(6),html[data-theme="dark"] .cell.coil{border-right-color:#3a4452}
+html[data-theme="dark"] .cell[data-c="0"]::before,html[data-theme="dark"] .cell.coil::after{background:#8793a3}
+html[data-theme="dark"] body.running .cell[data-c="0"]::before{background:var(--pwr)}
+html[data-theme="dark"] .com{border-bottom-color:#1d232c}
+html[data-theme="dark"] .com input{color:#e6eaf0}
+html[data-theme="dark"] .com input:focus{background:#161b22;outline-color:#35557f}
+html[data-theme="dark"] .lbl,html[data-theme="dark"] .cl:not(.on){fill:#e6eaf0}
+html[data-theme="dark"] .cm{fill:#9aa5b4}
+html[data-theme="dark"] .info{fill:#7fb0f0}
+html[data-theme="dark"] .act line,html[data-theme="dark"] .act path{stroke:#aeb9c6}
+html[data-theme="dark"] .tt{fill:#8793a3}
+html[data-theme="dark"] .gmask{fill:#2a2f38}
+html[data-theme="dark"] #ghost{background:#2a2f38;border-color:#8a6d00;color:#e6eaf0}
+html[data-theme="dark"] .vseg{border-color:#11161b}
+html[data-theme="dark"] .vseg button{background:linear-gradient(#2e3846,#1f2631);border-right-color:#11161b;color:#cfe0f3}
+html[data-theme="dark"] .vseg button.on{background:linear-gradient(#ffe089,#f0b52b);color:#3a2a00}
+html[data-theme="dark"] #paramView{background:#12161c}
+html[data-theme="dark"] #paramView h3{color:#9cc2f0}
+html[data-theme="dark"] #paramView table{background:#161b22}
+html[data-theme="dark"] #paramView th,html[data-theme="dark"] #paramView td{border-color:#3a4452}
+html[data-theme="dark"] #paramView th{background:#232a33}
+html[data-theme="dark"] #paramView .empty{color:#9aa5b4}
+html[data-theme="dark"] #pop{background:#161b22;border-color:#35557f;box-shadow:3px 4px 14px rgba(0,0,0,.6)}
+html[data-theme="dark"] #pop .ph{background:#1d232c;border-bottom-color:#2c3440}
+html[data-theme="dark"] #pop .ph b{color:#9cc2f0}
+html[data-theme="dark"] #pop .ph span{color:#9aa5b4}
+html[data-theme="dark"] .seg{border-color:#4a5a70}
+html[data-theme="dark"] .seg button{background:#161b22;color:#e6eaf0}
+html[data-theme="dark"] .seg button.on{background:#2f6aa8;color:#fff}
+html[data-theme="dark"] .ptab th{background:#4d4519;border-color:#3a4452;color:#f2ecc8}
+html[data-theme="dark"] .ptab th.bc{background:#25405f;color:#dbe7f5}
+html[data-theme="dark"] .ptab th.cm{background:#323840;color:#dbe7f5}
+html[data-theme="dark"] .ptab td{border-color:#2c3440}
+html[data-theme="dark"] .ptab td.n{background:#232a33;color:#c3ccd8}
+html[data-theme="dark"] .pi-name,html[data-theme="dark"] .pi-coil{color:#dbe7f5}
+html[data-theme="dark"] .pi-name:hover,html[data-theme="dark"] .pi-coil:hover{color:#1a1400}
+html[data-theme="dark"] .ptab td.c input{color:#e6eaf0}
+html[data-theme="dark"] .ptab td.c input:focus{background:#0e1116;outline-color:#2f6aa8}
+html[data-theme="dark"] #status1{background:#0b1a30}
+html[data-theme="dark"] #lines{background:#232a33;color:#e6eaf0;border-color:#3a4452}
+html[data-theme="dark"] #status2{background:#161b22;border-top-color:#2c3440;color:#c3ccd8}
+html[data-theme="dark"] #msg.err{color:#f07167}
+html[data-theme="dark"] #msg.ok{color:#4cc27a}
+html[data-theme="dark"] #ctx{background:#1d232c;border-color:#3a4452;box-shadow:2px 3px 10px rgba(0,0,0,.6)}
+html[data-theme="dark"] #ctx div:hover{background:#2f6aa8;color:#fff}
+html[data-theme="dark"] #modal .box{background:#161b22;border-color:#35557f}
+html[data-theme="dark"] #modal .mf{border-top-color:#2c3440}
+html[data-theme="dark"] #modal .mf button{background:#232a33;color:#e6eaf0;border-color:#3a4452}
+html[data-theme="dark"] #modal .mf button.pri{background:linear-gradient(#4b8ad0,#2a5d95);color:#fff;border-color:#1d4470}
+html[data-theme="dark"] .opt{background:#1d232c;border-color:#3a4452}
+html[data-theme="dark"] .opt:hover{border-color:#6fa3e8}
+html[data-theme="dark"] .opt b{color:#9cc2f0}
+html[data-theme="dark"] .opt small{color:#9aa5b4}
+html[data-theme="dark"] #modal kbd{background:#232a33;color:#e6eaf0;border-color:#3a4452}
+html[data-theme="dark"] #modal input[type=text],html[data-theme="dark"] #modal input[type=number],html[data-theme="dark"] #modal select{background:#0e1116;color:#e6eaf0;border-color:#4a5a70}
+html[data-theme="dark"] #modal .zwarn{color:#e2b341}
+html[data-theme="dark"] #modal summary{color:#9cc2f0}
+html[data-theme="dark"] #modal table.zmap th,html[data-theme="dark"] #modal table.zmap td{border-color:#3a4452}
+html[data-theme="dark"] #modal table.zmap th{background:#232a33}
+html[data-theme="dark"] #modal .zlist{background:#0e1116;border-color:#3a4452}
+</style>
+</head>
+<body>
+
+<div id="menubar">
+  <div class="logo">L</div>
+  <div class="mi" data-m="arq">Arquivo
+    <div class="dd">
+      <div data-a="new" data-eo-action="ladder:new">Novo <kbd>Ctrl+N</kbd></div>
+      <div data-a="open" data-eo-action="ladder:open">Abrir… <kbd>Ctrl+O</kbd></div>
+      <div data-a="save" data-eo-action="ladder:save" data-eo-feature="ladder-json">Salvar (.json) <kbd>Ctrl+S</kbd></div>
+      <div data-a="impzld" data-eo-action="ladder:impzld">Importar .zld (editor antigo)…</div>
+      <hr>
+      <div class="sub">Exemplos</div>
+      <div data-a="ex:selo" data-eo-action="ladder:ex-selo">Partida direta com selo</div>
+      <div data-a="ex:estrela" data-eo-action="ladder:ex-estrela">Partida estrela-triângulo</div>
+      <div data-a="ex:temp" data-eo-action="ladder:ex-temp">Temporizador (atraso na energização)</div>
+      <div data-a="ex:pisca" data-eo-action="ladder:ex-pisca">Pisca-pisca</div>
+      <div data-a="ex:cont" data-eo-action="ladder:ex-cont">Contador de peças</div>
+      <div data-a="ex:tele" data-eo-action="ladder:ex-tele">Telerruptor e Set/Reset</div>
+    </div>
+  </div>
+  <div class="mi" data-m="edi">Editar
+    <div class="dd">
+      <div data-a="undo" data-eo-action="ladder:undo">Desfazer <kbd>Ctrl+Z</kbd></div>
+      <div data-a="redo" data-eo-action="ladder:redo">Refazer <kbd>Ctrl+Y</kbd></div>
+      <hr>
+      <div data-a="copy" data-eo-action="ladder:copy">Copiar <kbd>Ctrl+C</kbd></div>
+      <div data-a="cut" data-eo-action="ladder:cut">Recortar <kbd>Ctrl+X</kbd></div>
+      <div data-a="paste" data-eo-action="ladder:paste">Colar <kbd>Ctrl+V</kbd></div>
+      <div data-a="selall" data-eo-action="ladder:selall">Selecionar tudo <kbd>Ctrl+A</kbd></div>
+      <hr>
+      <div data-a="del" data-eo-action="ladder:del">Apagar seleção <kbd>Del</kbd></div>
+      <div data-a="invert" data-eo-action="ladder:invert">Inverter contato NA/NF <kbd>Espaço</kbd></div>
+      <div data-a="rowins" data-eo-action="ladder:rowins">Inserir linha acima <kbd>Ins</kbd></div>
+      <div data-a="rowdel" data-eo-action="ladder:rowdel">Excluir linha(s) <kbd>Ctrl+Del</kbd></div>
+      <hr>
+      <div data-a="tool:draw" data-eo-action="ladder:tool-draw">Desenhar / apagar ligações (arrastar) <kbd>D</kbd></div>
+      <div data-a="tool:select" data-eo-action="ladder:tool-select">Selecionar vários <kbd>S / Shift+arrastar</kbd></div>
+      <div data-a="tool:move" data-eo-action="ladder:tool-move">Mover <kbd>M / Ctrl+arrastar</kbd></div>
+      <div data-a="tool:pan" data-eo-action="ladder:tool-pan">Pan <kbd>H / Espaço / botão do meio</kbd></div>
+      <div data-a="clear" data-eo-action="ladder:clear">Limpar programa</div>
+    </div>
+  </div>
+  <div class="mi" data-m="mod">Modo
+    <div class="dd">
+      <div data-a="mode:edit" data-eo-action="ladder:mode-edit" id="mmEdit">Edição <kbd>F2</kbd></div>
+      <div data-a="mode:sim" data-eo-action="ladder:mode-sim" id="mmSim">Simulação <kbd>F3</kbd></div>
+    </div>
+  </div>
+  <div class="mi" data-m="vis">Visualização
+    <div class="dd">
+      <div data-a="style:ladder" data-eo-action="ladder:style-ladder" id="vsLad">Símbolos Ladder</div>
+      <div data-a="style:elec" data-eo-action="ladder:style-elec" id="vsEle">Lógica de comando (IEC)</div>
+      <hr>
+      <div data-a="tab:ladder" data-eo-action="ladder:tab-ladder">Introdução Ladder</div>
+      <div data-a="tab:param" data-eo-action="ladder:tab-param">Parametrização</div>
+    </div>
+  </div>
+  <div class="mi" data-m="aju">?
+    <div class="dd">
+      <div data-a="help" data-eo-action="ladder:help">Como usar</div>
+      <div data-a="about" data-eo-action="ladder:about">Sobre</div>
+    </div>
+  </div>
+</div>
+
+<div id="toolbar">
+  <button class="tb" data-a="new" data-eo-action="ladder:new" title="Novo"><svg viewBox="0 0 24 24" fill="#fff" stroke="#123" stroke-width="1.2"><path d="M6 2h8l5 5v15H6z"/><path d="M14 2v5h5" fill="none"/></svg></button>
+  <button class="tb" data-a="open" data-eo-action="ladder:open" title="Abrir"><svg viewBox="0 0 24 24"><path d="M2 6h7l2 2h9v3H6l-3 9H2z" fill="#ffd75e" stroke="#7a5a00"/><path d="M6 11h17l-4 9H3z" fill="#ffe89a" stroke="#7a5a00"/></svg></button>
+  <button class="tb" data-a="save" data-eo-action="ladder:save" data-eo-feature="ladder-json" title="Salvar"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" fill="#223" stroke="#fff"/><rect x="7" y="3" width="10" height="6" fill="#dfe6ee"/><rect x="6" y="13" width="12" height="7" fill="#fff"/></svg></button>
+  <span class="tsep"></span>
+  <button class="tb" data-a="undo" data-eo-action="ladder:undo" title="Desfazer (Ctrl+Z)"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><path d="M9 7L4 12l5 5"/><path d="M4 12h10a6 6 0 0 1 0 12h-2" transform="translate(0 -6)"/></svg></button>
+  <button class="tb" data-a="redo" data-eo-action="ladder:redo" title="Refazer (Ctrl+Y)"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><path d="M15 7l5 5-5 5"/><path d="M20 12H10a6 6 0 0 0 0 12h2" transform="translate(0 -6)"/></svg></button>
+  <span class="tsep"></span>
+  <button class="tb" data-a="copy" data-eo-action="ladder:copy" title="Copiar (Ctrl+C)"><svg viewBox="0 0 24 24" fill="#fff" stroke="#123" stroke-width="1.3"><rect x="8" y="8" width="12" height="13" rx="1"/><path d="M5 16V4a1 1 0 0 1 1-1h10" fill="none" stroke="#fff" stroke-width="1.8"/></svg></button>
+  <button class="tb" data-a="cut" data-eo-action="ladder:cut" title="Recortar (Ctrl+X)"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><circle cx="6.5" cy="18" r="3"/><circle cx="17.5" cy="18" r="3"/><path d="M8.6 15.8L18 3M15.4 15.8L6 3"/></svg></button>
+  <button class="tb" data-a="paste" data-eo-action="ladder:paste" title="Colar (Ctrl+V)"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="14" height="17" rx="1.5" fill="#d9a441" stroke="#5a3d00"/><rect x="8" y="2.5" width="6" height="4" rx="1" fill="#e6ebf1" stroke="#123"/><rect x="10" y="10" width="11" height="12" fill="#fff" stroke="#123"/></svg></button>
+  <span class="tsep"></span>
+  <button class="tb" data-a="tool:draw" data-eo-action="ladder:tool-draw" title="Desenhar ligações (D) — arraste sobre espaço vazio para criar, sobre uma ligação existente para apagar"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><path d="M3 8h11v10h7"/><circle cx="3" cy="8" r="1.6" fill="#fff"/></svg></button>
+  <button class="tb" data-a="tool:select" data-eo-action="ladder:tool-select" title="Selecionar vários (S) — arraste para marcar um bloco de contatos; arraste o bloco marcado para movê-lo"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6"><rect x="2.5" y="2.5" width="14" height="11" stroke-dasharray="2.5 2"/><path d="M11 9l9.5 4-4 1.2 3 4.3-1.8 1.3-3-4.3-2.7 3z" fill="#fff" stroke="#123" stroke-width="1"/></svg></button>
+  <button class="tb" data-a="tool:move" data-eo-action="ladder:tool-move" title="Mover (M) — ou Ctrl+arrastar"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20M12 2l-3 3M12 2l3 3M12 22l-3-3M12 22l3-3M2 12l3-3M2 12l3 3M22 12l-3-3M22 12l-3 3"/></svg></button>
+  <button class="tb" data-a="tool:pan" data-eo-action="ladder:tool-pan" title="Pan (H) — ou segure Espaço / botão do meio e arraste"><svg viewBox="0 0 24 24" fill="#fff" stroke="#123" stroke-width="1.1"><path d="M7 11V5.5a1.5 1.5 0 0 1 3 0V10V4a1.5 1.5 0 0 1 3 0v6V5a1.5 1.5 0 0 1 3 0v6.5V8a1.5 1.5 0 0 1 3 0v7c0 4-3 7-7 7h-1c-3 0-4.5-1.5-6-4l-3-5a1.5 1.5 0 0 1 2.5-1.6z"/></svg></button>
+  <span class="tsep"></span>
+  <button class="tb" data-a="help" data-eo-action="ladder:help" title="Ajuda"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#fff"/><text x="12" y="17" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a426d" font-family="Tahoma">?</text></svg></button>
+  <select id="zoom" title="Zoom" data-eo-action="ladder:zoom">
+    <option value="0.75">75%</option><option value="0.9">90%</option><option value="1" selected>100%</option><option value="1.15">115%</option><option value="1.3">130%</option>
+  </select>
+  <div class="vseg" title="Visualização dos símbolos">
+    <button data-a="style:ladder" data-eo-action="ladder:style-ladder" id="vbLad" title="Símbolos ladder"><svg viewBox="0 0 26 14" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M0 7h9M17 7h9M9 2v10M17 2v10"/></svg>Ladder</button>
+    <button data-a="style:elec" data-eo-action="ladder:style-elec" id="vbEle" title="Símbolos de diagrama de comando (IEC) — apenas contatos e bobinas"><svg viewBox="0 0 26 14" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M0 9h8l9-6M18 9h8"/><path d="M12 6V1.5M9 1.5h6" stroke-width="1.3"/></svg>Comando</button>
+  </div>
+  <div id="modeLabel">MODO EDIÇÃO</div>
+  <button class="mbtn on" id="bEdit" data-a="mode:edit" data-eo-action="ladder:mode-edit" title="Modo edição (F2)">✎</button>
+  <button class="mbtn" id="bSim" data-a="mode:sim" data-eo-action="ladder:mode-sim" title="Modo simulação (F3)">S</button>
+  <button class="mbtn on" id="bPanel" data-a="panel" data-eo-action="ladder:panel" title="Mostrar/ocultar o painel do CLP">▤</button>
+  <button class="tb" id="bFull" data-a="fullscreen" data-eo-action="ladder:fullscreen" title="Tela cheia"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><path d="M3 9V3h6M21 9V3h-6M3 15v6h6M21 15v6h-6"/></svg></button>
+</div>
+
+<div id="tabs">
+  <div class="tab on" data-a="tab:ladder" data-eo-action="ladder:tab-ladder" id="tabLadder">Introdução Ladder</div>
+  <div class="tab" data-a="tab:param" data-eo-action="ladder:tab-param" id="tabParam">Parametrização</div>
+</div>
+
+<div id="main">
+  <div id="ladderWrap">
+    <div id="ladder">
+      <div class="hdr"><div>Nº</div><div>Contato 1</div><div>Contato 2</div><div>Contato 3</div><div>Contato 4</div><div>Contato 5</div><div class="hc">Bobina</div><div class="hm">Comentário</div></div>
+      <div id="rows"></div>
+    </div>
+  </div>
+  <div id="paramView"></div>
+  <aside id="sim">
+    <div class="mod">
+      <div class="modtop"><b>CLP VIRTUAL</b><span>16 E · 10 S · 24 V</span></div>
+      <div class="lcd"><span id="lcdRun">STOP</span><span id="lcdTime">00:00,0</span></div>
+      <div class="ctrls">
+        <button id="bRun" title="Executar" data-eo-action="ladder:run">▶ RUN</button>
+        <button id="bStop" title="Parar" data-eo-action="ladder:stop">■ STOP</button>
+        <button id="bReset" title="Reiniciar estados (memórias, temporizadores, contadores)" data-eo-action="ladder:reiniciar">⟲ Reiniciar</button>
+      </div>
+      <h4>Entradas <small>clique no rótulo p/ trocar chave/botão</small></h4>
+      <div class="ins" id="pIn"></div>
+      <h4>Teclas Z</h4>
+      <div class="zk" id="pZ"></div>
+      <h4>Saídas</h4>
+      <div class="outs" id="pOut"></div>
+      <h4>Relés auxiliares</h4>
+      <div class="chips" id="pMem"></div>
+      <h4>Temporizadores</h4>
+      <div id="pTm"></div>
+      <h4>Contadores</h4>
+      <div id="pCt"></div>
+      <div id="pWarn"></div>
+    </div>
+  </aside>
+</div>
+
+<div id="palette"></div>
+
+<div id="status1">
+  <div id="lines">0 Linha(s) / 240</div>
+  <div class="modref"><span>16 E / 10 S</span><span>Ladder</span></div>
+</div>
+<div id="status2"><span id="msg">Pronto</span><span id="coords"></span></div>
+
+<div id="rotate" role="dialog" aria-label="Gire o aparelho"><div class="rbox">
+  <div class="phone"></div>
+  <h2>GIRE O APARELHO</h2>
+  <p>O editor ladder foi feito para a tela <b>na horizontal</b>. Vire o celular ou tablet de lado para ver todas as colunas e usar o painel do CLP com conforto.</p>
+  <button class="pri" id="rotFull" data-eo-action="ladder:tela-cheia-horizontal">Tela cheia na horizontal</button>
+  <button id="rotSkip" data-eo-action="ladder:continuar-vertical">Continuar na vertical</button>
+</div></div>
+<div id="pop"></div>
+<div id="ghost"></div>
+<div id="ctx"></div>
+<div id="modal"><div class="box" role="dialog" aria-modal="true" aria-labelledby="mTitle" tabindex="-1"><div class="mt"><span id="mTitle"></span><button data-close aria-label="Fechar" data-eo-action="ladder:modal-fechar">✕</button></div><div class="mb" id="mBody"></div><div class="mf" id="mFoot"></div></div></div>
+<input type="file" id="fileIn" accept=".json,application/json" hidden>
+<input type="file" id="zldIn" accept=".zld,.json,application/json" hidden>
+
+<script>
+"use strict";
+/* =====================================================================
+   ZelioSofrência — editor e simulador ladder educacional
+   Arquivo único, sem dependências.
+   ===================================================================== */
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const NROWS=240, NC=5;
+const SEQ='123456789ABCDEFGHJKLNPQRSTUV'.split('');           // numeração estilo Zelio (sem I, M, O)
+const names=(p,n)=>SEQ.slice(0,n).map(s=>p+s);
+/* esc: mesmo conjunto de EO.dom.esc (core/dom.js do site), copiado para o app ficar autonomo */
+const esc=s=>(s===null||s===undefined?'':String(s)).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const short=(s,n=18)=>s.length>n?s.slice(0,n-1)+'…':s;
+
+const CATS=[
+  {k:'I',title:'Entradas digitais',hint:'Contatos das entradas físicas',items:names('I',16),coils:null},
+  {k:'Z',title:'Teclas Z',hint:'Botões frontais do CLP',items:['Z1','Z2','Z3','Z4'],coils:null},
+  {k:'M',title:'Relés auxiliares',hint:'Memórias internas M e N',items:[...names('M',28),...names('N',28)],coils:['[','↑','S','R']},
+  {k:'Q',title:'Saídas',hint:'Relés de saída',items:names('Q',10),coils:['[','↑','S','R']},
+  {k:'T',title:'Temporizadores',hint:'T = comando (TT), R = reset (RT)',items:names('T',28),coils:['T','R']},
+  {k:'C',title:'Contadores',hint:'C = contagem, D = sentido decrescente, R = reset',items:names('C',28),coils:['C','D','R']},
+];
+const CAT_OF=ref=>{const k=ref[0];return k==='N'?'M':k};
+const COIL_NAME={'[':'Bobina (contator)','↑':'Telerruptor (impulso)','S':'Set (liga e mantém)','R':'Reset (desliga)','T':'Comando do temporizador (TT)','C':'Pulso de contagem (CC)','D':'Sentido decrescente (DC)'};
+const TIMER_TYPES={
+  A:['Atraso na energização (trabalho)','A saída liga após o tempo com o comando mantido; desliga junto com o comando.'],
+  C:['Atraso na desenergização (repouso)','A saída liga com o comando e desliga após o tempo contado depois que o comando cai.'],
+  B:['Pulso (passagem)','A saída liga com o comando e permanece ligada só durante o tempo ajustado.'],
+  D:['Pisca-pisca simétrico','Com o comando ativo, a saída alterna liga/desliga a cada período ajustado.'],
+  T:['Totalizador (retentivo)','Acumula o tempo enquanto o comando está ativo, mesmo com interrupções. Zera só pelo reset (R).']
+};
+
+/* ------------------------------------------------------------------ modelo */
+function newModel(){
+  return {v:1,
+    cells:Array.from({length:NROWS},()=>Array(NC).fill(null)),
+    coils:Array(NROWS).fill(null),
+    vl:Array.from({length:NROWS},()=>Array(NC+1).fill(false)),   // vl[r][k]: ligação vertical entre r e r+1 no nó k (1..5)
+    com:Array(NROWS).fill(''),
+    sym:{}, par:{}, inMode:{}};
+}
+let M=newModel();
+let view={style:'ladder',tab:'ladder',zoom:1};
+let sel=null;                  // {r,c}
+let tool='draw', simOn=false, anc=null;
+let undoS=[], redoS=[];
+let rowsShown=0;
+
+function cloneModel(m){return JSON.parse(JSON.stringify(m))}
+function pushUndo(){undoS.push(JSON.stringify(M)); if(undoS.length>150) undoS.shift(); redoS=[]}
+function undo(){if(simOn){msg('Volte ao modo edição (F2) para desfazer','err');return} if(!undoS.length){msg('Nada para desfazer');return} redoS.push(JSON.stringify(M)); M=JSON.parse(undoS.pop()); changed(true); msg('Desfeito')}
+function redo(){if(simOn){msg('Volte ao modo edição (F2) para refazer','err');return} if(!redoS.length){msg('Nada para refazer');return} undoS.push(JSON.stringify(M)); M=JSON.parse(redoS.pop()); changed(true); msg('Refeito')}
+
+/* Validação do programa (arquivo aberto, rascunho do navegador, API): só passa o que o editor sabe representar.
+   Tudo o que depois entra em innerHTML (ref, fn, tipo/unidade de temporizador, números) é reduzido a valores conhecidos. */
+const ALLREFS=new Set(CATS.flatMap(c=>c.items));
+const COIL_FNS={T:['T','R'],C:['C','D','R'],Q:['[','↑','S','R'],M:['[','↑','S','R'],N:['[','↑','S','R']};
+const okRef=r=>typeof r==='string'&&ALLREFS.has(r);
+const okFn=(ref,fn)=>typeof fn==='string'&&!!COIL_FNS[ref[0]]&&COIL_FNS[ref[0]].includes(fn);
+const clampNum=(v,lo,hi,def)=>{v=typeof v==='number'?v:parseFloat(v); return Number.isFinite(v)?Math.min(hi,Math.max(lo,v)):def};
+function normalizeModel(o){
+  const m=newModel(); if(!o||typeof o!=='object'||Array.isArray(o)) return m;
+  for(let r=0;r<NROWS;r++){
+    for(let c=0;c<NC;c++){const x=o.cells?.[r]?.[c]; if(x&&typeof x==='object'){ if(x.t==='w') m.cells[r][c]={t:'w'}; else if(x.t==='c'&&okRef(x.ref)) m.cells[r][c]={t:'c',ref:x.ref,neg:!!x.neg};}}
+    const cl=o.coils?.[r]; if(cl&&typeof cl==='object'&&okRef(cl.ref)&&okFn(cl.ref,cl.fn)) m.coils[r]={ref:cl.ref,fn:cl.fn};
+    for(let k=1;k<=NC;k++) m.vl[r][k]=!!o.vl?.[r]?.[k];
+    m.com[r]=typeof o.com?.[r]==='string'?o.com[r].slice(0,80):'';
+  }
+  if(o.sym&&typeof o.sym==='object') for(const k of Object.keys(o.sym)) if(okRef(k)&&(typeof o.sym[k]==='string'||typeof o.sym[k]==='number')) m.sym[k]=String(o.sym[k]).slice(0,40);
+  if(o.par&&typeof o.par==='object') for(const k of Object.keys(o.par)){
+    if(!okRef(k)||(k[0]!=='T'&&k[0]!=='C')) continue;
+    const p=o.par[k]; if(!p||typeof p!=='object') continue;
+    if(k[0]==='T') m.par[k]={type:'ABCDT'.includes(p.type)&&typeof p.type==='string'&&p.type.length===1?p.type:'A',preset:clampNum(p.preset,0,86400,3),unit:p.unit==='min'?'min':'s'};
+    else m.par[k]={preset:Math.round(clampNum(p.preset,0,32767,5))};
+  }
+  if(o.inMode&&typeof o.inMode==='object') for(const k of Object.keys(o.inMode)) if(okRef(k)) m.inMode[k]=o.inMode[k]==='push'?'push':'toggle';
+  return m;
+}
+
+function ensurePar(ref){
+  const k=ref[0];
+  if(k==='T'&&!M.par[ref]) M.par[ref]={type:'A',preset:3,unit:'s'};
+  if(k==='C'&&!M.par[ref]) M.par[ref]={preset:5};
+}
+function presetMs(ref){const p=M.par[ref]||{preset:3,unit:'s'}; return Math.max(0,+p.preset||0)*(p.unit==='min'?60000:1000)}
+
+function rowUsed(r){return M.cells[r].some(Boolean)||!!M.coils[r]||!!M.com[r]||M.vl[r].some(Boolean)}
+function lastUsed(){for(let r=NROWS-1;r>=0;r--) if(rowUsed(r)) return r; return -1}
+function usedRefs(){
+  const s=new Set();
+  for(let r=0;r<NROWS;r++){for(const x of M.cells[r]) if(x&&x.t==='c') s.add(x.ref); if(M.coils[r]) s.add(M.coils[r].ref)}
+  return s;
+}
+const sortRefs=a=>a.sort((x,y)=>x[0]===y[0]?SEQ.indexOf(x[1])-SEQ.indexOf(y[1]):'IZMNQTC'.indexOf(x[0])-'IZMNQTC'.indexOf(y[0]));
+
+/* ------------------------------------------------------------------ símbolos SVG */
+function symContact(neg,on,closed){
+  const cls='sym'+(on?' on':'');
+  return `<rect class="mask" x="-14" y="-12" width="28" height="24"/><g class="${cls}"><line x1="-15" y1="0" x2="-7" y2="0"/><line x1="7" y1="0" x2="15" y2="0"/><line x1="-7" y1="-11" x2="-7" y2="11"/><line x1="7" y1="-11" x2="7" y2="11"/>${neg?'<line x1="-10" y1="10" x2="10" y2="-10"/>':''}</g>`;
+}
+function symCoil(fn,on){
+  const letter={'[':'','↑':'↑',S:'S',R:'R',T:'T',C:'C',D:'D'}[fn]??fn;
+  const cls='sym'+(on?' on':'');
+  return `<rect class="mask" x="-16" y="-13" width="32" height="26"/><ellipse class="cbg${on?' on':''}" rx="10" ry="11"/><g class="${cls}"><line x1="-16" y1="0" x2="-11" y2="0"/><line x1="11" y1="0" x2="16" y2="0"/><path d="M-6 -12 Q-15 0 -6 12"/><path d="M6 -12 Q15 0 6 12"/></g><text class="cl${on?' on':''}" y="4">${esc(letter)}</text>`;
+}
+/* ---- símbolos de diagrama de comando (IEC 60617, desenhados na horizontal) ---- */
+function actuatorOf(ref){
+  const k=ref[0];
+  if(k==='T') return 'delay';                                    // contato temporizado; entradas I/Z são desenhadas só como contato
+  return null;
+}
+function symContactElec(ref,neg,on,closed){
+  const cls='sym'+(on?' on':'');
+  const [bx,by]=closed?(neg?[14,6]:[11,0]):[13,-9];          // ponta da lâmina
+  let s=`<rect class="mask" x="-17" y="-23" width="34" height="31"/><g class="${cls}"><line x1="-17" y1="0" x2="-11" y2="0"/><line x1="11" y1="0" x2="17" y2="0"/>`;
+  if(neg) s+=`<line x1="11" y1="0" x2="11" y2="7"/>`;           // batente do contato NF
+  s+=`<line x1="-11" y1="0" x2="${bx}" y2="${by}"/></g><circle class="term" cx="-11" r="1.8"/><circle class="term" cx="11" r="1.8"/>`;
+  const a=actuatorOf(ref);
+  if(a){
+    const mx=Math.round((-11+bx)/2), my=by/2;
+    if(a==='delay'){                                             // contato temporizado ("paraquedas")
+      const type=(M.par[ref]||{}).type||'A';
+      const arc=type==='C'?`M${mx-6} -14 A6 6 0 0 1 ${mx+6} -14`:`M${mx-6} -14 A6 6 0 0 0 ${mx+6} -14`;
+      s+=`<g class="act"><line x1="${mx-2}" y1="${my}" x2="${mx-2}" y2="-14"/><line x1="${mx+2}" y1="${my}" x2="${mx+2}" y2="-14"/><path d="${arc}"/></g>`;
+    }
+  }
+  return s;
+}
+function symCoilElec(ref,fn,on){
+  const cls='sym'+(on?' on':'');
+  const timer=ref[0]==='T'&&fn==='T';
+  const x0=timer?-23:-10;
+  const letter={'[':'','↑':'↑',S:'S',R:'R',T:'',C:'C',D:'D'}[fn]??fn;
+  let s=`<rect class="mask" x="${x0-7}" y="-12" width="${24-x0}" height="24"/><rect class="cbg${on?' on':''}" x="-10" y="-8" width="20" height="16"/>`;
+  s+=`<g class="${cls}"><line x1="${x0-7}" y1="0" x2="${x0}" y2="0"/><line x1="10" y1="0" x2="17" y2="0"/><rect class="box" x="-10" y="-8" width="20" height="16"/>`;
+  if(timer){
+    const type=(M.par[ref]||{}).type||'A';
+    s+=`<rect class="box" x="-23" y="-8" width="13" height="16"/>`;
+    if(type==='A'||type==='T') s+=`<line x1="-23" y1="-8" x2="-10" y2="8"/><line x1="-23" y1="8" x2="-10" y2="-8"/>`;   // retardo na operação
+    else if(type==='C') s+=`<rect class="fillb" x="-21" y="-6" width="9" height="12"/>`;                             // retardo na liberação
+    else s+=`<path d="M-21 4 H-18.5 V-4 H-15.5 V4 H-12.5 V-4" />`;                                                      // pulso / pisca
+  }
+  if(ref[0]!=='T'&&ref[0]!=='C'&&fn==='↑') s+=`<line x1="-6" y1="8" x2="6" y2="-8"/>`;           // relé de impulso
+  s+=`</g>`;
+  if(letter&&fn!=='↑') s+=`<text class="cl${on?' on':''}" y="4">${esc(letter)}</text>`;
+  s+=`<text class="tt e" x="${x0-2}" y="-3">A1</text><text class="tt s" x="12" y="-3">A2</text>`;
+  return s;
+}
+function ghostSVG(it){
+  const elec=view.style==='elec';
+  const inner=it.kind==='coil'?(elec?symCoilElec(it.ref,it.fn,false):symCoil(it.fn,false)):(elec?symContactElec(it.ref,it.neg,false,it.neg):symContact(it.neg,false,it.neg));
+  return `<svg viewBox="-30 -25 60 38"><line class="w" x1="-30" x2="30" y1="0" y2="0"/>${inner.replace(/class="mask"/,'class="gmask"')}</svg>`;
+}
+
+/* ------------------------------------------------------------------ grade */
+const rowsEl=$('#rows'), wrap=$('#ladderWrap');
+let cellEls=[], cellCache=[], comEls=[];
+function buildRows(n){
+  n=Math.min(NROWS,n);
+  const frag=document.createDocumentFragment();
+  for(let r=rowsShown;r<n;r++){
+    const row=document.createElement('div'); row.className='row'; row.dataset.r=r;
+    let h=`<div class="num">${String(r+1).padStart(3,'0')}</div>`;
+    for(let c=0;c<NC;c++) h+=`<div class="cell k" data-r="${r}" data-c="${c}"></div>`;
+    h+=`<div class="cell coil" data-r="${r}" data-c="5"></div><div class="com"><input data-r="${r}" maxlength="80" spellcheck="false"></div>`;
+    row.innerHTML=h; frag.appendChild(row);
+    cellEls[r]=[...row.querySelectorAll('.cell')]; cellCache[r]=Array(6).fill(null);
+    comEls[r]=row.querySelector('input'); comEls[r].value=M.com[r]||'';
+  }
+  rowsEl.appendChild(frag); rowsShown=Math.max(rowsShown,n);
+}
+function ensureRows(){const need=Math.min(NROWS,Math.max(40,lastUsed()+16, sel?sel.r+8:0)); if(need>rowsShown) buildRows(need)}
+function resetRows(){rowsEl.innerHTML='';rowsShown=0;cellEls=[];cellCache=[];comEls=[];buildRows(Math.min(NROWS,Math.max(40,lastUsed()+16)))}
+
+function contactInfo(ref){
+  if(!simOn) return '';
+  const k=ref[0];
+  if(k==='T'){const t=S.tm[ref]; const P=presetMs(ref); return `${fmtS(t?t.el:0)} / ${fmtS(P)} s`}
+  if(k==='C'){const c=S.ct[ref]; return `${c?c.val:0} / ${(M.par[ref]||{preset:5}).preset}`}
+  return '';
+}
+function cellHTML(r,c){
+  const run=simOn&&S.running, N=S.nodes;
+  if(c===5){
+    const cl=M.coils[r]; if(!cl) return '';
+    const p=run&&N[r][5];
+    const info=contactInfo(cl.ref), com=short(M.sym[cl.ref]||'');
+    return `<svg class="cs"><line class="w${p?' on':''}" x1="0" x2="100%" y1="50%" y2="50%"/><svg x="50%" y="50%" overflow="visible">${view.style==='elec'?`<g class="big" transform="scale(1.35)">${symCoilElec(cl.ref,cl.fn,p)}</g><text class="lbl" y="-16">${esc(cl.ref)}</text>`:symCoil(cl.fn,p)+`<text class="lbl" y="-17">${esc(cl.ref)}</text>`}${info?`<text class="info" y="26">${info}</text>`:`<text class="cm" y="26">${esc(com)}</text>`}</svg></svg>`;
+  }
+  const x=M.cells[r][c]; let s='';
+  if(x){
+    const L=run&&N[r][c], R=run&&N[r][c+1];
+    s+=`<line class="w${L?' on':''}" x1="0" x2="50%" y1="50%" y2="50%"/><line class="w${R?' on':''}" x1="50%" x2="100%" y1="50%" y2="50%"/>`;
+    if(x.t==='c'){
+      const v=simOn?val(x.ref):false, closed=simOn?(v!==x.neg):x.neg, hl=simOn&&closed;
+      const info=contactInfo(x.ref), com=short(M.sym[x.ref]||'');
+      s+=`<svg x="50%" y="50%" overflow="visible">${view.style==='elec'?`<g class="big" transform="scale(1.35)">${symContactElec(x.ref,x.neg,hl,closed)}</g><text class="lbl le" x="-26" y="-6">${esc(x.ref)}</text>`:symContact(x.neg,hl,closed)+`<text class="lbl" y="-17">${esc(x.ref)}</text>`}${info?`<text class="info" y="26">${info}</text>`:`<text class="cm" y="26">${esc(com)}</text>`}</svg>`;
+    }
+  }
+  let v='';
+  if(M.vl[r][c+1]) v=`<div class="vl${run&&N[r][c+1]?' on':''}"></div>`;
+  return (s?`<svg class="cs">${s}</svg>`:'')+v;
+}
+function render(){
+  for(let r=0;r<rowsShown;r++){
+    const els=cellEls[r], cache=cellCache[r];
+    for(let c=0;c<6;c++){const h=cellHTML(r,c); if(cache[c]!==h){els[c].innerHTML=h; cache[c]=h; els[c].classList.toggle('item',hasItem(r,c))}}
+  }
+}
+function renderSel(){
+  $$('#rows .sel,#rows .cur').forEach(e=>e.classList.remove('sel','cur'));
+  const R=selRect();
+  if(R){
+    for(let r=R.r1;r<=R.r2;r++){const row=cellEls[r]; if(!row) continue; for(let c=R.c1;c<=R.c2;c++) row[c].classList.add('sel'); if(R.c1===0&&R.c2===5) row[0].parentElement.querySelector('.num').classList.add('sel')}
+    if(cellEls[sel.r]&&(R.r1!==R.r2||R.c1!==R.c2)) cellEls[sel.r][sel.c].classList.add('cur');
+  }
+  $('#coords').textContent=!R?'':(R.r1===R.r2&&R.c1===R.c2)?`Linha ${String(sel.r+1).padStart(3,'0')} · ${sel.c<5?'Contato '+(sel.c+1):'Bobina'}`:`Seleção: ${R.r2-R.r1+1} linha(s) × ${R.c2-R.c1+1} coluna(s)`;
+}
+function countLines(){let n=0;for(let r=0;r<NROWS;r++) if(rowUsed(r)) n++; $('#lines').textContent=`${n} Linha(s) / ${NROWS}`}
+
+let saveT=0;
+function changed(full){
+  rungsDirty=true;
+  if(full){resetRows(); invalidate()} else ensureRows();
+  render(); renderSel(); countLines();
+  for(let r=0;r<rowsShown;r++){const el=comEls[r]; if(el&&el!==document.activeElement&&el.value!==M.com[r]) el.value=M.com[r]}
+  if(view.tab==='param') renderParam();
+  clearTimeout(saveT); saveT=setTimeout(autosave,400);
+}
+function invalidate(){for(const c of cellCache) c&&c.fill(null)}
+const DRAFT_KEY=(()=>{const d=new URLSearchParams(location.search).get('draft');return d&&/^[\w-]{1,80}$/.test(d)?'ladderclp.draft.'+d:'ladderclp.v1'})();
+function autosave(){try{localStorage.setItem(DRAFT_KEY,JSON.stringify(M))}catch(e){}}
+
+/* ------------------------------------------------------------------ mensagens */
+let msgT=0;
+function msg(t,kind){const e=$('#msg'); e.textContent=t; e.className=kind||''; clearTimeout(msgT); if(t!=='Pronto') msgT=setTimeout(()=>{e.textContent=simOn?'Simulação':'Pronto';e.className=''},4500)}
+
+/* ------------------------------------------------------------------ seleção, área de transferência e movimento */
+let draw=null, press=null, mv=null, band=null, hover=null, clip=null, pan=null, spaceHeld=false;
+function cellAt(x,y){const el=document.elementFromPoint(x,y); return el&&el.closest?el.closest('#rows .cell'):null}
+function fillH(r,c1,c2,erase){
+  for(let c=Math.min(c1,c2);c<=Math.max(c1,c2);c++){
+    if(erase){if(M.cells[r][c]&&M.cells[r][c].t==='w') M.cells[r][c]=null} else if(!M.cells[r][c]) M.cells[r][c]={t:'w'};
+  }
+}
+function selRect(){if(!sel) return null; const a=anc||sel; return {r1:Math.min(a.r,sel.r),r2:Math.max(a.r,sel.r),c1:Math.min(a.c,sel.c),c2:Math.max(a.c,sel.c)}}
+function inRect(R,r,c){return R&&r>=R.r1&&r<=R.r2&&c>=R.c1&&c<=R.c2}
+function select(r,c,extend){if(extend&&sel){if(!anc) anc={...sel}} else anc=null; sel={r,c}; renderSel()}
+function selectRows(r1,r2){anc={r:r1,c:0}; sel={r:r2,c:5}; renderSel()}
+/* bloco = retângulo de células (colunas 0..4 = contatos, 5 = bobina) */
+function extract(R){
+  const b={h:R.r2-R.r1+1,w:R.c2-R.c1+1,cells:[],coils:R.c2===5?[]:null,vl:[],com:null,rows:R.c1===0&&R.c2===5};
+  if(b.rows) b.com=[];
+  for(let i=0;i<b.h;i++){
+    const r=R.r1+i, row=[];
+    for(let c=R.c1;c<=Math.min(R.c2,4);c++) row.push(M.cells[r][c]?{...M.cells[r][c]}:null);
+    b.cells.push(row);
+    if(b.coils) b.coils.push(M.coils[r]?{...M.coils[r]}:null);
+    if(b.com) b.com.push(M.com[r]);
+    if(i<b.h-1){const ks=[]; for(let k=R.c1+1;k<=Math.min(R.c2+1,5);k++) if(M.vl[r][k]) ks.push(k-R.c1); b.vl.push(ks)}
+  }
+  return b;
+}
+const blockEmpty=b=>!b.cells.some(r=>r.some(Boolean))&&!(b.coils&&b.coils.some(Boolean))&&!b.vl.some(v=>v.length)&&!(b.com&&b.com.some(Boolean));
+const validPlace=(b,R0,C0)=>R0>=0&&R0+b.h<=NROWS&&C0>=0&&(b.coils?C0+b.w-1===5:C0+b.w-1<=4);
+function clearRect(R){
+  for(let r=R.r1;r<=R.r2;r++){
+    for(let c=R.c1;c<=Math.min(R.c2,4);c++) M.cells[r][c]=null;
+    if(R.c2===5) M.coils[r]=null;
+    if(R.c1===0&&R.c2===5) M.com[r]='';
+    if(r<R.r2) for(let k=R.c1+1;k<=Math.min(R.c2+1,5);k++) M.vl[r][k]=false;
+  }
+}
+function placeBlock(b,R0,C0){
+  const nc=b.cells[0].length;
+  for(let i=0;i<b.h;i++){
+    const r=R0+i;
+    b.cells[i].forEach((x,j)=>{M.cells[r][C0+j]=x?{...x}:null; if(x&&x.ref) ensurePar(x.ref)});
+    if(b.coils){M.coils[r]=b.coils[i]?{...b.coils[i]}:null; if(b.coils[i]) ensurePar(b.coils[i].ref)}
+    if(b.com) M.com[r]=b.com[i];
+    if(i<b.h-1){for(let k=C0+1;k<=Math.min(C0+nc,5);k++) M.vl[r][k]=false; for(const rel of b.vl[i]) M.vl[r][C0+rel]=true}
+  }
+}
+function freeTail(n){for(let i=NROWS-n;i<NROWS;i++) if(rowUsed(i)) return false; return true}
+function insertRowsRaw(r,n){
+  const pass=r>0?M.vl[r-1].slice():Array(NC+1).fill(false);   // mantém ligações paralelas atravessando as novas linhas
+  for(let i=0;i<n;i++){
+    M.cells.splice(r,0,Array(NC).fill(null)); M.cells.pop();
+    M.coils.splice(r,0,null); M.coils.pop();
+    M.com.splice(r,0,''); M.com.pop();
+    M.vl.splice(r,0,pass.slice()); M.vl.pop();
+  }
+}
+function doCopy(cut){
+  const R=selRect(); if(!R){msg('Selecione uma célula ou um bloco primeiro','err');return}
+  const b=extract(R); if(blockEmpty(b)){msg('A seleção está vazia','err');return}
+  clip=b;
+  if(cut){pushUndo(); clearRect(R); changed(b.rows); msg(`Recortado: ${b.h} linha(s) × ${b.w} coluna(s) — Ctrl+V para colar`,'ok')}
+  else msg(`Copiado: ${b.h} linha(s) × ${b.w} coluna(s) — selecione o destino e use Ctrl+V`,'ok');
+}
+function doPaste(){
+  if(!clip){msg('Nada copiado ainda (Ctrl+C)','err');return}
+  if(!sel){msg('Selecione onde colar','err');return}
+  const R=selRect();
+  if(clip.rows){                                   // linhas inteiras: insere novas linhas
+    let r0=R.r1; while(r0>0&&r0<NROWS&&M.vl[r0-1].some(Boolean)) r0++;   // não cola no meio de um degrau
+    if(r0+clip.h>NROWS||!freeTail(clip.h)){msg('Não há linhas livres suficientes no fim do programa','err');return}
+    pushUndo(); insertRowsRaw(r0,clip.h); placeBlock(clip,r0,0);
+    changed(true); selectRows(r0,r0+clip.h-1); msg(`${clip.h} linha(s) colada(s)`,'ok'); return;
+  }
+  const C0=clip.coils?6-clip.w:Math.max(0,Math.min(sel.c,5-clip.w));
+  const R0=Math.min(R.r1,NROWS-clip.h);
+  if(!validPlace(clip,R0,C0)){msg('O bloco não cabe nessa posição','err');return}
+  pushUndo(); placeBlock(clip,R0,C0); changed();
+  anc={r:R0,c:C0}; sel={r:R0+clip.h-1,c:C0+clip.w-1}; if(clip.h===1&&clip.w===1) anc=null; renderSel();
+  msg('Colado','ok');
+}
+function moveBy(dr,dc){
+  const R=selRect(); if(!R) return;
+  const b=extract(R); if(blockEmpty(b)) return;
+  if(b.coils) dc=0;
+  const tr=R.r1+dr, tc=R.c1+dc;
+  if(!(dr||dc)||!validPlace(b,tr,tc)){msg('Não é possível mover nessa direção','err');return}
+  pushUndo(); clearRect(R); placeBlock(b,tr,tc);
+  if(anc) anc={r:anc.r+dr,c:anc.c+dc}; sel={r:sel.r+dr,c:sel.c+dc};
+  changed(b.rows); renderSel();
+}
+function startMove(r,c){
+  const R0=selRect(), inSel=inRect(R0,r,c);
+  const R=inSel?R0:{r1:r,r2:r,c1:c,c2:c};
+  const b=extract(R); if(blockEmpty(b)) return false;
+  if(!inSel) select(r,c);
+  mv={R,b,r0:r,c0:c,tr:R.r1,tc:R.c1,ok:false,prev:[]};
+  document.body.classList.add('moving');
+  return true;
+}
+function moveOver(e){
+  autoScroll(e.clientY);
+  const el=cellAt(e.clientX,e.clientY); if(!el) return;
+  const r=+el.dataset.r, c=+el.dataset.c;
+  const dr=r-mv.r0, dc=mv.b.coils?0:c-mv.c0;
+  mv.tr=mv.R.r1+dr; mv.tc=mv.R.c1+dc;
+  mv.ok=!!(dr||dc)&&validPlace(mv.b,mv.tr,mv.tc);
+  mv.prev.forEach(x=>x.classList.remove('dropok','dropbad')); mv.prev=[];
+  if(!(dr||dc)) return;
+  for(let i=0;i<mv.b.h;i++){const row=cellEls[mv.tr+i]; if(!row) continue;
+    for(let j=0;j<mv.b.w;j++){const x=row[mv.tc+j]; if(x){x.classList.add(mv.ok?'dropok':'dropbad'); mv.prev.push(x)}}}
+}
+function finishMove(){
+  const m=mv; mv=null; document.body.classList.remove('moving');
+  m.prev.forEach(x=>x.classList.remove('dropok','dropbad'));
+  if(m.tr===m.R.r1&&m.tc===m.R.c1) return;
+  if(!m.ok){msg('Não é possível mover para lá — bobinas ficam só na coluna Bobina e contatos nas colunas Contato','err');return}
+  pushUndo(); clearRect(m.R); placeBlock(m.b,m.tr,m.tc);
+  anc={r:m.tr,c:m.tc}; sel={r:m.tr+m.b.h-1,c:m.tc+m.b.w-1}; if(m.b.h===1&&m.b.w===1) anc=null;
+  changed(m.b.rows); renderSel(); msg('Movido','ok');
+}
+
+/* ------------------------------------------------------------------ pan (botão do meio, ferramenta Pan ou Espaço segurado) */
+wrap.addEventListener('pointerdown',e=>{
+  if(e.target.closest('.hdr')) return;
+  if(e.button===1||(e.button===0&&(spaceHeld||(tool==='pan'&&!simOn)))){
+    e.preventDefault(); e.stopPropagation(); hideCtx(); closeMenus();
+    pan={x:e.clientX,y:e.clientY,sl:wrap.scrollLeft,st:wrap.scrollTop};
+    try{wrap.setPointerCapture(e.pointerId)}catch(_){}
+    document.body.classList.add('panning');
+  }
+},true);
+wrap.addEventListener('pointermove',e=>{if(!pan) return; wrap.scrollLeft=pan.sl-(e.clientX-pan.x); wrap.scrollTop=pan.st-(e.clientY-pan.y)});
+const endPan=()=>{if(pan){pan=null; document.body.classList.remove('panning')}};
+wrap.addEventListener('pointerup',endPan); wrap.addEventListener('pointercancel',endPan);
+wrap.addEventListener('mousedown',e=>{if(e.button===1) e.preventDefault()});
+wrap.addEventListener('auxclick',e=>{if(e.button===1) e.preventDefault()});
+
+/* ------------------------------------------------------------------ toque: dois dedos rolam a grade */
+const touches=new Map(); let pan2=null, lp=null, lpAt=0, tap=null, lastTap=null, dblAt=0;
+const avgT=()=>{let x=0,y=0; for(const p of touches.values()){x+=p.x;y+=p.y} return {x:x/touches.size,y:y/touches.size}};
+function cancelGesture(){
+  clearLP();
+  if(draw&&draw.snap){M=JSON.parse(undoS.pop()); changed(true)}
+  draw=null; press=null; band=null; tap=null; document.body.classList.remove('erasing','drawing');
+  if(mv){mv.prev.forEach(x=>x.classList.remove('dropok','dropbad')); mv=null; document.body.classList.remove('moving')}
+}
+function clearLP(){if(lp){clearTimeout(lp.t); lp=null}}
+wrap.addEventListener('pointerdown',e=>{
+  if(e.pointerType!=='touch') return;
+  touches.set(e.pointerId,{x:e.clientX,y:e.clientY});
+  if(touches.size===2){
+    e.preventDefault(); e.stopPropagation(); cancelGesture();
+    const a=avgT(); pan2={x:a.x,y:a.y,sl:wrap.scrollLeft,st:wrap.scrollTop};
+  } else if(touches.size>2){e.stopPropagation()}
+},true);
+wrap.addEventListener('pointermove',e=>{
+  if(!touches.has(e.pointerId)) return;
+  touches.set(e.pointerId,{x:e.clientX,y:e.clientY});
+  if(pan2&&touches.size>=2){const a=avgT(); wrap.scrollLeft=pan2.sl-(a.x-pan2.x); wrap.scrollTop=pan2.st-(a.y-pan2.y); e.stopPropagation()}
+},true);
+const endTouch=e=>{touches.delete(e.pointerId); if(touches.size<2&&pan2){pan2=null; if(touches.size===0) return; e.stopPropagation()}};
+wrap.addEventListener('pointerup',endTouch,true); wrap.addEventListener('pointercancel',endTouch,true);
+
+/* ------------------------------------------------------------------ mouse na grade */
+rowsEl.addEventListener('pointerdown',e=>{
+  if(e.target.closest('.com')) return;
+  hideCtx(); closeMenus();
+  const numEl=e.target.closest('.num');
+  if(numEl){
+    if(simOn||e.button!==0) return;
+    const r=+numEl.parentElement.dataset.r;
+    if(e.shiftKey&&sel) selectRows(anc?anc.r:sel.r,r); else selectRows(r,r);
+    band={rows:true,r}; try{rowsEl.setPointerCapture(e.pointerId)}catch(_){}
+    e.preventDefault(); return;
+  }
+  const cell=e.target.closest('.cell'); if(!cell) return;
+  const r=+cell.dataset.r, c=+cell.dataset.c;
+  if(simOn){simCellPress(r,c,e); return}
+  if(e.button!==0) return;
+  try{rowsEl.setPointerCapture(e.pointerId)}catch(_){}
+  e.preventDefault();
+  if(e.pointerType==='touch'){                        // toque longo = menu de opções; toque duplo = inverter NA/NF
+    tap={r,c};
+    clearLP(); lp={x:e.clientX,y:e.clientY,t:setTimeout(()=>{const l=lp; lp=null; cancelGesture(); lpAt=Date.now(); if(navigator.vibrate) try{navigator.vibrate(15)}catch(_){} showCellCtx(cell,l.x,l.y)},550)};
+  }
+  if(tool==='select'){                                 // seleção múltipla: arrastar marca um bloco; arrastar o bloco marcado move
+    const R0=selRect(), multi=R0&&(R0.r1!==R0.r2||R0.c1!==R0.c2);
+    if(multi&&inRect(R0,r,c)){press={r,c,x0:e.clientX,y0:e.clientY}; return}
+    select(r,c); band={r,c}; return;
+  }
+  if(tool==='move'||e.ctrlKey||e.metaKey){
+    if(startMove(r,c)) return;
+    select(r,c); band={r,c}; return;                   // área vazia: seleção por retângulo
+  }
+  if(e.shiftKey){                                      // Shift: estende a seleção (clique) ou seleciona por retângulo (arrasto)
+    if(!sel) select(r,c); else {if(!anc) anc={...sel}; sel={r,c}; renderSel()}
+    band={r:anc?anc.r:r,c:anc?anc.c:c}; return;
+  }
+  const R0=selRect(), multi=R0&&(R0.r1!==R0.r2||R0.c1!==R0.c2), inSel=multi&&inRect(R0,r,c);
+  if(hasItem(r,c)||inSel){                             // contato/bobina (ou bloco selecionado): só seleciona; arrastar move
+    if(!inSel) select(r,c);
+    press={r,c,x0:e.clientX,y0:e.clientY};
+    return;
+  }
+  select(r,c);                                         // clique simples só seleciona — nada é criado nem apagado
+  if(c===5) return;
+  draw={r,c,lr:r,lc:c,moved:false,mode:null,snap:false};
+});
+function hasItem(r,c){return c===5?!!M.coils[r]:!!(M.cells[r][c]&&M.cells[r][c].t==='c')}
+/* decide no primeiro trecho arrastado: passando sobre ligação existente apaga, sobre espaço vazio cria */
+function strokeMode(lr,lc,r,c,k){
+  if(c!==lc){const st=M.cells[lr][lc], nx=M.cells[lr][lc+(c>lc?1:-1)]; return st&&st.t==='w'&&nx?'erase':'draw'}
+  return M.vl[Math.min(r,lr)][k]?'erase':'draw';
+}
+function vNode(el,e,c){const rect=el.getBoundingClientRect(); let k=e.clientX<rect.left+rect.width/2?c:c+1; return k===0?1:k}
+rowsEl.addEventListener('pointermove',e=>{
+  if(lp&&Math.hypot(e.clientX-lp.x,e.clientY-lp.y)>8){clearLP(); tap=null}
+  if(mv){moveOver(e); return}
+  if(press){
+    const el=cellAt(e.clientX,e.clientY), other=el&&(+el.dataset.r!==press.r||+el.dataset.c!==press.c);
+    if(!other&&Math.hypot(e.clientX-press.x0,e.clientY-press.y0)<8) return;
+    const p=press; press=null;
+    if(startMove(p.r,p.c)) moveOver(e);
+    return;
+  }
+  if(band){
+    autoScroll(e.clientY);
+    const el=document.elementFromPoint(e.clientX,e.clientY), row=el&&el.closest&&el.closest('#rows .row'); if(!row) return;
+    const r=+row.dataset.r;
+    if(band.rows){selectRows(anc?anc.r:band.r,r); return}
+    const cell=el.closest('.cell'); if(!cell) return;
+    anc={r:band.r,c:band.c}; sel={r,c:+cell.dataset.c}; renderSel(); return;
+  }
+  if(!draw){const el=e.target.closest&&e.target.closest('.cell'); hover=el?{r:+el.dataset.r,c:+el.dataset.c}:null; return}
+  autoScroll(e.clientY);
+  const el=cellAt(e.clientX,e.clientY);
+  if(!el||!el.classList.contains('k')) return;
+  const r=+el.dataset.r, c=+el.dataset.c;
+  if(r===draw.lr&&c===draw.lc) return;
+  const lr=draw.lr, k=vNode(el,e,c);
+  if(!draw.mode){draw.mode=strokeMode(lr,draw.lc,r,c,k); document.body.classList.add(draw.mode==='erase'?'erasing':'drawing')}
+  if(!draw.snap){pushUndo(); draw.snap=true}
+  draw.moved=true;
+  const erase=draw.mode==='erase';
+  if(c!==draw.lc) fillH(lr,draw.lc,c,erase);
+  if(r!==lr) for(let rr=Math.min(r,lr);rr<Math.max(r,lr);rr++) M.vl[rr][k]=!erase;
+  draw.lr=r; draw.lc=c; sel={r,c}; anc=null;
+  changed();
+});
+rowsEl.addEventListener('pointerleave',()=>{hover=null});
+function endDraw(e){
+  clearLP();
+  if(tap&&!mv&&!(draw&&draw.moved)){
+    const t=tap, now=Date.now();
+    if(lastTap&&lastTap.r===t.r&&lastTap.c===t.c&&now-lastTap.t<380){lastTap=null; dblAt=now; press=null; draw=null; cellDbl(t.r,t.c); tap=null; return}
+    lastTap={...t,t:now};
+  }
+  tap=null;
+  press=null;
+  if(mv){finishMove(); return}
+  if(band){band=null; const R=selRect(); if(R&&(R.r1!==R.r2||R.c1!==R.c2)) msg(`Seleção: ${R.r2-R.r1+1} linha(s) × ${R.c2-R.c1+1} coluna(s) — arraste o bloco para mover, Ctrl+C copia, Del apaga`,'ok'); return}
+  if(!draw) return;
+  const d=draw; draw=null; document.body.classList.remove('erasing','drawing');
+  if(d.moved) msg(d.mode==='erase'?'Ligações apagadas (contatos e bobinas são preservados)':'Ligação desenhada — arraste contatos do menu inferior para cima dos traços','ok');
+}
+rowsEl.addEventListener('pointerup',endDraw);
+rowsEl.addEventListener('pointercancel',()=>{clearLP(); tap=null; draw=null; band=null; press=null; document.body.classList.remove('erasing','drawing'); if(mv){mv.prev.forEach(x=>x.classList.remove('dropok','dropbad')); mv=null; document.body.classList.remove('moving')}});
+function autoScroll(y){
+  const r=wrap.getBoundingClientRect();
+  if(y<r.top+46) wrap.scrollTop-=12; else if(y>r.bottom-26) wrap.scrollTop+=12;
+}
+function toggleAt(t){
+  if(!t||simOn) return false;
+  if(t.c<5){const x=M.cells[t.r][t.c]; if(x&&x.t==='c'){pushUndo(); x.neg=!x.neg; changed(); msg(`${x.ref}: contato ${x.neg?'NF (normalmente fechado)':'NA (normalmente aberto)'}`); return true}}
+  else{const cl=M.coils[t.r]; if(cl&&'QMN'.includes(cl.ref[0])){const seq=['[','↑','S','R']; pushUndo(); cl.fn=seq[(seq.indexOf(cl.fn)+1)%4]; changed(); msg(`${cl.ref}: ${COIL_NAME[cl.fn]}`); return true}}
+  return false;
+}
+rowsEl.addEventListener('dblclick',e=>{
+  if(simOn||Date.now()-dblAt<700) return;
+  const cell=(e.target.closest&&e.target.closest('.cell'))||cellAt(e.clientX,e.clientY); if(!cell) return;   // com captura do ponteiro o alvo vira a grade inteira
+  cellDbl(+cell.dataset.r,+cell.dataset.c);
+});
+function cellDbl(r,c){
+  if(simOn) return;
+  const cl=c===5&&M.coils[r];
+  if(cl&&'TC'.includes(cl.ref[0])){openParams(cl.ref); return}
+  const x=c<5&&M.cells[r][c];
+  if(x&&x.t==='c'&&'TC'.includes(x.ref[0])){openParams(x.ref,{r,c}); return}   // contato de temporizador/contador: abre os parâmetros
+  toggleAt({r,c});
+}
+rowsEl.addEventListener('input',e=>{
+  if(!e.target.matches('.com input')) return;
+  M.com[+e.target.dataset.r]=e.target.value; countLines(); clearTimeout(saveT); saveT=setTimeout(autosave,400);
+});
+let comSnap=false;
+rowsEl.addEventListener('focusin',e=>{if(e.target.matches('.com input')) comSnap=true});
+rowsEl.addEventListener('beforeinput',e=>{if(comSnap&&e.target.matches('.com input')){pushUndo(); comSnap=false}});
+
+/* ------------------------------------------------------------------ menu de contexto */
+const ctx=$('#ctx');
+rowsEl.addEventListener('contextmenu',e=>{
+  e.preventDefault(); if(Date.now()-lpAt<1200) return;   // já aberto pelo toque longo
+  showCellCtx(e.target.closest('.cell'),e.clientX,e.clientY);
+});
+function showCellCtx(cell,X,Y){
+  if(simOn||!cell) return;
+  const r=+cell.dataset.r, c=+cell.dataset.c;
+  const R0=selRect(), multi=R0&&(R0.r1!==R0.r2||R0.c1!==R0.c2);
+  if(!inRect(R0,r,c)) select(r,c);
+  const items=[];
+  if(multi&&inRect(R0,r,c)){
+    items.push(['t',`Seleção ${R0.r2-R0.r1+1} × ${R0.c2-R0.c1+1}`],['copy','Copiar  (Ctrl+C)'],['cut','Recortar  (Ctrl+X)'],['paste','Colar  (Ctrl+V)'],['del','Apagar seleção  (Del)']);
+  } else {
+    if(c<5){const x=M.cells[r][c];
+      if(x&&x.t==='c'){items.push(['t',x.ref+(M.sym[x.ref]?' — '+M.sym[x.ref]:'')],['invert',(x.neg?'Tornar NA (normalmente aberto)':'Tornar NF (normalmente fechado)')+'  (Espaço)']); items.push(['cmt:'+x.ref,(M.sym[x.ref]?'Editar comentário de ':'Adicionar comentário a ')+x.ref+'…']); if('TC'.includes(x.ref[0])) items.push(['par:'+x.ref,'Parâmetros…'])}
+      if(x) items.push(['del','Apagar célula']);
+      if(M.vl[r][c+1]||(r>0&&M.vl[r-1][c+1])) items.push(['vdel:'+(c+1),'Remover ligação vertical à direita']);
+      if(c>0&&(M.vl[r][c]||(r>0&&M.vl[r-1][c]))) items.push(['vdel:'+c,'Remover ligação vertical à esquerda']);
+    } else {const cl=M.coils[r];
+      if(cl){items.push(['t',cl.ref+' — '+(COIL_NAME[cl.fn]||cl.fn)]);
+        const k=cl.ref[0];
+        if('QMN'.includes(k)) for(const f of ['[','↑','S','R']) if(f!==cl.fn) items.push(['fn:'+f,'Mudar para: '+COIL_NAME[f]]);
+        if('TC'.includes(k)) items.push(['par:'+cl.ref,'Parâmetros…']);
+        items.push(['cmt:'+cl.ref,(M.sym[cl.ref]?'Editar comentário de ':'Adicionar comentário a ')+cl.ref+'…']);
+        items.push(['del','Apagar bobina'])}
+    }
+    if(items.length) items.push(['hr']);
+    items.push(['copy','Copiar  (Ctrl+C)'],['cut','Recortar  (Ctrl+X)'],['paste','Colar  (Ctrl+V)']);
+  }
+  items.push(['hr'],['rowcmt',(M.com[r]?'Editar':'Adicionar')+' comentário da linha '+String(r+1).padStart(3,'0')+'…'],['rowins','Inserir linha acima'],['rowinsb','Inserir linha abaixo'],['rowdel','Excluir linha(s)']);
+  ctx.innerHTML=items.map(([a,t])=>a==='hr'?'<hr>':a==='t'?`<div class="t">${esc(t)}</div>`:`<div data-a="${esc(a)}" data-eo-action="ladder:ctx-${esc(a.split(':')[0])}">${esc(t)}</div>`).join('');
+  ctx.style.display='block';
+  const w=ctx.offsetWidth,h=ctx.offsetHeight;
+  ctx.style.left=Math.max(4,Math.min(X,innerWidth-w-4))+'px'; ctx.style.top=Math.max(4,Math.min(Y,innerHeight-h-4))+'px';
+}
+ctx.addEventListener('click',e=>{const d=e.target.closest('[data-a]'); if(!d) return; hideCtx(); act(d.dataset.a)});
+function hideCtx(){ctx.style.display='none'}
+
+/* ------------------------------------------------------------------ edição de linhas */
+function insertRow(r){
+  if(!freeTail(1)){msg('A última linha está em uso — não é possível inserir','err');return}
+  pushUndo(); insertRowsRaw(r,1);
+  changed(true); select(r,sel?sel.c:0);
+}
+function deleteRows(r,n){
+  pushUndo();
+  for(let i=0;i<n;i++){
+    if(r>0) for(let k=0;k<=NC;k++) M.vl[r-1][k]=M.vl[r-1][k]&&M.vl[r][k];
+    M.cells.splice(r,1); M.cells.push(Array(NC).fill(null));
+    M.coils.splice(r,1); M.coils.push(null);
+    M.com.splice(r,1); M.com.push('');
+    M.vl.splice(r,1); M.vl.push(Array(NC+1).fill(false));
+  }
+  anc=null; sel={r,c:sel?sel.c:0};
+  changed(true); renderSel();
+}
+
+/* ------------------------------------------------------------------ paleta inferior e popup */
+const ICONS={
+  I:'<svg viewBox="0 0 30 20"><path d="M2 14h7l11-9M22 14h6" stroke="#123" stroke-width="2" fill="none"/></svg><sup>I</sup>',
+  Z:'<svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="7.5" fill="#1846d6" stroke="#0b245f"/></svg><sup>Z</sup>',
+  M:'<svg viewBox="0 0 22 20"><path d="M1 10h4M17 10h4" stroke="#123" stroke-width="2"/><rect x="5" y="4" width="12" height="12" fill="#fff" stroke="#123" stroke-width="2"/></svg><sup>M</sup>',
+  Q:'<svg viewBox="0 0 22 20"><path d="M1 10h4M17 10h4" stroke="#123" stroke-width="2"/><rect x="5" y="4" width="12" height="12" fill="#fff" stroke="#123" stroke-width="2"/><path d="M5 16L17 4" stroke="#123" stroke-width="1.4"/></svg><sup>Q</sup>',
+  T:'<svg viewBox="0 0 20 20"><circle cx="10" cy="11.5" r="7" fill="#fff6c9" stroke="#123" stroke-width="1.8"/><path d="M10 11.5V7M8 2.5h4" stroke="#123" stroke-width="1.8"/></svg><sup>T</sup>',
+  C:'<svg viewBox="0 0 34 20"><rect x="1" y="3" width="32" height="14" rx="2" fill="#123"/><text x="17" y="14.5" text-anchor="middle" fill="#fff" font-size="11" font-weight="bold" font-family="Consolas,monospace">061</text></svg><sup>C</sup>'
+};
+const pal=$('#palette');
+pal.innerHTML=CATS.map(c=>`<button class="pb" data-k="${c.k}" title="${c.title}" data-eo-action="ladder:paleta-${c.k.toLowerCase()}">${ICONS[c.k]}</button>`).join('')+`<span class="ptip">Passe o mouse sobre um ícone e arraste o item desejado para a grade</span>`;
+const pop=$('#pop');
+let popCat=null, popClose=0, dropNeg=false;
+function openPop(k,btn){
+  if(simOn) return;
+  clearTimeout(popClose);
+  if(popCat===k&&pop.style.display==='block') return;
+  popCat=k; $$('.pb').forEach(b=>b.classList.toggle('open',b===btn));
+  const cat=CATS.find(c=>c.k===k);
+  const gsz=cat.items.length>16?14:cat.items.length;
+  let groups='';
+  for(let g=0;g<cat.items.length;g+=gsz){
+    const its=cat.items.slice(g,g+gsz);
+    groups+=`<table class="ptab"><thead><tr><th>Nº</th><th>Contato</th>${cat.coils?`<th class="bc" colspan="${cat.coils.length}">Bobina</th>`:''}<th class="cm">Comentário</th></tr></thead><tbody>`+
+      its.map((ref,i)=>`<tr><td class="n">${String(g+i+1).padStart(2,'0')}</td><td class="pi-name" data-ref="${ref}" title="Arraste para uma coluna de contato">${ref}</td>${cat.coils?cat.coils.map(f=>`<td class="pi-coil" data-ref="${ref}" data-fn="${f}" title="${COIL_NAME[f]} — arraste para a coluna Bobina">${f}</td>`).join(''):''}<td class="c"><input class="pcom" data-ref="${ref}" value="${esc(M.sym[ref]||'')}" maxlength="40" spellcheck="false"></td></tr>`).join('')+
+      `</tbody></table>`;
+  }
+  pop.innerHTML=`<div class="ph"><b>${cat.k} · ${cat.title}</b><span>${cat.hint}</span><div class="seg" title="Tipo do contato ao arrastar"><button data-neg="0" class="${dropNeg?'':'on'}">NA</button><button data-neg="1" class="${dropNeg?'on':''}">NF</button></div></div><div class="pgroups">${groups}</div>`;
+  pop.style.display='block';
+  const br=btn.getBoundingClientRect(), pr=pal.getBoundingClientRect();
+  pop.style.bottom=(innerHeight-pr.top+3)+'px';
+  pop.style.left=Math.max(6,Math.min(br.left,innerWidth-pop.offsetWidth-8))+'px';
+}
+function closePop(){pop.style.display='none';popCat=null;$$('.pb').forEach(b=>b.classList.remove('open'))}
+function schedClose(){clearTimeout(popClose); popClose=setTimeout(()=>{if(pop.contains(document.activeElement)) return; closePop()},280)}
+pal.addEventListener('pointerover',e=>{const b=e.target.closest('.pb'); if(b&&e.pointerType==='mouse') openPop(b.dataset.k,b)});
+pal.addEventListener('click',e=>{const b=e.target.closest('.pb'); if(!b) return; if(popCat===b.dataset.k) closePop(); else openPop(b.dataset.k,b)});
+pal.addEventListener('pointerleave',e=>{if(e.pointerType==='mouse'&&!itemDrag) schedClose()});
+pop.addEventListener('pointerenter',()=>clearTimeout(popClose));
+pop.addEventListener('pointerleave',e=>{if(e.pointerType==='mouse'&&!itemDrag) schedClose()});
+pop.addEventListener('focusout',()=>setTimeout(()=>{if(!pop.matches(':hover')&&!pop.contains(document.activeElement)) closePop()},50));
+pop.addEventListener('click',e=>{const b=e.target.closest('[data-neg]'); if(!b) return; dropNeg=b.dataset.neg==='1'; $$('#pop [data-neg]').forEach(x=>x.classList.toggle('on',x===b))});
+pop.addEventListener('input',e=>{
+  if(!e.target.matches('.pcom')) return;
+  const ref=e.target.dataset.ref, v=e.target.value.trim();
+  if(v) M.sym[ref]=v; else delete M.sym[ref];
+  invalidate(); render(); clearTimeout(saveT); saveT=setTimeout(autosave,400);
+});
+
+/* arrastar item do popup para a grade */
+let itemDrag=null;
+const ghost=$('#ghost');
+pop.addEventListener('pointerdown',e=>{
+  const el=e.target.closest('.pi-name,.pi-coil'); if(!el||e.button!==0) return;
+  e.preventDefault();
+  const coil=el.classList.contains('pi-coil');
+  itemDrag={kind:coil?'coil':'contact',ref:el.dataset.ref,fn:el.dataset.fn,neg:dropNeg,x0:e.clientX,y0:e.clientY,started:false,over:null};
+  ghost.innerHTML=ghostSVG(itemDrag)+`<span>${itemDrag.ref}${coil&&itemDrag.fn!=='['?' '+itemDrag.fn:''}${!coil&&dropNeg?' (NF)':''}</span>`;
+  document.addEventListener('pointermove',onItemMove);
+  document.addEventListener('pointerup',onItemUp,{once:true});
+});
+function onItemMove(e){
+  const d=itemDrag; if(!d) return;
+  if(!d.started){ if(Math.hypot(e.clientX-d.x0,e.clientY-d.y0)<4) return; d.started=true; ghost.style.display='flex'; document.body.style.cursor='grabbing'; }
+  ghost.style.left=(e.clientX+12)+'px'; ghost.style.top=(e.clientY+10)+'px';
+  if(!pop.contains(document.elementFromPoint(e.clientX,e.clientY))&&pop.style.display==='block') pop.style.display='none';
+  autoScrollItem(e.clientY);
+  const cell=cellAt(e.clientX,e.clientY);
+  if(d.over&&d.over!==cell) d.over.classList.remove('dropok','dropbad');
+  d.over=cell;
+  if(cell){const c=+cell.dataset.c, ok=d.kind==='coil'?c===5:c<5; cell.classList.add(ok?'dropok':'dropbad'); cell.classList.remove(ok?'dropbad':'dropok')}
+}
+function autoScrollItem(y){const r=wrap.getBoundingClientRect(); if(y>r.top&&y<r.top+40) wrap.scrollTop-=10; else if(y<r.bottom&&y>r.bottom-24) wrap.scrollTop+=10}
+function onItemUp(e){
+  document.removeEventListener('pointermove',onItemMove);
+  const d=itemDrag; itemDrag=null; ghost.style.display='none'; document.body.style.cursor='';
+  if(!d) return;
+  if(d.over) d.over.classList.remove('dropok','dropbad');
+  if(!d.started){return}
+  closePop();
+  const cell=cellAt(e.clientX,e.clientY);
+  if(!cell){msg('Solte o item sobre uma célula da grade','err');return}
+  const r=+cell.dataset.r, c=+cell.dataset.c;
+  if(d.kind==='coil'){
+    if(c!==5){msg('Bobinas só podem ser colocadas na coluna "Bobina"','err');return}
+    pushUndo(); M.coils[r]={ref:d.ref,fn:d.fn}; ensurePar(d.ref);
+    msg(`${d.ref} colocado: ${COIL_NAME[d.fn]}`,'ok');
+  } else {
+    if(c===5){msg('Contatos só podem ser colocados nas colunas "Contato 1" a "Contato 5"','err');return}
+    pushUndo(); M.cells[r][c]={t:'c',ref:d.ref,neg:d.neg}; ensurePar(d.ref);
+    msg(`Contato ${d.ref} ${d.neg?'NF':'NA'} colocado — ${'TC'.includes(d.ref[0])?'duplo clique abre os parâmetros':'duplo clique inverte NA/NF'}`,'ok');
+  }
+  select(r,c); changed();
+}
+
+/* ------------------------------------------------------------------ simulação */
+const S={running:false,inp:{},keys:{},bits:{},tm:{},ct:{},coilPrev:[],nodes:Array.from({length:NROWS},()=>Array(NC+1).fill(false)),t:0,lastOut:''};
+let rungsDirty=true, rungs=[];
+function computeRungs(){
+  rungs=[]; let cur=null;
+  for(let r=0;r<NROWS;r++){
+    const linkedPrev=r>0&&M.vl[r-1].some(Boolean);
+    const used=M.cells[r].some(Boolean)||!!M.coils[r]||M.vl[r].some(Boolean)||linkedPrev;
+    if(!used){cur=null;continue}
+    if(cur&&linkedPrev) cur.push(r); else {cur=[r]; rungs.push(cur)}
+  }
+  rungsDirty=false;
+}
+function val(ref){
+  const k=ref[0];
+  if(k==='I') return !!S.inp[ref];
+  if(k==='Z') return !!S.keys[ref];
+  if(k==='T') return !!(S.tm[ref]&&S.tm[ref].out);
+  if(k==='C') return !!(S.ct[ref]&&S.ct[ref].out);
+  return !!S.bits[ref];
+}
+const conducts=x=>!x?false:x.t==='w'?true:(val(x.ref)!==x.neg);
+let fb=null;   // entradas dos blocos de função coletadas durante o ciclo
+function evalRung(rows,pure){
+  const n=rows.length, N=pure?null:S.nodes;
+  let prev=new Array(n).fill(true);
+  if(N) for(const r of rows) N[r][0]=true;
+  for(let c=0;c<NC;c++){
+    const out=prev.map((p,i)=>p&&conducts(M.cells[rows[i]][c]));
+    for(let i=0;i<n;){let j=i, v=out[i]; while(j<n-1&&M.vl[rows[j]][c+1]){j++; v=v||out[j]} for(let t=i;t<=j;t++) out[t]=v; i=j+1}
+    if(N) for(let i=0;i<n;i++) N[rows[i]][c+1]=out[i];
+    prev=out;
+  }
+  if(pure) return prev;
+  for(let i=0;i<n;i++) applyCoil(rows[i],prev[i]);
+}
+function applyCoil(r,p){
+  const cl=M.coils[r];
+  if(cl){
+    const id=cl.ref, k=id[0];
+    if(k==='T'){ if(cl.fn==='T') fb.tt[id]=fb.tt[id]||p; else if(cl.fn==='R') fb.rt[id]=fb.rt[id]||p; }
+    else if(k==='C'){ if(cl.fn==='C') fb.cc[id]=fb.cc[id]||p; else if(cl.fn==='D') fb.dc[id]=fb.dc[id]||p; else if(cl.fn==='R') fb.rc[id]=fb.rc[id]||p; }
+    else switch(cl.fn){
+      case '[': S.bits[id]=p; break;
+      case '↑': if(p&&!S.coilPrev[r]) S.bits[id]=!S.bits[id]; break;
+      case 'S': if(p&&!fb.res[id]) S.bits[id]=true; break;   // Reset tem prioridade sobre Set
+      case 'R': if(p){S.bits[id]=false; fb.res[id]=true} break;
+    }
+  }
+  S.coilPrev[r]=p;
+}
+function scan(dt){
+  if(rungsDirty) computeRungs();
+  fb={tt:{},rt:{},cc:{},dc:{},rc:{},res:{}};
+  // pré-avaliação (sem efeitos) das linhas com bobina Reset: o Set já sabe, no mesmo ciclo, se há Reset ativo
+  for(const g of rungs){
+    if(!g.some(r=>{const cl=M.coils[r]; return cl&&cl.fn==='R'&&'QMN'.includes(cl.ref[0])})) continue;
+    const pw=evalRung(g,true);
+    g.forEach((r,i)=>{const cl=M.coils[r]; if(pw[i]&&cl&&cl.fn==='R'&&'QMN'.includes(cl.ref[0])) fb.res[cl.ref]=true});
+  }
+  for(const id in fb.res) S.bits[id]=false;
+  for(const g of rungs) evalRung(g);
+  for(const id in fb.res) S.bits[id]=false;   // prioridade do Reset, qualquer que seja a ordem das linhas
+  // blocos de função (atualizados no fim do ciclo)
+  for(const id of usedCache){
+    const k=id[0];
+    if(k==='T'){
+      const t=S.tm[id]||(S.tm[id]={el:0,out:false,prev:false});
+      const P=presetMs(id), trig=!!fb.tt[id], type=(M.par[id]||{}).type||'A';
+      if(fb.rt[id]){t.el=0;t.out=false;t.prev=trig;continue}
+      switch(type){
+        case 'A': if(trig){t.el=Math.min(P,t.el+dt); t.out=t.el>=P} else {t.el=0;t.out=false} break;
+        case 'B': if(trig){t.el=Math.min(P,t.el+dt); t.out=t.el<P} else {t.el=0;t.out=false} break;
+        case 'C': if(trig){t.el=0;t.out=true} else if(t.out){t.el=Math.min(P,t.el+dt); if(t.el>=P) t.out=false} else t.el=0; break;
+        case 'D': if(trig){ if(!t.prev){t.out=true;t.el=0} t.el+=dt; if(P>0) while(t.el>=P){t.el-=P;t.out=!t.out} } else {t.el=0;t.out=false} break;
+        case 'T': if(trig) t.el=Math.min(P,t.el+dt); t.out=t.el>=P; break;
+      }
+      t.prev=trig;
+    } else if(k==='C'){
+      const c=S.ct[id]||(S.ct[id]={val:0,out:false,prev:false});
+      const cnt=!!fb.cc[id];
+      if(fb.rc[id]) c.val=0;
+      else if(cnt&&!c.prev) c.val=Math.max(0,Math.min(32767,c.val+(fb.dc[id]?-1:1)));
+      c.prev=cnt;
+      c.out=c.val>=(+((M.par[id]||{}).preset)||0);
+    }
+  }
+  S.t+=dt;
+}
+let usedCache=new Set();
+function resetSimState(){
+  S.bits={};S.tm={};S.ct={};S.coilPrev=[];S.t=0;
+  for(const row of S.nodes) row.fill(false);
+}
+function simCellPress(r,c,e){
+  if(c>4||e.button!==0) return;
+  const x=M.cells[r][c]; if(!x||x.t!=='c') return;
+  if(x.ref[0]==='I'||x.ref[0]==='Z'){e.preventDefault(); pressInput(x.ref)}
+}
+function pressInput(ref){
+  const isZ=ref[0]==='Z', store=isZ?S.keys:S.inp;
+  const push=isZ||M.inMode[ref]==='push';
+  if(push){
+    store[ref]=true; tick(true);
+    const up=()=>{store[ref]=false; tick(true); document.removeEventListener('pointerup',up); document.removeEventListener('pointercancel',up)};
+    document.addEventListener('pointerup',up); document.addEventListener('pointercancel',up);
+  } else {store[ref]=!store[ref]; tick(true)}
+}
+
+/* painel */
+function buildPanel(){
+  const ins=names('I',16);
+  $('#pIn').innerHTML=ins.map(ref=>`<div class="inp" data-ref="${ref}"><button class="ib" data-in="${ref}" data-eo-action="ladder:entrada"><span class="led"></span>${ref}</button><button class="im" data-mode="${ref}" data-eo-action="ladder:entrada-modo" title="Alternar entre chave (retentiva) e botão (pulsante)">${M.inMode[ref]==='push'?'botão':'chave'}</button><div class="ic" title="${esc(M.sym[ref]||'')}">${esc(M.sym[ref]||'')}</div></div>`).join('');
+  $('#pZ').innerHTML=['Z1','Z2','Z3','Z4'].map(z=>`<button class="ib" data-in="${z}" data-eo-action="ladder:tecla-z"><span class="led"></span>${z}</button>`).join('');
+  $('#pOut').innerHTML=names('Q',10).map(q=>`<div class="out" data-q="${q}"><div class="lamp"></div>${q}<div class="ic" title="${esc(M.sym[q]||'')}">${esc(M.sym[q]||'')}</div></div>`).join('');
+  const used=sortRefs([...usedCache]);
+  const mem=used.filter(r=>'MN'.includes(r[0]));
+  $('#pMem').innerHTML=mem.length?mem.map(m=>`<span class="chip" data-m="${m}" title="${esc(M.sym[m]||'')}"><span class="led"></span>${m}</span>`).join(''):'<span class="none">nenhum em uso</span>';
+  const tms=used.filter(r=>r[0]==='T');
+  $('#pTm').innerHTML=tms.length?tms.map(t=>{const p=M.par[t]||{};return `<div class="tmr" data-t="${t}"><div class="t1"><span><span class="led" style="display:inline-block;margin-right:5px"></span><b>${t}</b> · tipo ${p.type||'A'}</span><span class="tv"></span></div><div class="bar"><i></i></div></div>`}).join(''):'<span class="none">nenhum em uso</span>';
+  const cts=used.filter(r=>r[0]==='C');
+  $('#pCt').innerHTML=cts.length?cts.map(c=>`<div class="tmr" data-c="${c}"><div class="t1"><span><span class="led" style="display:inline-block;margin-right:5px"></span><b>${c}</b></span><span class="tv"></span></div><div class="bar"><i></i></div></div>`).join(''):'<span class="none">nenhum em uso</span>';
+  // avisos didáticos
+  const coilsOf=new Set(), contactsOf=new Set();
+  for(let r=0;r<NROWS;r++){if(M.coils[r]) coilsOf.add(M.coils[r].ref+':'+M.coils[r].fn); for(const x of M.cells[r]) if(x&&x.t==='c') contactsOf.add(x.ref)}
+  const w=[];
+  for(const ref of contactsOf){
+    const k=ref[0];
+    if(k==='T'&&!coilsOf.has(ref+':T')) w.push(`${ref} é usado como contato, mas não há bobina de comando T de ${ref}.`);
+    if(k==='C'&&!coilsOf.has(ref+':C')) w.push(`${ref} é usado como contato, mas não há bobina de contagem C de ${ref}.`);
+    if('QMN'.includes(k)&&![...coilsOf].some(s=>s.startsWith(ref+':'))) w.push(`${ref} é usado como contato, mas nunca é acionado por uma bobina.`);
+  }
+  const qm=new Set([...coilsOf].map(s=>s.split(':')[0]).filter(r=>'QMN'.includes(r[0])));
+  for(const ref of qm){
+    const has=f=>coilsOf.has(ref+':'+f);
+    if(has('[')&&(has('S')||has('R'))) w.push(`${ref} tem bobina normal [ e também Set/Reset — a bobina [ sobrescreve o Set/Reset a cada ciclo. Use só um dos tipos.`);
+    if(has('S')&&!has('R')) w.push(`${ref} tem Set (S) mas nenhum Reset (R): depois de ligado só desliga com STOP/Reiniciar.`);
+  }
+  $('#pWarn').innerHTML=w.length?`<div class="warn"><b>Atenção</b><br>${w.map(esc).join('<br>')}</div>`:'';
+}
+function updatePanel(){
+  $('#lcdRun').textContent=S.running?'RUN':'STOP';
+  const t=S.t/1000; $('#lcdTime').textContent=`${String(Math.floor(t/60)).padStart(2,'0')}:${(t%60).toFixed(1).padStart(4,'0').replace('.',',')}`;
+  $('#bRun').classList.toggle('on',S.running); $('#bStop').classList.toggle('on',!S.running);
+  for(const b of $$('#sim [data-in]')){const r=b.dataset.in, on=r[0]==='Z'?!!S.keys[r]:!!S.inp[r]; b.classList.toggle('on',on); b.setAttribute('aria-pressed',on?'true':'false'); b.setAttribute('aria-label',(r[0]==='Z'?'Tecla ':'Entrada ')+r+(M.sym[r]?' ('+M.sym[r]+')':'')+(on?', ligada':', desligada'))}
+  for(const o of $$('#pOut [data-q]')) o.classList.toggle('on',!!S.bits[o.dataset.q]);
+  for(const m of $$('#pMem [data-m]')) m.classList.toggle('on',!!S.bits[m.dataset.m]);
+  for(const e of $$('#pTm [data-t]')){const id=e.dataset.t, t=S.tm[id], P=presetMs(id); e.querySelector('.led').classList.toggle('on',!!(t&&t.out)); e.querySelector('.tv').textContent=`${fmtS(t?t.el:0)} / ${fmtS(P)} s`; e.querySelector('.bar i').style.width=(P?Math.min(100,(t?t.el:0)/P*100):0)+'%'}
+  for(const e of $$('#pCt [data-c]')){const id=e.dataset.c, c=S.ct[id], P=+((M.par[id]||{}).preset)||0; e.querySelector('.led').classList.toggle('on',!!(c&&c.out)); e.querySelector('.tv').textContent=`${c?c.val:0} / ${P}`; e.querySelector('.bar i').style.width=(P?Math.min(100,(c?c.val:0)/P*100):0)+'%'}
+}
+const fmtS=ms=>(ms/1000).toFixed(1).replace('.',',');
+$('#sim').addEventListener('pointerdown',e=>{const b=e.target.closest('[data-in]'); if(!b||e.button!==0) return; e.preventDefault(); pressInput(b.dataset.in)});
+/* teclado: Enter/Espaço em botão focado geram click com detail===0; clique de ponteiro tem detail>=1 e já foi tratado
+   no pointerdown. Botão/Z: pulso curto; chave: alterna. */
+$('#sim').addEventListener('click',e=>{
+  const b=e.target.closest('[data-in]'); if(!b||e.detail!==0) return;
+  const ref=b.dataset.in, isZ=ref[0]==='Z', store=isZ?S.keys:S.inp;
+  if(isZ||M.inMode[ref]==='push'){store[ref]=true; tick(true); setTimeout(()=>{store[ref]=false; tick(true)},180)}
+  else {store[ref]=!store[ref]; tick(true)}
+});
+$('#sim').addEventListener('click',e=>{
+  const m=e.target.closest('[data-mode]'); if(!m) return;
+  const ref=m.dataset.mode; M.inMode[ref]=M.inMode[ref]==='push'?'toggle':'push';
+  if(M.inMode[ref]==='push') S.inp[ref]=false;
+  m.textContent=M.inMode[ref]==='push'?'botão':'chave'; autosave(); tick(true);
+});
+$('#bRun').onclick=()=>{if(!S.running){resetSimState(); S.running=true; document.body.classList.add('running'); msg('RUN — clique nas entradas para acionar','ok'); tick(true)}};
+$('#bStop').onclick=()=>{S.running=false; resetSimState(); document.body.classList.remove('running'); msg('STOP — saídas desligadas'); tick(true)};
+$('#bReset').onclick=()=>{resetSimState(); msg('Estados reiniciados'); tick(true)};
+
+let lastT=performance.now(), loop=0;
+/* A3: avança o tempo REAL em passos <= 250 ms (teto de 400 passos = 100 s por chamada), para que aba oculta
+   (setInterval estrangulado) não atrase temporizadores. */
+const SCAN_STEP=250, SCAN_MAX_STEPS=400;
+function scanElapsed(dt){
+  if(!(dt>0)||!isFinite(dt)){scan(0); return}
+  const n=Math.min(SCAN_MAX_STEPS,Math.max(1,Math.ceil(dt/SCAN_STEP-1e-9))), step=Math.min(dt,SCAN_MAX_STEPS*SCAN_STEP)/n;
+  for(let i=0;i<n;i++) scan(step);
+}
+function tick(force){
+  const now=performance.now(); let dt=now-lastT; lastT=now;
+  if(S.running) scanElapsed(dt);
+  render(); updatePanel(); broadcast();
+}
+function setMode(m){
+  const on=m==='sim'; if(on===simOn) return;
+  closePop(); hideCtx(); draw=null;
+  simOn=on; document.body.classList.toggle('simmode',on);
+  $('#modeLabel').textContent=on?'MODO SIMULAÇÃO':'MODO EDIÇÃO';
+  $('#bEdit').classList.toggle('on',!on); $('#bSim').classList.toggle('on',on);
+  $('#mmEdit').classList.toggle('chk',!on); $('#mmSim').classList.toggle('chk',on);
+  if(on){
+    if(view.tab!=='ladder') setTab('ladder');
+    usedCache=usedRefs(); rungsDirty=true; S.inp={}; S.keys={};
+    resetSimState(); S.running=true; document.body.classList.add('running');
+    buildPanel(); lastT=performance.now(); clearInterval(loop); loop=setInterval(()=>tick(false),30);
+    for(let r=0;r<rowsShown;r++) for(let c=0;c<NC;c++){const x=M.cells[r][c]; cellEls[r][c].classList.toggle('clickable',!!(x&&x.t==='c'&&'IZ'.includes(x.ref[0])))}
+    msg('Simulação em RUN — clique nas entradas do painel ou nos contatos I/Z da grade','ok');
+  } else {
+    clearInterval(loop); S.running=false; resetSimState(); S.inp={}; S.keys={}; document.body.classList.remove('running');
+    $$('.cell.clickable').forEach(e=>e.classList.remove('clickable'));
+    msg('Modo edição');
+  }
+  invalidate(); render(); broadcast();
+}
+
+/* integração com a maleta virtual (postMessage / API global) */
+const listeners=new Set();
+function snapshot(){
+  const o={}, i={};
+  for(const q of names('Q',10)) o[q]=!!S.bits[q];
+  for(const x of names('I',16)) i[x]=!!S.inp[x];
+  return {running:simOn&&S.running,outputs:o,inputs:i};
+}
+function broadcast(){
+  const s=snapshot(), key=JSON.stringify(s);
+  if(key===S.lastOut) return; S.lastOut=key;
+  const payload={source:'ladder-clp',type:'state',...s};
+  try{if(window.parent!==window) window.parent.postMessage(payload,'*')}catch(e){}
+  window.dispatchEvent(new CustomEvent('ladder:state',{detail:s}));
+  listeners.forEach(f=>{try{f(s)}catch(e){}});
+}
+window.addEventListener('message',e=>{
+  if(window.parent===window||e.source!==window.parent) return;      // só aceita mensagens da página que embute o editor
+  const d=e.data; if(!d||typeof d!=='object') return;
+  if(d.type==='eo-theme') applyTheme(d.theme);
+  else if(d.type==='setInput'&&/^I[1-9A-G]$/.test(d.name)){S.inp[d.name]=!!d.value; if(simOn) tick(true)}
+  else if(d.type==='setKey'&&/^Z[1-4]$/.test(d.name)){S.keys[d.name]=!!d.value; if(simOn) tick(true)}
+  else if(d.type==='simulate') setMode(d.value===false?'edit':'sim');
+  else if(d.type==='getState'){S.lastOut=''; broadcast()}
+});
+window.LadderCLP={
+  setInput(name,v){S.inp[name]=!!v; if(simOn) tick(true)},
+  setKey(name,v){S.keys[name]=!!v; if(simOn) tick(true)},
+  getState:snapshot,
+  onChange(f){listeners.add(f); return ()=>listeners.delete(f)},
+  simulate(on=true){setMode(on?'sim':'edit')},
+  getProgram(){return cloneModel(M)},
+  loadProgram(o){setMode('edit'); M=normalizeModel(o); undoS=[]; redoS=[]; changed(true)},
+  importZld(text){setMode('edit'); return importZld(text,'api')},      // converte .zld v1/v2 (texto JSON); devolve {ok,error,ignored,notes}
+  getTheme(){return document.documentElement.getAttribute('data-theme')}
+};
+
+/* ------------------------------------------------------------------ parâmetros */
+const modal=$('#modal');
+function openModal(title,body,buttons){
+  $('#mTitle').textContent=title; $('#mBody').innerHTML=body;
+  const f=$('#mFoot'); f.innerHTML='';
+  for(const [t,fn,pri] of buttons){const b=document.createElement('button'); b.textContent=t; b.setAttribute('data-eo-action','ladder:modal-'+(pri?'confirmar':'cancelar')); if(pri) b.className='pri'; b.onclick=()=>{if(fn&&fn()===false) return; closeModal()}; f.appendChild(b)}
+  if(modal.style.display!=='flex') modalReturn=document.activeElement;
+  modal.style.display='flex';
+  const first=$('#mBody input,#mBody select,#mBody textarea')||$('#mFoot .pri')||$('#mFoot button')||$('#modal [data-close]');
+  if(first) first.focus();
+}
+let modalReturn=null;
+function closeModal(){
+  modal.style.display='none';
+  const r=modalReturn; modalReturn=null;
+  if(r&&r.focus&&document.contains(r)) try{r.focus()}catch(_){}
+}
+modal.addEventListener('click',e=>{if(e.target===modal||e.target.closest('[data-close]')) closeModal()});
+/* comentários: símbolo (aparece sob o contato/bobina em toda a grade) e linha */
+function commentModal(title,label,value,max,save){
+  openModal(title,`<label style="display:block;margin-bottom:6px">${label}</label><input id="cmtIn" type="text" maxlength="${max}" value="${esc(value)}" spellcheck="false" autocomplete="off" style="width:100%;padding:8px;font-size:15px;border:1px solid #8a9ab0;border-radius:4px"><p class="mhint" style="margin:8px 0 0">Deixe em branco para remover. Enter salva.</p>`,
+    [['Cancelar'],['Salvar',()=>{save($('#cmtIn').value.trim())},true]]);
+  const i=$('#cmtIn'); setTimeout(()=>{i.focus(); i.select()},30);
+}
+function openComment(ref){
+  if(simOn||!ref) return;
+  commentModal(`Comentário — ${ref}`,`Comentário do símbolo <b>${esc(ref)}</b> (vale para todos os contatos e bobinas ${esc(ref)}):`,M.sym[ref]||'',40,v=>{
+    pushUndo(); if(v) M.sym[ref]=v; else delete M.sym[ref];
+    invalidate(); changed(); msg(v?`Comentário de ${ref}: ${v}`:`Comentário de ${ref} removido`,'ok');
+  });
+}
+function openRowComment(r){
+  if(simOn) return;
+  commentModal(`Comentário — linha ${String(r+1).padStart(3,'0')}`,'Comentário desta linha (coluna Comentário):',M.com[r]||'',80,v=>{
+    pushUndo(); M.com[r]=v; changed(); msg(v?'Comentário da linha salvo':'Comentário da linha removido','ok');
+  });
+}
+function openParams(ref,at){
+  if(simOn) return;
+  ensurePar(ref); const p=M.par[ref];
+  const ct=at&&M.cells[at.r]&&M.cells[at.r][at.c];
+  const isCt=!!(ct&&ct.t==='c'&&ct.ref===ref);
+  const ctBox=isCt?`<div class="frm neg"><b>Este contato:</b><label><input type="radio" name="pNeg" value="0" ${ct.neg?'':'checked'}> NA (normalmente aberto)</label><label><input type="radio" name="pNeg" value="1" ${ct.neg?'checked':''}> NF (normalmente fechado)</label></div>`:'';
+  const applyNeg=()=>{if(isCt){const v=($('input[name=pNeg]:checked')||{}).value==='1'; ct.neg=v}};
+  if(ref[0]==='T'){
+    const body=`<p style="margin-top:0">Escolha a função do temporizador <b>${ref}</b>. A bobina <b>T</b> comanda e a bobina <b>R</b> zera.</p>`+
+      Object.entries(TIMER_TYPES).map(([k,[n,d]])=>`<label class="opt"><input type="radio" name="tt" value="${k}" ${p.type===k?'checked':''}><span><b>${k}</b>${n}<br><small>${d}</small></span></label>`).join('')+
+      `<div class="frm"><label>Tempo (preset) <input id="pPre" type="number" min="0" step="0.1" value="${p.preset}"></label><select id="pUnit"><option value="s" ${p.unit!=='min'?'selected':''}>segundos</option><option value="min" ${p.unit==='min'?'selected':''}>minutos</option></select></div>`+ctBox;
+    openModal(`Parâmetros — ${ref}`,body,[['Cancelar'],['OK',()=>{
+      const pre=parseFloat($('#pPre').value); if(!(pre>=0)){alert('Informe um tempo válido');return false}
+      pushUndo(); M.par[ref]={type:($('input[name=tt]:checked')||{}).value||'A',preset:pre,unit:$('#pUnit').value}; applyNeg(); invalidate(); changed(); msg(`${ref}: tipo ${M.par[ref].type}, ${pre} ${M.par[ref].unit}`,'ok')},true]]);
+  } else {
+    const body=`<p style="margin-top:0">O contador <b>${ref}</b> soma 1 a cada pulso na bobina <b>C</b> (ou subtrai, enquanto a bobina <b>D</b> estiver ativa). A bobina <b>R</b> zera.<br>O contato <b>${ref}</b> fecha quando o valor atual ≥ preset.</p><div class="frm"><label>Preset <input id="pPre" type="number" min="0" max="32767" step="1" value="${p.preset}"></label></div>`+ctBox;
+    openModal(`Parâmetros — ${ref}`,body,[['Cancelar'],['OK',()=>{
+      const pre=parseInt($('#pPre').value,10); if(!(pre>=0&&pre<=32767)){alert('Informe um valor entre 0 e 32767');return false}
+      pushUndo(); M.par[ref]={preset:pre}; applyNeg(); invalidate(); changed(); msg(`${ref}: preset ${pre}`,'ok')},true]]);
+  }
+}
+function renderParam(){
+  const used=sortRefs([...usedRefs()]);
+  const tms=used.filter(r=>r[0]==='T'), cts=used.filter(r=>r[0]==='C');
+  tms.forEach(ensurePar); cts.forEach(ensurePar);
+  const ro=simOn?'disabled':'';
+  $('#paramView').innerHTML=`<h3>Temporizadores</h3>`+(tms.length?`<table><tr><th>Bloco</th><th>Comentário</th><th>Tipo</th><th>Tempo</th><th>Unidade</th></tr>${tms.map(t=>{const p=M.par[t];return `<tr><td><b>${t}</b></td><td>${esc(M.sym[t]||'')}</td><td><select data-p="${t}" data-f="type" ${ro}>${Object.entries(TIMER_TYPES).map(([k,[n]])=>`<option value="${k}" ${p.type===k?'selected':''}>${k} — ${n}</option>`).join('')}</select></td><td><input type="number" min="0" step="0.1" data-p="${t}" data-f="preset" value="${p.preset}" ${ro}></td><td><select data-p="${t}" data-f="unit" ${ro}><option value="s" ${p.unit!=='min'?'selected':''}>s</option><option value="min" ${p.unit==='min'?'selected':''}>min</option></select></td></tr>`}).join('')}</table>`:`<p class="empty">Nenhum temporizador no programa.</p>`)+
+    `<h3>Contadores</h3>`+(cts.length?`<table><tr><th>Bloco</th><th>Comentário</th><th>Preset</th></tr>${cts.map(c=>`<tr><td><b>${c}</b></td><td>${esc(M.sym[c]||'')}</td><td><input type="number" min="0" max="32767" step="1" data-p="${c}" data-f="preset" value="${M.par[c].preset}" ${ro}></td></tr>`).join('')}</table>`:`<p class="empty">Nenhum contador no programa.</p>`)+
+    `<h3>Comentários dos símbolos</h3>`+(used.length?`<table><tr><th>Símbolo</th><th>Comentário</th></tr>${used.map(u=>`<tr><td><b>${u}</b></td><td><input data-sym="${u}" value="${esc(M.sym[u]||'')}" maxlength="40" style="width:260px" ${ro}></td></tr>`).join('')}</table>`:`<p class="empty">Nenhum símbolo em uso.</p>`);
+}
+$('#paramView').addEventListener('change',e=>{
+  const el=e.target;
+  if(el.dataset.sym){const v=el.value.trim(); if(v) M.sym[el.dataset.sym]=v; else delete M.sym[el.dataset.sym]; invalidate(); autosave(); return}
+  const ref=el.dataset.p, f=el.dataset.f; if(!ref) return;
+  pushUndo(); let v=el.value;
+  if(f==='preset') v=ref[0]==='C'?Math.max(0,Math.min(32767,parseInt(v,10)||0)):Math.max(0,parseFloat(v)||0);
+  M.par[ref][f]=v; autosave(); invalidate();
+});
+function setTab(t){
+  view.tab=t; document.body.classList.toggle('tab-param',t==='param');
+  $('#tabLadder').classList.toggle('on',t==='ladder'); $('#tabParam').classList.toggle('on',t==='param');
+  if(t==='param') renderParam(); else {invalidate(); render()}
+}
+
+/* ------------------------------------------------------------------ exemplos */
+function buildExample(spec){
+  const m=newModel();
+  spec.rows.forEach((row,r)=>{
+    (row.c||[]).forEach((t,c)=>{
+      if(!t) return;
+      if(t==='-') m.cells[r][c]={t:'w'};
+      else m.cells[r][c]={t:'c',ref:t.replace('/',''),neg:t.startsWith('/')};
+    });
+    if(row.coil){m.coils[r]={ref:row.coil.slice(0,2),fn:row.coil.slice(2)||'['}}
+    for(const k of row.vl||[]) m.vl[r][k]=true;
+    if(row.com) m.com[r]=row.com;
+  });
+  Object.assign(m.sym,spec.sym||{}); Object.assign(m.par,spec.par||{}); Object.assign(m.inMode,spec.inMode||{});
+  return m;
+}
+const EXAMPLES={
+  selo:{rows:[
+    {c:['I1','/I2','-','-','-'],coil:'Q1[',vl:[1],com:'Liga com I1, desliga com I2 (contato NF no programa)'},
+    {c:['Q1'],com:'Contato de selo (retenção) em paralelo com I1'}],
+    sym:{I1:'Botão LIGA',I2:'Botão DESLIGA',Q1:'Contator K1'},inMode:{I1:'push',I2:'push'}},
+  estrela:{rows:[
+    {c:['I1','/I2','-','-','-'],coil:'M1[',vl:[1],com:'Marcha: I1 liga, I2 desliga'},
+    {c:['M1'],com:'Selo da marcha'},
+    {c:['M1','-','-','-','-'],coil:'Q1[',com:'K1 — contator de linha'},
+    {c:['M1','-','-','-','-'],coil:'T1T',com:'Tempo de partida em estrela'},
+    {c:['M1','/T1','/Q3','-','-'],coil:'Q2[',com:'K2 — estrela (intertravado com K3)'},
+    {c:['M1','T1','/Q2','-','-'],coil:'Q3[',com:'K3 — triângulo (intertravado com K2)'}],
+    sym:{I1:'Botão LIGA',I2:'Botão DESLIGA',M1:'Motor em marcha',Q1:'K1 linha',Q2:'K2 estrela',Q3:'K3 triângulo',T1:'Tempo Y→Δ'},
+    par:{T1:{type:'A',preset:5,unit:'s'}},inMode:{I1:'push',I2:'push'}},
+  temp:{rows:[
+    {c:['I3','-','-','-','-'],coil:'T1T',com:'Enquanto I3 estiver ligado, T1 conta'},
+    {c:['T1','-','-','-','-'],coil:'Q2[',com:'Q2 liga 4 s depois de I3'}],
+    sym:{I3:'Chave S1',T1:'Atraso 4 s',Q2:'Lâmpada H2'},par:{T1:{type:'A',preset:4,unit:'s'}}},
+  pisca:{rows:[
+    {c:['I6','-','-','-','-'],coil:'T2T',com:'I6 habilita o pisca'},
+    {c:['T2','-','-','-','-'],coil:'Q4[',com:'Q4 pisca a cada 0,5 s'}],
+    sym:{I6:'Habilita pisca',T2:'Base de tempo',Q4:'Sinaleiro'},par:{T2:{type:'D',preset:0.5,unit:'s'}}},
+  cont:{rows:[
+    {c:['I4','-','-','-','-'],coil:'C1C',com:'Cada pulso em I4 soma 1'},
+    {c:['I5','-','-','-','-'],coil:'C1R',com:'I5 zera o contador'},
+    {c:['C1','-','-','-','-'],coil:'Q3[',com:'Q3 liga ao chegar em 5 peças'}],
+    sym:{I4:'Sensor de peça',I5:'Reset',C1:'Peças',Q3:'Lote completo'},par:{C1:{preset:5}},inMode:{I4:'push',I5:'push'}},
+  tele:{rows:[
+    {c:['I7','-','-','-','-'],coil:'Q5↑',com:'Telerruptor: cada toque em I7 inverte Q5'},
+    {c:['I8','-','-','-','-'],coil:'Q6S',com:'I8 liga Q6 e mantém (Set)'},
+    {c:['I9','-','-','-','-'],coil:'Q6R',com:'I9 desliga Q6 (Reset)'}],
+    sym:{I7:'Pulsador',I8:'Liga',I9:'Desliga',Q5:'Lâmpada escada',Q6:'Bomba'},inMode:{I7:'push',I8:'push',I9:'push'}}
+};
+
+/* ------------------------------------------------------------------ arquivos */
+function download(){
+  const blob=new Blob([JSON.stringify({app:'ladder-clp',...M})],{type:'application/json'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='programa-ladder.json'; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),2000);
+  msg('Programa salvo em programa-ladder.json','ok');
+}
+/* Abrir (formato próprio .json): valida antes de trocar o programa; arquivo inválido não altera nada. */
+const FILE_MAX_BYTES=2*1024*1024;
+function parseOwn(text){
+  if(typeof text!=='string') return {err:'Conteúdo inválido.'};
+  if(text.length>FILE_MAX_BYTES) return {err:'Arquivo grande demais (máximo 2 MB).'};
+  let o; try{o=JSON.parse(text)}catch(e){return {err:'O arquivo não é um JSON válido.'}}
+  if(!o||typeof o!=='object'||Array.isArray(o)) return {err:'Estrutura inesperada.'};
+  if(Array.isArray(o.rungs)) return {err:'Este arquivo é do editor Ladder antigo (.zld). Use Arquivo > Importar .zld.'};
+  if(!Array.isArray(o.cells)||!Array.isArray(o.coils)) return {err:'O arquivo não é um programa deste editor.'};
+  return {model:normalizeModel(o)};
+}
+function openOwn(text,name){
+  const p=parseOwn(text);
+  if(p.err){msg(`${name||'Arquivo'}: ${p.err}`,'err'); return {ok:false,error:p.err}}
+  pushUndo(); M=p.model; sel=null; anc=null; changed(true); msg(`Arquivo ${name||''} aberto`,'ok');
+  return {ok:true};
+}
+$('#fileIn').addEventListener('change',e=>{
+  const f=e.target.files[0]; e.target.value=''; if(!f) return;
+  if(f.size>FILE_MAX_BYTES){msg('Arquivo grande demais (máximo 2 MB)','err'); return}
+  const rd=new FileReader();
+  rd.onload=()=>openOwn(String(rd.result),f.name);
+  rd.onerror=()=>msg('Não foi possível ler o arquivo','err');
+  rd.readAsText(f);
+});
+
+/* ------------------------------------------------------------------ tema (site claro/escuro) */
+function applyTheme(t){if(t==='dark'||t==='light') document.documentElement.setAttribute('data-theme',t)}
+addEventListener('storage',e=>{if(e.key==='eo_theme') applyTheme(e.newValue)});
+
+/* ------------------------------------------------------------------ importar .zld do editor antigo (formatos v1 e v2)
+   Mapa de nomes (o editor antigo numera a partir de 0; este, a partir de 1 e depois A, B, C…, sem I, M, O):
+     I0..I15 -> I1..I9,IA..IG   Q0..Q9 -> Q1..Q9,QA   M0..M27 -> M1..M9,MA..MV   M28..M55 -> N1..N9,NA..NV
+     T0..T27 -> T1..T9,TA..TV   C0..C27 -> C1..C9,CA..CV
+   Conversão: contato NA/NF -> contato NA/NF · coil -> bobina [ · coil_set -> S · coil_reset -> R
+     timer_on (TON) -> temporizador tipo A (atraso na energização) · timer_off (TOF) -> tipo C (atraso na desenergização)
+     counter (CTU) -> contador (bobina C). O contato do T/C no antigo vira o contato do mesmo T/C aqui.
+   Sem equivalente (vira aviso e é ignorado): contato de borda P/N, bobina negada, timer_pulse (TP), counter_down (CTD),
+     nomes fora da faixa acima, degrau que usa as 6 colunas de contato (este editor tem 5), elementos em coluna errada.
+   Nenhum dado do arquivo é executado: só tipos e nomes conhecidos passam; tudo o que aparece na tela passa por esc(). */
+const ZLD={MAX_BYTES:2*1024*1024,MAX_RUNGS:200,MAX_ROWS:6,VAR:/^[A-Z0-9_]{1,16}$/,VW:/^\d{1,2},\d$/,
+  IN:['contact_no','contact_nc','contact_p','contact_n'],
+  OUT:['coil','coil_neg','coil_set','coil_reset','timer_on','timer_off','timer_pulse','counter','counter_down']};
+ZLD.TYPES=new Set([...ZLD.IN,...ZLD.OUT,'empty','wire']);
+const ZLD_LIM={I:16,Q:10,M:56,T:28,C:28};
+const ZLD_NAME={contact_p:'contato de borda P (subida)',contact_n:'contato de borda N (descida)',coil:'bobina',coil_neg:'bobina negada',coil_set:'bobina Set',coil_reset:'bobina Reset',timer_on:'temporizador TON',timer_off:'temporizador TOF',timer_pulse:'temporizador TP (pulso)',counter:'contador CTU',counter_down:'contador CTD'};
+function zldMapVar(v){
+  const m=/^([IQMTC])(0|[1-9]\d?)$/.exec(v); if(!m) return null;
+  const k=m[1], n=+m[2]; if(n>=ZLD_LIM[k]) return null;
+  if(k==='M') return n<28?'M'+SEQ[n]:'N'+SEQ[n-28];
+  return k+SEQ[n];
+}
+/* Valida a estrutura e devolve só dados saneados: {ok:true,rungs:[{rows:[[{type,var,preset}×7]×1..6],vw:[[r,j]…]}]} ou {ok:false,error} */
+function zldParse(text){
+  const bad=m=>({ok:false,error:m});
+  if(typeof text!=='string') return bad('Conteúdo inválido.');
+  if(text.length>ZLD.MAX_BYTES) return bad('Arquivo grande demais (máximo 2 MB).');
+  let d; try{d=JSON.parse(text)}catch(e){return bad('O arquivo não é um JSON válido.')}
+  if(!d||typeof d!=='object'||Array.isArray(d)) return bad('Estrutura inesperada: era esperado um objeto com a lista "rungs".');
+  if(d.version!==undefined&&d.version!==1&&d.version!==2) return bad('Versão do formato não suportada (só v1 e v2).');
+  if(!Array.isArray(d.rungs)||!d.rungs.length) return bad('O arquivo não contém degraus ("rungs").');
+  if(d.rungs.length>ZLD.MAX_RUNGS) return bad(`Degraus demais (máximo ${ZLD.MAX_RUNGS}).`);
+  const cell=(x,at)=>{
+    if(x===undefined||x===null) return {type:'empty'};
+    if(typeof x!=='object'||Array.isArray(x)||typeof x.type!=='string'||!ZLD.TYPES.has(x.type)) return {err:at+'elemento desconhecido ou inválido.'};
+    if(x.type==='empty'||x.type==='wire') return {type:x.type};
+    if(typeof x.var!=='string'||!ZLD.VAR.test(x.var)) return {err:at+'nome de variável inválido (use letras maiúsculas, números e "_", até 16 caracteres).'};
+    const c={type:x.type,var:x.var};
+    if(x.preset!==undefined){
+      if(typeof x.preset!=='number'||!Number.isFinite(x.preset)||x.preset<0||x.preset>86400) return {err:at+'valor de preset inválido.'};
+      c.preset=x.preset;
+    }
+    return c;
+  };
+  const rungs=[];
+  for(let i=0;i<d.rungs.length;i++){
+    const r=d.rungs[i], at='Degrau '+(i+1)+': ';
+    if(!r||typeof r!=='object'||Array.isArray(r)) return bad(at+'formato inválido.');
+    let rawRows, vw=[];
+    if(r.rows!==undefined){
+      if(!Array.isArray(r.rows)||r.rows.length<1||r.rows.length>ZLD.MAX_ROWS) return bad(at+'número de linhas inválido (de 1 a 6).');
+      rawRows=r.rows;
+      if(r.vwires!==undefined){
+        if(!Array.isArray(r.vwires)||r.vwires.length>64) return bad(at+'ligações verticais inválidas.');
+        for(const w of r.vwires){
+          if(typeof w!=='string'||!ZLD.VW.test(w)) return bad(at+'ligação vertical inválida.');
+          const [a,b]=w.split(',').map(Number);
+          if(a>=rawRows.length-1||b>6) return bad(at+'ligação vertical fora do degrau.');
+          vw.push([a,b]);
+        }
+      }
+    } else {                                                   // v1: cells + branches (cada ramo liga nas junções 0 e 6)
+      if(!Array.isArray(r.cells)) return bad(at+'sem "rows" nem "cells".');
+      const br=r.branches===undefined?[]:r.branches;
+      if(!Array.isArray(br)||br.length>ZLD.MAX_ROWS-1) return bad(at+'ramos inválidos.');
+      rawRows=[r.cells];
+      for(let b=0;b<br.length;b++){
+        if(!br[b]||typeof br[b]!=='object'||!Array.isArray(br[b].cells)) return bad(at+'ramo inválido.');
+        rawRows.push(br[b].cells); vw.push([b,0],[b,6]);
+      }
+    }
+    const rows=[];
+    for(let ri=0;ri<rawRows.length;ri++){
+      const raw=rawRows[ri];
+      if(!Array.isArray(raw)||raw.length>7) return bad(at+`linha ${ri+1} inválida.`);
+      const row=[];
+      for(let c=0;c<7;c++){
+        const x=cell(raw[c],at+`linha ${ri+1}, coluna ${c+1}: `);
+        if(x.err) return bad(x.err);
+        row.push(x);
+      }
+      rows.push(row);
+    }
+    rungs.push({rows,vw});
+  }
+  return {ok:true,rungs};
+}
+/* Avaliação de teste para validar a compressão 6 -> 5 colunas: contatos já com nomes novos; null = vazio (bloqueia), {t:'w'} = fio. */
+function zldCond(x,val){return !x?false:x.t==='w'?true:(val(x.ref)!==x.neg)}
+function zldEvalOld(g,vwSet,val){                               // lógica do editor antigo: junções 0..6, propagação vertical nos dois sentidos
+  const R=g.length, J=Array.from({length:R},()=>Array(7).fill(false));
+  const prop=j=>{let ch=true; while(ch){ch=false; for(let r=0;r<R-1;r++) if(vwSet.has(r+','+j)&&J[r][j]!==J[r+1][j]){J[r][j]=J[r+1][j]=true; ch=true}}};
+  for(let r=0;r<R;r++) if(g[r][0]!==null) J[r][0]=true;
+  prop(0);
+  for(let c=0;c<6;c++){for(let r=0;r<R;r++) if(J[r][c]&&zldCond(g[r][c],val)) J[r][c+1]=true; prop(c+1)}
+  return J.map(row=>row[6]);
+}
+function zldEvalNew(cells,vlSet,val){                           // lógica deste editor (evalRung): trilho em todas as linhas, junções 1..5
+  const R=cells.length; let prev=Array(R).fill(true);
+  for(let c=0;c<NC;c++){
+    const out=prev.map((p,i)=>p&&zldCond(cells[i][c],val));
+    for(let i=0;i<R;){let j=i, v=out[i]; while(j<R-1&&vlSet.has(j+','+(c+1))){j++; v=v||out[j]} for(let t=i;t<=j;t++) out[t]=v; i=j+1}
+    prev=out;
+  }
+  return prev;
+}
+function zldEquivalent(g,vw,cells,vl,vars){
+  const vwSet=new Set(vw.map(a=>a.join(','))), n=vars.length, total=n<=12?(1<<n):4096;
+  let seed=20241124;
+  for(let t=0;t<total;t++){
+    const asg={};
+    vars.forEach((v,i)=>{ if(n<=12) asg[v]=!!((t>>i)&1); else {seed=(Math.imul(seed,1103515245)+12345)>>>0; asg[v]=!!((seed>>>16)&1)} });
+    const val=v=>asg[v];
+    const a=zldEvalOld(g,vwSet,val), b=zldEvalNew(cells,vl,val);
+    for(let i=0;i<a.length;i++) if(a[i]!==b[i]) return false;
+  }
+  return true;
+}
+/* Converte o resultado de zldParse. Devolve {model,ignored:[texto],notes:[texto],rungsIn,rungsOut,rows}. */
+function zldConvert(parsed){
+  const m=newModel(), ignored=[], notes=[];
+  let row0=0, rungsOut=0, full=false;
+  const plain={}; let hasSet=false, hasReset=false, hasCounter=false;
+  const par={};
+  parsed.rungs.forEach((rg,ri)=>{
+    const tag='Degrau '+(ri+1), R=rg.rows.length;
+    if(rg.rows.every(row=>row.every(x=>x.type==='empty'))) return;            // degrau vazio: nada a converter
+    if(full) return;
+    const g=[], outs=[];
+    const ign=s=>{ignored.push(s)};
+    for(let r=0;r<R;r++){
+      g[r]=[]; outs[r]=null;
+      for(let c=0;c<7;c++){
+        const x=rg.rows[r][c], where=`${tag}, linha ${r+1}, ${c<6?'contato '+(c+1):'bobina'}`;
+        if(x.type==='empty'){ if(c<6) g[r][c]=null; continue }
+        if(x.type==='wire'){ if(c<6) g[r][c]={t:'w'}; continue }
+        if(ZLD.IN.includes(x.type)){
+          if(c===6){ign(`${where}: contato ${x.var} na coluna de saída (sem efeito no editor antigo) ignorado`); continue}
+          if(x.type==='contact_p'||x.type==='contact_n'){ign(`${where}: ${ZLD_NAME[x.type]} ${x.var} - este editor não tem contato de borda`); g[r][c]=null; continue}
+          const ref=zldMapVar(x.var);
+          if(!ref){ign(`${where}: contato ${x.var} - nome sem correspondente (aceitos: I0-I15, Q0-Q9, M0-M55, T0-T27, C0-C27)`); g[r][c]=null; continue}
+          g[r][c]={t:'c',ref,neg:x.type==='contact_nc'}; continue;
+        }
+        if(c<6){ign(`${where}: ${ZLD_NAME[x.type]} ${x.var} fora da coluna de bobina; tratado como fio (como no editor antigo)`); g[r][c]={t:'w'}; continue}
+        const ref=zldMapVar(x.var), k=ref&&ref[0];
+        const need=(ok,why)=>{ if(!ref){ign(`${where}: ${ZLD_NAME[x.type]} ${x.var} - nome sem correspondente`); return false} if(!ok){ign(`${where}: ${ZLD_NAME[x.type]} ${x.var} - ${why}`); return false} return true};
+        switch(x.type){
+          case 'coil': if(need('QMN'.includes(k),'só saídas Q e memórias M podem ter bobina')){outs[r]={ref,fn:'['}; plain[ref]=(plain[ref]||0)+1} break;
+          case 'coil_set': if(need('QMN'.includes(k),'só saídas Q e memórias M podem ter bobina')){outs[r]={ref,fn:'S'}; hasSet=true} break;
+          case 'coil_reset': if(need('QMN'.includes(k),'só saídas Q e memórias M podem ter bobina')){outs[r]={ref,fn:'R'}; hasReset=true} break;
+          case 'coil_neg': ign(`${where}: bobina negada ${x.var} - sem equivalente (use contato NF)`); break;
+          case 'timer_on': case 'timer_off':
+            if(need(k==='T','temporizador precisa de um nome T0-T27')){
+              outs[r]={ref,fn:'T'};
+              const p={type:x.type==='timer_on'?'A':'C',preset:x.preset===undefined?3:x.preset,unit:'s'};
+              if(par[ref]&&(par[ref].type!==p.type||par[ref].preset!==p.preset)) notes.push(`${ref} é usado em mais de um temporizador com parâmetros diferentes; vale o último.`);
+              par[ref]=p;
+            } break;
+          case 'timer_pulse': ign(`${where}: temporizador TP (pulso) ${x.var} - sem equivalente exato (o tipo B daqui desliga junto com o comando)`); break;
+          case 'counter':
+            if(need(k==='C','contador precisa de um nome C0-C27')){outs[r]={ref,fn:'C'}; par[ref]={preset:Math.round(Math.min(32767,x.preset===undefined?5:x.preset))}; hasCounter=true}
+            break;
+          case 'counter_down': ign(`${where}: contador CTD ${x.var} - sem equivalente (aqui o contador decrescente não parte do preset)`); break;
+        }
+      }
+    }
+    /* compressão 6 -> 5 colunas: remove uma coluna só de fios/vazios e confere, para todas as combinações das entradas, que o degrau continua igual */
+    const vars=[...new Set(g.flat().filter(x=>x&&x.t==='c').map(x=>x.ref))];
+    let best=null;
+    for(let d=5;d>=0&&!best;d--){
+      if(!g.every(row=>row[d]===null||row[d].t==='w')) continue;
+      const cells=g.map(row=>row.filter((_,c)=>c!==d));
+      const vl=new Set();
+      for(const [a,b] of rg.vw){const j=b<=d?b:b-1; if(j>=1&&j<=5) vl.add(a+','+j)}
+      if(zldEquivalent(g,rg.vw,cells,vl,vars)) best={cells,vl};
+    }
+    if(!best){ignored.push(`${tag}: usa as 6 colunas de contato (este editor tem 5) e não pôde ser compactado sem mudar a lógica - degrau inteiro ignorado`); return}
+    if(row0+R>NROWS){ignored.push(`${tag} em diante: o programa passaria de ${NROWS} linhas - degraus restantes ignorados`); full=true; return}
+    for(let r=0;r<R;r++){
+      for(let c=0;c<NC;c++) m.cells[row0+r][c]=best.cells[r][c];
+      m.coils[row0+r]=outs[r];
+    }
+    for(const key of best.vl){const [a,k]=key.split(',').map(Number); m.vl[row0+a][k]=true}
+    row0+=R; rungsOut++;
+  });
+  for(const [ref,p] of Object.entries(par)) m.par[ref]=p;
+  const dup=Object.keys(plain).filter(r=>plain[r]>1);
+  if(dup.length) notes.push(`Bobina repetida (${dup.join(', ')}): o editor antigo ligava a saída se qualquer uma estivesse ativa (OU); aqui vale a última linha avaliada. Junte as condições em paralelo, se precisar do OU.`);
+  if(hasSet&&hasReset) notes.push('Set e Reset: aqui o Reset tem prioridade, mesmo que o Set venha depois no programa.');
+  if(hasCounter) notes.push('Contador: o editor antigo zerava pelo painel; aqui o zeramento é por bobina R do contador (acrescente uma, se precisar).');
+  notes.push('Os contatos leem o estado das bobinas no mesmo ciclo; no editor antigo a leitura era do ciclo anterior (diferença de um ciclo de varredura).');
+  return {model:m,ignored,notes,rungsIn:parsed.rungs.length,rungsOut,rows:row0};
+}
+const ZLD_MAP_HTML=`<details><summary>Como os nomes foram convertidos</summary><table class="zmap"><tr><th>Antigo</th><th>Novo</th></tr><tr><td>I0 … I15</td><td>I1 … I9, IA … IG</td></tr><tr><td>Q0 … Q9</td><td>Q1 … Q9, QA</td></tr><tr><td>M0 … M27</td><td>M1 … M9, MA … MV</td></tr><tr><td>M28 … M55</td><td>N1 … N9, NA … NV</td></tr><tr><td>T0 … T27</td><td>T1 … T9, TA … TV</td></tr><tr><td>C0 … C27</td><td>C1 … C9, CA … CV</td></tr></table><p class="mhint">TON vira temporizador tipo A, TOF vira tipo C, CTU vira contador (bobina C), Set e Reset viram bobinas S e R.</p></details>`;
+function importZld(text,origin){
+  const p=zldParse(text);
+  if(!p.ok){
+    openModal('Arquivo não importado',`<p>${esc(p.error)}</p><p>O programa atual não foi alterado.</p>`,[['Fechar',null,true]]);
+    msg('Importação cancelada: '+p.error,'err');
+    return {ok:false,error:p.error,ignored:[],notes:[]};
+  }
+  const c=zldConvert(p);
+  if(!c.rungsOut){
+    const why='Nenhum degrau pôde ser convertido.';
+    openModal('Arquivo não importado',`<p>${esc(why)}</p>`+(c.ignored.length?`<p class="zwarn">Itens ignorados (${c.ignored.length}):</p><ul class="zlist">${c.ignored.map(s=>'<li>'+esc(s)+'</li>').join('')}</ul>`:'')+`<p>O programa atual não foi alterado.</p>`,[['Fechar',null,true]]);
+    msg(why,'err');
+    return {ok:false,error:why,ignored:c.ignored,notes:c.notes};
+  }
+  pushUndo(); M=normalizeModel(c.model); sel=null; anc=null; changed(true); wrap.scrollTop=0;
+  const warn=c.ignored.length?`<p class="zwarn">Atenção: ${c.ignored.length} item(ns) sem equivalente foram ignorados:</p><ul class="zlist">${c.ignored.map(s=>'<li>'+esc(s)+'</li>').join('')}</ul>`:'<p>Nenhum item foi ignorado.</p>';
+  openModal('Importação do editor antigo',`<p><b>${c.rungsOut}</b> de ${c.rungsIn} degrau(s) convertido(s), em ${c.rows} linha(s).</p>${warn}<p><b>Observações</b></p><ul>${c.notes.map(s=>'<li>'+esc(s)+'</li>').join('')}</ul>${ZLD_MAP_HTML}<p class="mhint">Ctrl+Z desfaz a importação. Pressione F3 para simular.</p>`,[['OK',null,true]]);
+  msg(c.ignored.length?`Importado com ${c.ignored.length} aviso(s)`:'Importado sem avisos',c.ignored.length?'':'ok');
+  return {ok:true,rungsIn:c.rungsIn,rungsOut:c.rungsOut,rows:c.rows,ignored:c.ignored,notes:c.notes};
+}
+$('#zldIn').addEventListener('change',e=>{
+  const f=e.target.files[0]; e.target.value=''; if(!f) return;
+  if(f.size>ZLD.MAX_BYTES){importZld('x'.repeat(ZLD.MAX_BYTES+1)); return}
+  const rd=new FileReader();
+  rd.onload=()=>importZld(String(rd.result),f.name);
+  rd.onerror=()=>msg('Não foi possível ler o arquivo','err');
+  rd.readAsText(f);
+});
+
+/* ------------------------------------------------------------------ ações */
+function act(a){
+  closeMenus();
+  const [cmd,arg]=a.split(':');
+  const editOnly=['new','open','impzld','undo','redo','del','invert','rowins','rowinsb','rowdel','clear','fn','vdel','ex','cut','paste','tool','selall','cmt','rowcmt'];
+  if(simOn&&editOnly.includes(cmd)){msg('Volte ao modo edição (F2) para alterar o programa','err');return}
+  switch(cmd){
+    case 'new': if(lastUsed()<0||confirm('Começar um programa novo? O atual será descartado (pode desfazer com Ctrl+Z).')){pushUndo(); M=newModel(); sel=null; anc=null; changed(true); msg('Novo programa')} break;
+    case 'open': $('#fileIn').click(); break;
+    case 'impzld': $('#zldIn').click(); break;
+    case 'save': download(); break;
+    case 'ex': pushUndo(); M=buildExample(EXAMPLES[arg]); sel=null; anc=null; changed(true); wrap.scrollTop=0; msg('Exemplo carregado — pressione S (F3) para simular','ok'); break;
+    case 'undo': undo(); break;
+    case 'redo': redo(); break;
+    case 'del': {const R=selRect(); if(!R) break; pushUndo();
+      if(R.r1===R.r2&&R.c1===R.c2){const {r,c}=sel;
+        if(c===5) M.coils[r]=null;
+        else if(M.cells[r][c]) M.cells[r][c]=null;
+        else if(M.vl[r][c+1]) M.vl[r][c+1]=false;
+        else if(r>0&&M.vl[r-1][c+1]) M.vl[r-1][c+1]=false;
+        changed();
+      } else {clearRect(R); changed(R.c1===0&&R.c2===5); msg('Seleção apagada')}
+      break}
+    case 'copy': doCopy(false); break;
+    case 'cut': doCopy(true); break;
+    case 'paste': doPaste(); break;
+    case 'selall': {const lu=lastUsed(); if(lu<0) break; selectRows(0,lu); break}
+    case 'tool': setTool(tool===arg&&arg!=='draw'?'draw':arg); break;
+    case 'invert': toggleAt(sel); break;
+    case 'fn': if(sel&&M.coils[sel.r]){pushUndo(); M.coils[sel.r].fn=arg; changed()} break;
+    case 'par': openParams(arg); break;
+    case 'cmt': openComment(arg); break;
+    case 'rowcmt': if(sel) openRowComment(sel.r); break;
+    case 'vdel': if(sel){const k=+arg; pushUndo(); M.vl[sel.r][k]=false; if(sel.r>0) M.vl[sel.r-1][k]=false; changed()} break;
+    case 'rowins': if(sel) insertRow(sel.r); else msg('Selecione uma célula primeiro'); break;
+    case 'rowinsb': if(sel) insertRow(sel.r+1); break;
+    case 'rowdel': {const R=selRect(); if(R) deleteRows(R.r1,R.r2-R.r1+1); else msg('Selecione uma célula primeiro'); break}
+    case 'clear': if(confirm('Apagar todo o programa? (pode desfazer com Ctrl+Z)')){pushUndo(); const k=M.inMode; M=newModel(); M.inMode=k; changed(true)} break;
+    case 'mode': setMode(arg); break;
+    case 'panel': document.body.classList.toggle('simhide'); $('#bPanel').classList.toggle('on',!document.body.classList.contains('simhide')); break;
+    case 'fullscreen': toggleFullscreen(); break;
+    case 'style': view.style=arg; syncStyle(); invalidate(); render(); saveView(); msg(arg==='elec'?'Visualização: lógica de comando (símbolos IEC)':'Visualização: ladder'); break;
+    case 'tab': setTab(arg); break;
+    case 'help': showHelp(); break;
+    case 'about': openModal('Sobre',`<p style="margin-top:0"><b>ZelioSofrência</b> — editor e simulador de diagramas ladder para fins educacionais, inspirado na interface de softwares de relés programáveis compactos.</p><p style="color:var(--muted,inherit)">Origem: ZelioSofrência v6, projeto do usuário, integrado ao EletroLabz (Fase 4.L). Funciona sem internet e sem conta.</p><p>Não transfere programas para CLPs reais: toda a execução acontece no navegador. O comportamento de temporizadores e contadores é simplificado para fins didáticos.</p>`,[['Fechar',null,true]]); break;
+  }
+}
+const TOOL_MSG={select:'Selecionar vários — arraste sobre os contatos para marcar um bloco; depois arraste o bloco para movê-lo, ou use Ctrl+C / Del',draw:'Desenhar — arraste no vazio para criar ligações, arraste sobre uma ligação para apagá-la; arraste um contato para movê-lo',move:'Mover — arraste um elemento ou a seleção; arraste em área vazia para selecionar',pan:'Pan — arraste para deslocar a grade'};
+function setTool(t){
+  tool=t;
+  document.body.classList.toggle('tool-move',t==='move'); document.body.classList.toggle('tool-select',t==='select'); document.body.classList.toggle('tool-pan',t==='pan');
+  $$('[data-a^="tool:"]').forEach(b=>b.classList.toggle('on',b.dataset.a==='tool:'+t));
+  msg(TOOL_MSG[t]);
+}
+function syncStyle(){
+  $('#vsLad').classList.toggle('chk',view.style==='ladder'); $('#vsEle').classList.toggle('chk',view.style==='elec');
+  $('#vbLad').classList.toggle('on',view.style==='ladder'); $('#vbEle').classList.toggle('on',view.style==='elec');
+}
+function showHelp(){
+  openModal('Como usar',`
+  <b>1. Desenhar ligações</b>
+  <ul><li>Segure o botão e <b>arraste</b> nas colunas Contato 1–5: na horizontal cria ligações em <b>série</b>; ao passar para outra linha cria uma ligação vertical (<b>paralelo</b>) na borda da célula mais próxima do cursor.</li>
+  <li>Para <b>apagar</b>, comece o arrasto em cima de uma ligação existente e passe por ela: o traço é removido. Não é preciso escolher modo — o primeiro trecho arrastado decide se cria ou apaga.</li>
+  <li>Um <b>clique simples</b> só seleciona: nada é criado ou apagado sem arrastar. Ligações apagadas por arrasto nunca removem contatos ou bobinas.</li></ul>
+  <b>Selecionar, copiar e mover</b>
+  <ul><li>Clique em um <b>contato ou bobina</b> para selecionar; segure e arraste para <b>movê-lo</b> (não desenha nem apaga por cima).</li>
+  <li><b>Selecionar vários contatos</b>: ative a ferramenta <b>Selecionar vários</b> (<kbd>S</kbd>) e arraste sobre eles — no celular/tablet é a forma mais fácil. No PC também dá para segurar <kbd>Shift</kbd> e arrastar, mesmo começando em cima de um contato. Depois arraste o bloco marcado para movê-lo.</li>
+  <li><kbd>Shift</kbd>+clique ou <kbd>Shift</kbd>+setas estende a seleção em bloco. Clique no <b>número da linha</b> para selecionar linhas inteiras (arraste para várias).</li>
+  <li><kbd>Ctrl+C</kbd> copiar · <kbd>Ctrl+X</kbd> recortar · <kbd>Ctrl+V</kbd> colar na célula selecionada (linhas inteiras são inseridas como novos degraus) · <kbd>Ctrl+A</kbd> selecionar tudo.</li>
+  <li><b>Mover</b>: ferramenta Mover (<kbd>M</kbd>) ou <kbd>Ctrl</kbd>+arrastar um elemento/seleção. Com a ferramenta Mover, arrastar numa área vazia seleciona por retângulo. <kbd>Alt</kbd>+setas move a seleção uma célula.</li>
+  <li><b>Pan</b>: arraste com o <b>botão do meio</b>, segure <kbd>Espaço</kbd> numa área vazia e arraste, ou use a ferramenta Pan (<kbd>H</kbd>).</li>
+  <li><kbd>Espaço</kbd> com o mouse sobre um contato alterna <b>NA ⇄ NF</b> (sobre uma bobina Q/M, alterna a função).</li></ul>
+  <b>2. Inserir contatos e bobinas</b>
+  <ul><li>Passe o mouse nos ícones da barra inferior (I, Z, M, Q, T, C) e <b>arraste</b> o item da lista para a grade.</li>
+  <li>O nome (coluna Contato) vira um <b>contato</b> e só entra nas colunas Contato 1–5. Os símbolos da coluna Bobina (<b>[ ↑ S R</b>, <b>T R</b>, <b>C D R</b>) só entram na coluna <b>Bobina</b>.</li>
+  <li>Escolha NA/NF no topo da lista antes de arrastar, ou dê <b>duplo clique</b> no contato para inverter.</li>
+  <li><b>Duplo clique</b> (ou toque duplo) em qualquer <b>bobina ou contato de temporizador T / contador C</b> abre a janela de <b>parâmetros</b> (tipo, tempo, preset — e NA/NF do contato). Em bobina Q/M alterna a função. Clique direito mostra mais opções.</li>
+  <li><b>Comentários</b>: clique com o botão direito (ou segure o dedo, no celular/tablet) sobre um contato ou bobina e escolha <b>Adicionar comentário</b> — o texto aparece embaixo do símbolo. Também dá para comentar a linha, escrever na coluna Comentário ou na lista de cada menu.</li></ul>
+  <b>3. Simular</b>
+  <ul><li>Clique em <b>S</b> (<kbd>F3</kbd>). Acione as entradas pelo painel à direita ou clicando nos contatos I/Z da grade.</li>
+  <li>Cada entrada pode ser <b>chave</b> (retentiva) ou <b>botão</b> (só fica ligada enquanto você segura).</li>
+  <li>Trechos energizados ficam em vermelho. O programa é varrido de cima para baixo, coluna a coluna, como num CLP.</li></ul>
+  <b>Visualização</b>
+  <ul><li>No alto, alterne entre <b>Ladder</b> e <b>Comando</b> (símbolos de diagrama de comando IEC: contatos NA/NF, contatos temporizados e bobinas A1–A2).</li></ul>
+  <b>Celular e tablet</b>
+  <ul><li>Use o aparelho <b>na horizontal</b>. O botão de tela cheia (⛶) aproveita a tela inteira.</li>
+  <li>Arraste com <b>um dedo</b> para desenhar/apagar ou mover contatos; use <b>dois dedos</b> para rolar a grade.</li>
+  <li><b>Toque duplo</b> em um contato inverte NA/NF; <b>toque longo</b> abre o menu de opções (comentário, apagar, copiar, inserir linha…).</li>
+  <li>Na simulação, o botão <b>▤</b> mostra ou esconde o painel do CLP.</li></ul>
+  <b>Set / Reset</b>
+  <ul><li><b>S</b> liga a saída e mantém; <b>R</b> desliga. Se Set e Reset estiverem ativos ao mesmo tempo, o <b>Reset tem prioridade</b>, qualquer que seja a ordem das linhas.</li></ul>
+  <b>Arquivos</b>
+  <ul><li><b>Salvar (.json)</b> grava o programa no formato deste editor; <b>Abrir</b> lê esse formato. O programa também é guardado automaticamente neste navegador.</li>
+  <li><b>Importar .zld (editor antigo)</b> converte os arquivos .zld do editor Ladder anterior (formatos v1 e v2). Os nomes mudam de numeração (I0 vira I1, Q0 vira Q1…) e o que não tem equivalente é listado como aviso. Ctrl+Z desfaz a importação.</li></ul>
+  <b>Atalhos</b>: <kbd>D</kbd> desenhar · <kbd>S</kbd> selecionar vários · <kbd>M</kbd> mover · <kbd>H</kbd> pan · <kbd>Esc</kbd> volta a desenhar · <kbd>Ctrl+Z</kbd>/<kbd>Ctrl+Y</kbd> desfazer/refazer · <kbd>Del</kbd> apagar · <kbd>Ins</kbd> inserir linha · <kbd>Ctrl+Del</kbd> excluir linha(s) · <kbd>F2</kbd>/<kbd>F3</kbd> edição/simulação · <kbd>Ctrl+S</kbd> salvar.`,[['Fechar',null,true]]);
+}
+
+/* tela cheia e orientação (celular/tablet) */
+function topDoc(){return document}   // embutido em iframe: a tela cheia é do próprio editor (iframe com allow="fullscreen")
+function fsEl(){const d=topDoc(); return d.fullscreenElement||d.webkitFullscreenElement||null}
+function canFs(){const el=topDoc().documentElement; return !!(el.requestFullscreen||el.webkitRequestFullscreen)}
+async function enterFullscreen(landscape){
+  const d=topDoc(), el=d.documentElement;
+  try{await (el.requestFullscreen||el.webkitRequestFullscreen).call(el)}catch(e){msg('O navegador não permitiu a tela cheia','err'); return false}
+  if(landscape){try{await (d.defaultView||window).screen.orientation.lock('landscape')}catch(e){msg('Gire o aparelho para a horizontal')}}
+  return true;
+}
+function toggleFullscreen(){
+  const d=topDoc();
+  if(fsEl()){(d.exitFullscreen||d.webkitExitFullscreen).call(d); return}
+  enterFullscreen(matchMedia('(pointer:coarse)').matches);
+}
+if(!canFs()){$('#bFull').style.display='none'; $('#rotFull').style.display='none'}
+$('#rotFull').onclick=()=>enterFullscreen(true);
+$('#rotSkip').onclick=()=>{document.body.classList.add('rot-ok'); try{sessionStorage.setItem('ladderclp.rotok','1')}catch(e){} msg('Dica: na horizontal você vê todas as colunas. Use dois dedos para rolar a grade.')};
+addEventListener('resize',()=>{hideCtx(); if(matchMedia('(orientation:landscape)').matches) document.body.classList.remove('rot-ok')});
+
+/* menus superiores */
+const menubar=$('#menubar');
+function closeMenus(){$$('.mi.open').forEach(m=>m.classList.remove('open'))}
+menubar.addEventListener('click',e=>{
+  const item=e.target.closest('.dd [data-a]');
+  if(item){act(item.dataset.a); return}
+  const mi=e.target.closest('.mi'); if(!mi) return;
+  const was=mi.classList.contains('open'); closeMenus(); if(!was) mi.classList.add('open');
+});
+menubar.addEventListener('pointerover',e=>{const mi=e.target.closest('.mi'); if(mi&&$('.mi.open')&&!mi.classList.contains('open')){closeMenus(); mi.classList.add('open')}});
+document.addEventListener('pointerdown',e=>{if(!e.target.closest('#menubar')) closeMenus(); if(!e.target.closest('#ctx')) hideCtx()});
+$('#toolbar').addEventListener('click',e=>{const b=e.target.closest('[data-a]'); if(b) act(b.dataset.a)});
+$('#tabs').addEventListener('click',e=>{const b=e.target.closest('[data-a]'); if(b) act(b.dataset.a)});
+$('#zoom').addEventListener('change',e=>{view.zoom=+e.target.value; document.documentElement.style.setProperty('--z',view.zoom); saveView()});
+function saveView(){try{localStorage.setItem('ladderclp.view',JSON.stringify({style:view.style,zoom:view.zoom}))}catch(e){}}
+
+document.addEventListener('pointerdown',e=>{
+  if(e.target.closest&&e.target.closest('input,select,textarea,[contenteditable]')) return;
+  const a=document.activeElement;
+  if(a&&a!==document.body&&a.matches&&a.matches('input,select,textarea')) a.blur();
+  if(!document.hasFocus()) try{window.focus()}catch(_){}
+},true);
+document.addEventListener('keydown',e=>{
+  if(modal.style.display==='flex'){if(e.key==='Escape') closeModal(); else if(e.key==='Enter'&&(e.target.id==='cmtIn'||e.target.id==='pPre')){e.preventDefault(); $('#mFoot .pri').click()} return}
+  const typing=e.target.matches('input,select,textarea');
+  if(e.code==='Space'&&!typing&&!(e.target.closest&&e.target.closest('button,[role=button],a'))){
+    e.preventDefault(); if(e.repeat) return;
+    if(!simOn&&toggleAt(hover||sel)) return;
+    spaceHeld=true; document.body.classList.add('panready'); return;
+  }
+  if(e.key==='F2'){e.preventDefault(); setMode('edit'); return}
+  if(e.key==='F3'){e.preventDefault(); setMode('sim'); return}
+  if(e.key==='Escape'){closePop(); hideCtx(); closeMenus(); if(tool!=='draw'&&!simOn) setTool('draw'); else if(sel&&anc){anc=null; renderSel()} return}
+  if(typing) return;
+  const ctrl=e.ctrlKey||e.metaKey; let key=e.key.toLowerCase();
+  if(!/^[a-z]$/.test(key)&&/^Key[A-Z]$/.test(e.code)) key=e.code.slice(3).toLowerCase();   // teclados não latinos
+  if(ctrl&&key==='z'){e.preventDefault(); e.shiftKey?redo():undo()}
+  else if(ctrl&&key==='y'){e.preventDefault(); redo()}
+  else if(ctrl&&key==='s'){e.preventDefault(); download()}
+  else if(ctrl&&key==='o'){e.preventDefault(); act('open')}
+  else if(ctrl&&key==='n'){e.preventDefault(); act('new')}
+  else if(ctrl&&e.key==='Delete'){e.preventDefault(); act('rowdel')}
+  else if(e.key==='Delete'||e.key==='Backspace'){e.preventDefault(); act('del')}
+  else if(e.key==='Insert'){e.preventDefault(); act('rowins')}
+  else if(ctrl&&key==='c'){e.preventDefault(); act('copy')}
+  else if(ctrl&&key==='x'){e.preventDefault(); act('cut')}
+  else if(ctrl&&key==='v'){e.preventDefault(); act('paste')}
+  else if(ctrl&&key==='a'){e.preventDefault(); act('selall')}
+  else if(ctrl) return;
+  else if(key==='m'){act('tool:move')}
+  else if(key==='s'){act('tool:select')}
+  else if(key==='h'){act('tool:pan')}
+  else if(key==='d'){act('tool:draw')}
+  else if(sel&&!simOn&&e.key.startsWith('Arrow')){
+    e.preventDefault();
+    const d={ArrowUp:[-1,0],ArrowDown:[1,0],ArrowLeft:[0,-1],ArrowRight:[0,1]}[e.key];
+    if(e.altKey){moveBy(d[0],d[1]); return}
+    select(Math.max(0,Math.min(NROWS-1,sel.r+d[0])),Math.max(0,Math.min(5,sel.c+d[1])),e.shiftKey); ensureRows();
+  }
+});
+
+document.addEventListener('keyup',e=>{if(e.code==='Space'){spaceHeld=false; document.body.classList.remove('panready')}});
+window.addEventListener('blur',()=>{spaceHeld=false; document.body.classList.remove('panready')});
+
+/* ------------------------------------------------------------------ início */
+(function init(){
+  try{if(sessionStorage.getItem('ladderclp.rotok')) document.body.classList.add('rot-ok')}catch(e){}
+  if(window.self!==window.top) document.body.classList.add('rot-ok');   // embutido: sem tela de rotação (o site oferece "Abrir em tela cheia")
+  try{const v=JSON.parse(localStorage.getItem('ladderclp.view')||'null'); if(v){view.style=v.style==='elec'?'elec':'ladder'; view.zoom=+v.zoom||1}}catch(e){}
+  try{const s=localStorage.getItem(DRAFT_KEY); if(s) M=normalizeModel(JSON.parse(s))}catch(e){}
+  document.documentElement.style.setProperty('--z',view.zoom); $('#zoom').value=String(view.zoom);
+  syncStyle(); setTool('draw');
+  $('#mmEdit').classList.add('chk');
+  resetRows(); render(); countLines();
+  if(lastUsed()<0) msg('Pronto — arraste na grade para criar ligações (arraste sobre uma ligação para apagar); passe o mouse nos ícones de baixo para pegar contatos');
+})();
+</script>
+</body>
+</html>

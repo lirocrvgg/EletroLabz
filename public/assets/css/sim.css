@@ -1,0 +1,108 @@
+/* sim.css - Fase 4, etapa 4.4. Simbolos SVG (.eo-sym-*), barra de exemplos/controles, legenda de estados e painel
+   do simulador. So tokens (sem hex). Mobile-first: alvos >= 44px, sem overflow horizontal. */
+
+/* ── Simbolos gerados por EO.render.symbols.toSVG (currentColor) ── */
+.eo-sym { overflow: visible; }
+.eo-sym-live { color: var(--live); }
+.eo-sym-dead { color: var(--text); }
+.eo-sym-fault { color: var(--fault); }
+
+/* paleta: um tamanho por altura; a largura segue a proporcao do simbolo */
+.sym-btn svg[data-eo-symbol] { width: auto; height: 52px; max-width: 100%; color: var(--text); }
+.sym-btn { min-height: 44px; }
+
+/* pagina de referencia: simbolo legivel nos dois temas (herda --text, nunca preto fixo) */
+.eo-ref-sym { color: var(--text); flex: 0 0 auto; }
+.eo-ref-sym[data-eo-symbol] { height: 72px; width: auto; }
+.eo-ref-row { display: flex; align-items: center; gap: 1rem; background: var(--surface2); border-radius: var(--r-2); padding: .7rem .9rem; }
+
+/* ── Barra de exemplos e controles ── */
+.sim-bar {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2) var(--sp-3);
+  padding: var(--sp-2) var(--sp-3); background: var(--surface); border-bottom: 1px solid var(--border);
+}
+.sim-bar-field { display: flex; align-items: center; gap: var(--sp-2); min-width: 0; }
+.sim-bar-label { font-size: .72rem; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: .04em; }
+.sim-select {
+  min-height: var(--control-h); max-width: 100%; padding: 0 var(--sp-3); font: inherit; font-size: .8rem;
+  color: var(--text); background: var(--surface2); border: 1px solid var(--border); border-radius: var(--r-1);
+}
+.sim-select:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+.sim-bar-ctl { display: flex; gap: var(--sp-2); }
+.sim-bar-ctl .diag-topbar-btn:disabled { opacity: .45; cursor: not-allowed; }
+.sim-bar-desc { flex: 1 1 260px; margin: 0; font-size: .74rem; line-height: 1.35; color: var(--text-dim); min-width: 0; }
+
+/* ── Legenda de estados e painel (fora do canvas, em fluxo normal) ── */
+.sim-info {
+  display: flex; flex-wrap: wrap; gap: var(--sp-2) var(--sp-5); align-items: flex-start;
+  padding: var(--sp-2) var(--sp-3); background: var(--surface); border-top: 1px solid var(--border);
+}
+.sim-info .sim-legend {
+  position: static; pointer-events: auto; box-shadow: none; border: 0; background: transparent; padding: 0; margin: 0;
+  list-style: none; display: flex; flex-direction: row; flex-wrap: wrap; gap: var(--sp-1) var(--sp-4); flex: 1 1 420px; min-width: 0;
+}
+.sim-info .sim-legend-item { display: flex; align-items: center; gap: var(--sp-2); font-size: .72rem; line-height: 1.3; color: var(--text-dim); }
+.sim-info .sim-legend-item strong { color: var(--text); }
+.sim-info .sim-legend-item code { font-family: var(--font-mono); font-size: .68rem; }
+.sim-legend-note { flex: 1 1 100%; }
+.sim-sw { flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 14px; border-radius: var(--r-1); }
+.sim-sw--live { background: var(--live); }
+.sim-sw--dead { background: var(--dead); }
+.sim-sw--fault {
+  width: 28px; height: 22px; color: var(--fault); border: 1.5px solid var(--fault);
+  background: repeating-linear-gradient(135deg, color-mix(in srgb, var(--fault) 35%, transparent) 0 3px, transparent 3px 6px);
+}
+.sim-sw--fault .eo-icon { width: 14px; height: 14px; background: var(--surface); border-radius: 50%; }
+
+.sim-panel { flex: 1 1 260px; min-width: 0; }
+.sim-panel-title { margin: 0 0 var(--sp-1); font-size: .68rem; text-transform: uppercase; letter-spacing: .04em; color: var(--text-dim); }
+.sim-estados { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--sp-1) var(--sp-3); }
+.sim-estado { font-size: .76rem; font-family: var(--font-mono); color: var(--text); }
+.sim-estado strong { color: var(--text); margin-right: .25em; }
+.sim-estado--vazio { font-family: var(--font-ui); color: var(--text-dim); }
+
+/* ── Mobile ── */
+@media (max-width: 900px) {
+  .sim-bar { padding: var(--sp-2); }
+  .sim-bar-field { flex: 1 1 100%; }
+  .sim-select { flex: 1 1 auto; min-height: 44px; }
+  .sim-bar-ctl { flex: 1 1 100%; }
+  .sim-bar-ctl .diag-topbar-btn { flex: 1 1 0; min-height: 44px; justify-content: center; }
+  .diag-topbar-btn { min-width: 44px; }
+  .sim-info { padding: var(--sp-2); }
+  .sim-info .sim-legend { flex-direction: column; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sim-select, .sim-bar-ctl .diag-topbar-btn { transition: none; }
+}
+
+/* ── Acabamento do aciona (Fase 4): texto funcional >= 12px, respiro >= 8px ── */
+/* Legenda: o item "nota" e uma frase corrida (display:flex separava o <strong> em coluna). */
+.sim-info .sim-legend-item.sim-legend-note { display: block; }
+.sim-info .sim-legend-item { font-size: .75rem; line-height: 1.45; }
+.sim-info .sim-legend-item code { font-size: .75rem; }
+.sim-panel-title { font-size: .75rem; letter-spacing: .05em; }
+.sim-estado { font-size: .8rem; line-height: 1.45; }
+.sim-estados { gap: var(--sp-1) var(--sp-4); }
+.sim-bar-label { font-size: .75rem; }
+.sim-bar-desc { font-size: .8rem; }
+.sim-status { font-size: .75rem; padding: .5rem .8rem; }
+.wire-mode-indicator { font-size: .75rem; padding: .5rem .7rem; }
+.diag-topbar-btn { font-size: .78rem; }
+
+/* Paleta de simbolos e paineis flutuantes */
+.diag-toolbar { width: 232px; }
+.toolbar-drag-handle span, .props-drag-handle span { font-size: .75rem; letter-spacing: .04em; }
+.toolbar-drag-handle, .props-drag-handle { padding: .5rem .8rem; }
+.diag-toolbar-section { padding: .8rem; }
+.diag-toolbar-section h4 { font-size: .75rem; letter-spacing: .04em; margin-bottom: .5rem; }
+.sym-grid { gap: .4rem; }
+.sym-btn { padding: .5rem .4rem; }
+.sym-btn span { font-size: .75rem; line-height: 1.2; text-align: center; overflow-wrap: anywhere; }
+.prop-row label { font-size: .75rem; }
+.prop-row input, .prop-row select { font-size: .8rem; padding: .45rem .6rem; }
+.diag-props h4 { font-size: .8rem; }
+@media (max-width: 900px) {
+  .diag-toolbar, .diag-props { width: auto; }
+  .sym-grid { grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); }
+}

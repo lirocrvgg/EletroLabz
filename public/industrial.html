@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eletrotécnica — Módulos Interativos</title>
+    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+    <script src="assets/js/core/theme.js"></script>
+    <script src="assets/js/core/icons.js"></script>
+
+    <!-- Bibliotecas para exportação de Memorial de Cálculo (.docx) -->
+
+
+
+    <script src="assets/js/core/loader.js"></script>
+    <script src="assets/vendor/xlsx-js-style-1.2.0.bundle.js"></script>
+
+    <link rel="stylesheet" href="assets/css/fonts.css">
+    <link rel="stylesheet" href="assets/css/tokens.css">
+    <link rel="stylesheet" href="assets/css/legacy.css">
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/actionbar.css">
+    <link rel="stylesheet" href="assets/css/nav.css">
+</head>
+
+<body data-eo-module="industrial" data-eo-area="profissional">
+
+    <!-- ══ NAV PROJETOS INDUSTRIAIS ══ -->
+    <nav id="nav-industrial" aria-label="Módulo">
+        <div class="eo-topbar">
+            <a class="eo-brand" href="eletrotec.html" aria-label="EletroLabz: ir para o início"><img width="32" height="32" alt="" src="./assets/icons/favicon.svg"><span class="eo-brand__name">EletroLabz</span></a>
+            <a class="ms-back-btn eo-modules" href="eletrotec.html"><svg class="eo-icon" data-icon="arrow-left" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg> Módulos</a>
+            <button class="theme-toggle" type="button" onclick="toggleTheme()" data-eo-action="industrial:alternar-tema" id="theme-btn" aria-pressed="false"><svg class="eo-icon" data-icon="moon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg><svg class="eo-icon" data-icon="sun" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg><span class="tt-label"><span class="tt-to-dark">Modo escuro</span><span class="tt-to-light">Modo claro</span></span></button>
+        </div>
+        <div class="nav-inner">
+            <button class="nav-btn active" data-ipage="ind-home" onclick="showIndustrialPage('ind-home',this)"><svg class="eo-icon" data-icon="house" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg> Início</button>
+            <button class="nav-btn" data-ipage="ind-motor" onclick="showIndustrialPage('ind-motor',this)"><svg class="eo-icon" data-icon="settings" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"/><circle cx="12" cy="12" r="3"/></svg> Motores</button>
+            <button class="nav-btn" data-ipage="ind-trafo" onclick="showIndustrialPage('ind-trafo',this)"><svg class="eo-icon" data-icon="rotate-ccw" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg> Transformadores</button>
+            <button class="nav-btn" data-ipage="ind-protecao" onclick="showIndustrialPage('ind-protecao',this)"><svg class="eo-icon" data-icon="lock" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Proteções</button>
+            <button class="nav-btn" data-ipage="ind-alimentador" onclick="showIndustrialPage('ind-alimentador',this)"><svg class="eo-icon" data-icon="zap" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z"/></svg> Alimentadores</button>
+            <button class="nav-btn" data-ipage="ind-demanda" onclick="showIndustrialPage('ind-demanda',this)"><svg class="eo-icon" data-icon="table" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3v18"/><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/></svg> Demanda</button>
+            <button class="nav-btn" data-ipage="ind-subestacao" onclick="showIndustrialPage('ind-subestacao',this)"><svg class="eo-icon" data-icon="zap" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z"/></svg> Subestação</button>
+            <button class="nav-btn" data-ipage="ind-ccm" onclick="showIndustrialPage('ind-ccm',this)"><svg class="eo-icon" data-icon="settings" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"/><circle cx="12" cy="12" r="3"/></svg> CCM</button>
+        </div>
+    </nav>
+    <div class="eo-crumbs" role="navigation" aria-label="Trilha de navegação"><ol></ol></div>
+
+    <main id="main-industrial">
+
+        <!-- HOME -->
+        <div id="page-ind-home" class="page active">
+            <div class="industrial-hero">
+                <h1><svg class="eo-icon" data-icon="factory" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 16h.01"/><path d="M16 16h.01"/><path d="M3 19a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.5a.5.5 0 0 0-.769-.422l-4.462 2.844A.5.5 0 0 1 15 10.5v-2a.5.5 0 0 0-.769-.422L9.77 10.922A.5.5 0 0 1 9 10.5V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2z"/><path d="M8 16h.01"/></svg> Projetos Elétricos Industriais</h1>
+                <p>Dimensionamento conforme NBR 5410 — motores, transformadores, proteções e alimentadores.</p>
+            </div>
+            <div class="hero-grid" style="max-width:700px;margin:0 auto">
+                <a class="hero-card" href="#motores">
+                    <div class="icon"><svg class="eo-icon" data-icon="settings" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"/><circle cx="12" cy="12" r="3"/></svg> </div>
+                    <div class="label">Motores</div>
+                </a>
+                <a class="hero-card" href="#transformadores">
+                    <div class="icon"><svg class="eo-icon" data-icon="rotate-ccw" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg> </div>
+                    <div class="label">Trafos</div>
+                </a>
+                <a class="hero-card" href="#protecoes">
+                    <div class="icon"><svg class="eo-icon" data-icon="lock" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> </div>
+                    <div class="label">Proteções</div>
+                </a>
+                <a class="hero-card" href="#alimentadores">
+                    <div class="icon"><svg class="eo-icon" data-icon="zap" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z"/></svg> </div>
+                    <div class="label">Alimentadores</div>
+                </a>
+                <a class="hero-card" href="#demanda">
+                    <div class="icon"><svg class="eo-icon" data-icon="table" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3v18"/><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/></svg> </div>
+                    <div class="label">Demanda</div>
+                </a>
+                <a class="hero-card" href="#subestacao">
+                    <div class="icon"><svg class="eo-icon" data-icon="zap" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z"/></svg> </div>
+                    <div class="label">Subestação</div>
+                </a>
+                <a class="hero-card" href="#ccm">
+                    <div class="icon"><svg class="eo-icon" data-icon="settings" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"/><circle cx="12" cy="12" r="3"/></svg> </div>
+                    <div class="label">CCM</div>
+                </a>
+            </div>
+            <div class="card" style="margin-top:1.5rem">
+                <div class="card-header">
+                    <div class="dot dot-purple"></div>
+                    <h2>Sobre este módulo</h2>
+                </div>
+                <div class="theory">Este módulo realiza cálculos de dimensionamento para instalações elétricas
+                    industriais conforme a <strong>NBR 5410</strong>. Inclui dimensionamento de condutores e proteções
+                    para motores elétricos trifásicos, cálculo de transformadores, seleção de disjuntores/fusíveis,
+                    dimensionamento de alimentadores e cálculo de demanda industrial.</div>
+                <div class="info-box">
+                    <p><svg class="eo-icon" data-icon="triangle-alert" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg> Os resultados são orientativos para fins didáticos. Projetos reais devem ser validados por
+                        profissional habilitado conforme regulamentação vigente.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- MOTORES -->
+        <div id="page-ind-motor" class="page">
+            <div class="section-title">
+                <h2><svg class="eo-icon" data-icon="settings" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"/><circle cx="12" cy="12" r="3"/></svg> Dimensionamento de Motores</h2><span class="badge" style="background:var(--accent3)">NBR
+                    5410</span>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="dot dot-purple"></div>
+                    <h3>Dados do Motor</h3>
+                </div>
+                <div class="predial-input-grid">
+                    <div class="predial-input-group">
+                        <label>Potência do motor (cv)</label>
+                        <select id="ind-motor-cv" onchange="calcMotor()">
+                            <option value="0.5">0,5 cv</option>
+                            <option value="0.75">0,75 cv</option>
+                            <option value="1">1 cv</option>
+                            <option value="1.5">1,5 cv</option>
+                            <option value="2">2 cv</option>
+                            <option value="3">3 cv</option>
+                            <option value="5" selected>5 cv</option>
+                            <option value="7.5">7,5 cv</option>
+                            <option value="10">10 cv</option>
+                            <option value="15">15 cv</option>
+                            <option value="20">20 cv</option>
+                            <option value="25">25 cv</option>
+                            <option value="30">30 cv</option>
+                            <option value="40">40 cv</option>
+                            <option value="50">50 cv</option>
+                            <option value="60">60 cv</option>
+                            <option value="75">75 cv</option>
+                            <option value="100">100 cv</option>
+                            <option value="125">125 cv</option>
+                            <option value="150">150 cv</option>
+                            <option value="200">200 cv</option>
+                        </select>
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Tensão nominal (V)</label>
+                        <select id="ind-motor-tensao" onchange="calcMotor()">
+                            <option value="220">220 V</option>
+                            <option value="380" selected>380 V</option>
+                            <option value="440">440 V</option>
+                            <option value="660">660 V</option>
+                        </select>
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Rendimento (η)</label>
+                        <input type="number" id="ind-motor-rend" value="0.88" min="0.5" max="0.99" step="0.01"
+                            oninput="calcMotor()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Fator de potência (cos φ)</label>
+                        <input type="number" id="ind-motor-fp" value="0.85" min="0.5" max="1" step="0.01"
+                            oninput="calcMotor()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Fator de serviço (FS)</label>
+                        <input type="number" id="ind-motor-fs" value="1.15" min="1" max="1.5" step="0.05"
+                            oninput="calcMotor()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Tipo de partida</label>
+                        <select id="ind-motor-partida" onchange="calcMotor()">
+                            <option value="direta">Direta (Ip/In ≈ 6-8x)</option>
+                            <option value="estrela-triangulo">Estrela-Triângulo (Ip/In ≈ 2-3x)</option>
+                            <option value="compensadora">Compensadora (Ip/In ≈ 2.5-4.5x)</option>
+                            <option value="soft-starter">Soft-Starter (Ip/In ≈ 2-4x)</option>
+                            <option value="inversor">Inversor de Frequência (Ip/In ≈ 1-1.5x)</option>
+                        </select>
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Comprimento do condutor (m)</label>
+                        <input type="number" id="ind-motor-l" value="30" min="1" step="1" oninput="calcMotor()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Método de instalação</label>
+                        <select id="ind-motor-metodo" onchange="calcMotor()">
+                            <option value="B1">B1 — Eletroduto embutido</option>
+                            <option value="B2">B2 — Eletroduto aparente</option>
+                            <option value="C" selected>C — Cabos em bandeja</option>
+                            <option value="D">D — Cabos enterrados</option>
+                        </select>
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Temperatura ambiente (°C)</label>
+                        <select id="ind-motor-temp" onchange="calcMotor()">
+                            <option value="30">30 °C</option>
+                            <option value="35">35 °C</option>
+                            <option value="40" selected>40 °C</option>
+                            <option value="45">45 °C</option>
+                            <option value="50">50 °C</option>
+                        </select>
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Circuitos agrupados</label>
+                        <input type="number" id="ind-motor-agrup" value="1" min="1" max="20" step="1"
+                            oninput="calcMotor()">
+                    </div>
+                </div>
+                <div class="eo-actionbar" role="group" aria-label="Ações — motor">
+                    <div class="eo-ab-group" role="group" aria-label="Cálculo" data-label="Cálculo">
+                        <button type="button" class="btn eo-ab-primary" onclick="calcMotor()" data-eo-action="industrial:calc-motor"><svg class="eo-icon" data-icon="calculator" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></svg> Dimensionar Motor</button>
+                    </div>
+                    <div class="eo-ab-group" role="group" aria-label="Saída" data-label="Saída">
+                        <button type="button" class="btn secondary" onclick="exportMotorXLSX()" data-eo-action="industrial:export-motor-xlsx" data-eo-feature="motor-xlsx"><svg class="eo-icon" data-icon="download" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 15V3"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/></svg> Exportar planilha (.xlsx)</button>
+                    </div>
+                </div>
+            </div>
+            <div id="ind-motor-result" class="predial-result">
+                <h4 style="color:var(--accent3)"><svg class="eo-icon" data-icon="settings" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"/><circle cx="12" cy="12" r="3"/></svg> Resultados — Dimensionamento do Motor</h4>
+                <div class="predial-result-grid" id="ind-motor-result-grid"></div>
+                <div id="ind-motor-detail"></div>
+            </div>
+        </div>
+
+        <!-- TRANSFORMADORES -->
+        <div id="page-ind-trafo" class="page">
+            <div class="section-title">
+                <h2><svg class="eo-icon" data-icon="rotate-ccw" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg> Dimensionamento de Transformadores</h2><span class="badge"
+                    style="background:var(--accent3)">INDUSTRIAL</span>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="dot dot-purple"></div>
+                    <h3>Dados da Carga</h3>
+                </div>
+                <div class="predial-input-grid">
+                    <div class="predial-input-group">
+                        <label>Potência total instalada (kW)</label>
+                        <input type="number" id="ind-trafo-pot" value="75" min="1" step="1" oninput="calcTrafo()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Fator de demanda</label>
+                        <input type="number" id="ind-trafo-fd" value="0.70" min="0.1" max="1" step="0.05"
+                            oninput="calcTrafo()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Fator de potência médio</label>
+                        <input type="number" id="ind-trafo-fp" value="0.85" min="0.5" max="1" step="0.01"
+                            oninput="calcTrafo()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Fator de crescimento futuro</label>
+                        <input type="number" id="ind-trafo-fc" value="1.25" min="1" max="2" step="0.05"
+                            oninput="calcTrafo()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Tensão primária (kV)</label>
+                        <select id="ind-trafo-vp" onchange="calcTrafo()">
+                            <option value="13.8" selected>13,8 kV</option>
+                            <option value="34.5">34,5 kV</option>
+                            <option value="69">69 kV</option>
+                        </select>
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Tensão secundária (V)</label>
+                        <select id="ind-trafo-vs" onchange="calcTrafo()">
+                            <option value="220">220/127 V</option>
+                            <option value="380" selected>380/220 V</option>
+                            <option value="440">440/254 V</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="eo-actionbar" role="group" aria-label="Ações — trafo">
+                    <div class="eo-ab-group" role="group" aria-label="Cálculo" data-label="Cálculo">
+                        <button type="button" class="btn eo-ab-primary" onclick="calcTrafo()" data-eo-action="industrial:calc-trafo"><svg class="eo-icon" data-icon="calculator" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></svg> Dimensionar Trafo</button>
+                    </div>
+                </div>
+            </div>
+            <div id="ind-trafo-result" class="predial-result">
+                <h4 style="color:var(--accent3)"><svg class="eo-icon" data-icon="rotate-ccw" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg> Resultados — Transformador</h4>
+                <div class="predial-result-grid" id="ind-trafo-result-grid"></div>
+                <div id="ind-trafo-detail"></div>
+            </div>
+        </div>
+
+        <!-- PROTEÇÕES -->
+        <div id="page-ind-protecao" class="page">
+            <div class="section-title">
+                <h2><svg class="eo-icon" data-icon="lock" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Coordenação de Proteções</h2><span class="badge" style="background:var(--accent3)">NBR
+                    5410</span>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="dot dot-purple"></div>
+                    <h3>Dados para Proteção de Motor</h3>
+                </div>
+                <div class="predial-input-grid">
+                    <div class="predial-input-group">
+                        <label>Corrente nominal do motor (A)</label>
+                        <input type="number" id="ind-prot-in" value="9.6" min="0.1" step="0.1" oninput="calcProtecao()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Relação Ip/In (partida)</label>
+                        <input type="number" id="ind-prot-ipIn" value="7" min="1" max="12" step="0.5"
+                            oninput="calcProtecao()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Tipo de proteção</label>
+                        <select id="ind-prot-tipo" onchange="calcProtecao()">
+                            <option value="disjuntor-motor">Disjuntor-motor</option>
+                            <option value="fusivel-contator-rele" selected>Fusível + Contator + Relé térmico</option>
+                            <option value="disjuntor-contator-rele">Disjuntor + Contator + Relé térmico</option>
+                        </select>
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Classe do relé térmico</label>
+                        <select id="ind-prot-classe" onchange="calcProtecao()">
+                            <option value="10">Classe 10 (partida leve)</option>
+                            <option value="20" selected>Classe 20 (partida normal)</option>
+                            <option value="30">Classe 30 (partida pesada)</option>
+                        </select>
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Corrente de curto-circuito (kA)</label>
+                        <input type="number" id="ind-prot-icc" value="10" min="1" step="1" oninput="calcProtecao()">
+                    </div>
+                </div>
+                <div class="eo-actionbar" role="group" aria-label="Ações — protecao">
+                    <div class="eo-ab-group" role="group" aria-label="Cálculo" data-label="Cálculo">
+                        <button type="button" class="btn eo-ab-primary" onclick="calcProtecao()" data-eo-action="industrial:calc-protecao"><svg class="eo-icon" data-icon="calculator" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></svg> Dimensionar Proteções</button>
+                    </div>
+                </div>
+            </div>
+            <div id="ind-prot-result" class="predial-result">
+                <h4 style="color:var(--accent3)"><svg class="eo-icon" data-icon="lock" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Resultados — Proteções</h4>
+                <div class="predial-result-grid" id="ind-prot-result-grid"></div>
+                <div id="ind-prot-detail"></div>
+            </div>
+        </div>
+
+        <!-- ALIMENTADORES -->
+        <div id="page-ind-alimentador" class="page">
+            <div class="section-title">
+                <h2><svg class="eo-icon" data-icon="zap" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z"/></svg> Dimensionamento de Alimentadores</h2><span class="badge" style="background:var(--accent3)">NBR
+                    5410</span>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="dot dot-purple"></div>
+                    <h3>Dados do Alimentador</h3>
+                </div>
+                <div class="predial-input-grid">
+                    <div class="predial-input-group">
+                        <label>Demanda total (kVA)</label>
+                        <input type="number" id="ind-alim-dem" value="50" min="1" step="1" oninput="calcAlimentador()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Tensão (V)</label>
+                        <select id="ind-alim-tensao" onchange="calcAlimentador()">
+                            <option value="220">220 V</option>
+                            <option value="380" selected>380 V</option>
+                            <option value="440">440 V</option>
+                        </select>
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Comprimento (m)</label>
+                        <input type="number" id="ind-alim-l" value="50" min="1" step="1" oninput="calcAlimentador()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Material do condutor</label>
+                        <select id="ind-alim-mat" onchange="calcAlimentador()">
+                            <option value="cu">Cobre</option>
+                            <option value="al">Alumínio</option>
+                        </select>
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Método de instalação</label>
+                        <select id="ind-alim-metodo" onchange="calcAlimentador()">
+                            <option value="B1">B1 — Eletroduto embutido</option>
+                            <option value="B2">B2 — Eletroduto aparente</option>
+                            <option value="C" selected>C — Bandeja</option>
+                            <option value="D">D — Enterrado</option>
+                        </select>
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Temperatura (°C)</label>
+                        <select id="ind-alim-temp" onchange="calcAlimentador()">
+                            <option value="30">30 °C</option>
+                            <option value="35">35 °C</option>
+                            <option value="40" selected>40 °C</option>
+                            <option value="45">45 °C</option>
+                            <option value="50">50 °C</option>
+                        </select>
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Limite de queda de tensão (%)</label>
+                        <select id="ind-alim-qdlim" onchange="calcAlimentador()">
+                            <option value="2">2% (alimentador)</option>
+                            <option value="3">3%</option>
+                            <option value="5">5% (total)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="eo-actionbar" role="group" aria-label="Ações — alimentador">
+                    <div class="eo-ab-group" role="group" aria-label="Cálculo" data-label="Cálculo">
+                        <button type="button" class="btn eo-ab-primary" onclick="calcAlimentador()" data-eo-action="industrial:calc-alimentador"><svg class="eo-icon" data-icon="calculator" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></svg> Dimensionar Alimentador</button>
+                    </div>
+                </div>
+            </div>
+            <div id="ind-alim-result" class="predial-result">
+                <h4 style="color:var(--accent3)"><svg class="eo-icon" data-icon="zap" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z"/></svg> Resultados — Alimentador</h4>
+                <div class="predial-result-grid" id="ind-alim-result-grid"></div>
+                <div id="ind-alim-detail"></div>
+            </div>
+        </div>
+
+        <!-- DEMANDA INDUSTRIAL -->
+        <div id="page-ind-demanda" class="page">
+            <div class="section-title">
+                <h2><svg class="eo-icon" data-icon="table" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3v18"/><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/></svg> Cálculo de Demanda Industrial</h2><span class="badge" style="background:var(--accent3)">NBR
+                    5410</span>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="dot dot-purple"></div>
+                    <h3>Cargas da Instalação</h3>
+                </div>
+                <div class="predial-input-grid">
+                    <div class="predial-input-group">
+                        <label>Iluminação + Tomadas (kW)</label>
+                        <input type="number" id="ind-dem-ilum" value="15" min="0" step="1" oninput="calcDemanda()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Motores até 10 cv (kW total)</label>
+                        <input type="number" id="ind-dem-mot1" value="20" min="0" step="1" oninput="calcDemanda()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Motores de 10 a 50 cv (kW total)</label>
+                        <input type="number" id="ind-dem-mot2" value="40" min="0" step="1" oninput="calcDemanda()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Motores acima de 50 cv (kW total)</label>
+                        <input type="number" id="ind-dem-mot3" value="0" min="0" step="1" oninput="calcDemanda()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Fornos / Soldas (kW total)</label>
+                        <input type="number" id="ind-dem-forno" value="0" min="0" step="1" oninput="calcDemanda()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Ar condicionado (kW total)</label>
+                        <input type="number" id="ind-dem-ar" value="10" min="0" step="1" oninput="calcDemanda()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Fator de potência médio</label>
+                        <input type="number" id="ind-dem-fp" value="0.82" min="0.5" max="1" step="0.01"
+                            oninput="calcDemanda()">
+                    </div>
+                </div>
+                <div class="eo-actionbar" role="group" aria-label="Ações — demanda">
+                    <div class="eo-ab-group" role="group" aria-label="Cálculo" data-label="Cálculo">
+                        <button type="button" class="btn eo-ab-primary" onclick="calcDemanda()" data-eo-action="industrial:calc-demanda"><svg class="eo-icon" data-icon="calculator" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></svg> Calcular Demanda</button>
+                    </div>
+                    <div class="eo-ab-group" role="group" aria-label="Saída" data-label="Saída">
+                        <button type="button" class="btn secondary" onclick="exportDemandaXLSX()" data-eo-action="industrial:export-demanda-xlsx" data-eo-feature="demanda-xlsx"><svg class="eo-icon" data-icon="download" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 15V3"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/></svg> Exportar planilha (.xlsx)</button>
+                    </div>
+                </div>
+            </div>
+            <div id="ind-dem-result" class="predial-result">
+                <h4 style="color:var(--accent3)"><svg class="eo-icon" data-icon="table" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3v18"/><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/></svg> Resultados — Demanda Industrial</h4>
+                <div class="predial-result-grid" id="ind-dem-result-grid"></div>
+                <div id="ind-dem-detail"></div>
+            </div>
+        </div>
+
+        <!-- SUBESTAÇÃO -->
+        <div id="page-ind-subestacao" class="page">
+            <div class="section-title">
+                <h2><svg class="eo-icon" data-icon="zap" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z"/></svg> Projeto de Subestação</h2><span class="badge" style="background:var(--accent3)">AT/MT/BT</span>
+            </div>
+            <!-- Dados Gerais -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="dot dot-purple"></div>
+                    <h3>Dados Gerais da Subestação</h3>
+                </div>
+                <div class="predial-input-grid">
+                    <div class="predial-input-group">
+                        <label>Tensão primária (kV)</label>
+                        <select id="sub-vp" onchange="calcSubestacao()">
+                            <option value="13.8" selected>13,8 kV</option>
+                            <option value="34.5">34,5 kV</option>
+                            <option value="69">69 kV</option>
+                            <option value="138">138 kV</option>
+                        </select>
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Tensão secundária (V)</label>
+                        <select id="sub-vs" onchange="calcSubestacao()">
+                            <option value="220">220/127 V</option>
+                            <option value="380" selected>380/220 V</option>
+                            <option value="440">440/254 V</option>
+                        </select>
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Tipo de subestação</label>
+                        <select id="sub-tipo" onchange="calcSubestacao()">
+                            <option value="aerea">Aérea (Poste)</option>
+                            <option value="abrigada" selected>Abrigada (Cabine)</option>
+                            <option value="blindada">Blindada (GIS)</option>
+                        </select>
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Potência instalada total (kW)</label>
+                        <input type="number" id="sub-pot" value="200" min="1" step="5" oninput="calcSubestacao()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Fator de demanda</label>
+                        <input type="number" id="sub-fd" value="0.75" min="0.1" max="1" step="0.05"
+                            oninput="calcSubestacao()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Fator de potência (cos φ)</label>
+                        <input type="number" id="sub-fp" value="0.85" min="0.5" max="1" step="0.01"
+                            oninput="calcSubestacao()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Reserva de capacidade (%)</label>
+                        <select id="sub-reserva" onchange="calcSubestacao()">
+                            <option value="1.20">20%</option>
+                            <option value="1.25" selected>25%</option>
+                            <option value="1.30">30%</option>
+                            <option value="1.40">40%</option>
+                        </select>
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Corrente de curto-circuito (kA)</label>
+                        <input type="number" id="sub-icc" value="12.5" min="1" step="0.5" oninput="calcSubestacao()">
+                    </div>
+                </div>
+                <div class="eo-actionbar" role="group" aria-label="Ações — subestacao">
+                    <div class="eo-ab-group" role="group" aria-label="Cálculo" data-label="Cálculo">
+                        <button type="button" class="btn eo-ab-primary" onclick="calcSubestacao()" data-eo-action="industrial:calc-subestacao"><svg class="eo-icon" data-icon="calculator" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></svg> Dimensionar Subestação</button>
+                    </div>
+                    <div class="eo-ab-group" role="group" aria-label="Saída" data-label="Saída">
+                        <button type="button" class="btn secondary" onclick="exportSubestacaoXLSX()" data-eo-action="industrial:export-subestacao-xlsx" data-eo-feature="subestacao-xlsx"><svg class="eo-icon" data-icon="download" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 15V3"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/></svg> Exportar planilha (.xlsx)</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Resultados -->
+            <div id="sub-result" class="predial-result">
+                <h4 style="color:var(--accent3)"><svg class="eo-icon" data-icon="zap" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z"/></svg> Resultados — Projeto de Subestação</h4>
+                <div class="predial-result-grid" id="sub-result-grid"></div>
+                <div id="sub-detail"></div>
+            </div>
+            <!-- Equipamentos -->
+            <div class="card" style="margin-top:1.2rem">
+                <div class="card-header">
+                    <div class="dot dot-purple"></div>
+                    <h3><svg class="eo-icon" data-icon="settings" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"/><circle cx="12" cy="12" r="3"/></svg> Equipamentos Principais da Subestação</h3>
+                </div>
+                <div class="theory">
+                    Uma subestação industrial típica é composta pelos seguintes equipamentos principais:
+                    <ul style="margin:.6rem 0 0 1.2rem;line-height:1.9">
+                        <li><strong>Transformador de força:</strong> converte a tensão de média para baixa tensão.
+                            Classe F ou H.</li>
+                        <li><strong>Chave seccionadora (CS):</strong> isolamento e manobra sem carga do circuito
+                            primário.</li>
+                        <li><strong>Para-raios:</strong> proteção contra sobretensões atmosféricas (13,8 kV → tipo ZnO).
+                        </li>
+                        <li><strong>Disjuntor de MT:</strong> proteção e manobra do primário do transformador.</li>
+                        <li><strong>Transformadores de corrente (TC) e tensão (TP):</strong> para instrumentação e
+                            proteção.</li>
+                        <li><strong>Quadro de MT (QDG/QGBT):</strong> distribuição em baixa tensão com barramento, DPS e
+                            medição.</li>
+                        <li><strong>Banco de capacitores:</strong> correção do fator de potência (se necessário).</li>
+                        <li><strong>Sistema de aterramento:</strong> malha de terra conforme NBR 7117.</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Banco de Capacitores -->
+            <div class="card" style="margin-top:1.2rem">
+                <div class="card-header">
+                    <div class="dot dot-purple"></div>
+                    <h3><svg class="eo-icon" data-icon="zap" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z"/></svg> Banco de Capacitores — Correção do FP</h3>
+                </div>
+                <div class="predial-input-grid">
+                    <div class="predial-input-group">
+                        <label>Potência ativa da carga (kW)</label>
+                        <input type="number" id="sub-cap-p" value="150" min="1" step="1" oninput="calcCapacitor()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>FP atual (cos φ₁)</label>
+                        <input type="number" id="sub-cap-fp1" value="0.72" min="0.3" max="0.99" step="0.01"
+                            oninput="calcCapacitor()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>FP desejado (cos φ₂)</label>
+                        <input type="number" id="sub-cap-fp2" value="0.92" min="0.5" max="1" step="0.01"
+                            oninput="calcCapacitor()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Tensão do banco (V)</label>
+                        <select id="sub-cap-v" onchange="calcCapacitor()">
+                            <option value="220">220 V</option>
+                            <option value="380" selected>380 V</option>
+                            <option value="440">440 V</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="btn-row">
+                    <button type="button" class="btn secondary" onclick="calcCapacitor()" data-eo-action="industrial:calc-capacitor"><svg class="eo-icon" data-icon="calculator" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></svg> Calcular Banco de Capacitores</button>
+                </div>
+                <div id="sub-cap-result" class="predial-result">
+                    <div class="predial-result-grid" id="sub-cap-result-grid"></div>
+                    <div id="sub-cap-detail"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CCM - CENTRO DE CONTROLE DE MOTORES -->
+        <div id="page-ind-ccm" class="page">
+            <div class="section-title">
+                <h2><svg class="eo-icon" data-icon="settings" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"/><circle cx="12" cy="12" r="3"/></svg> Centro de Controle de Motores (CCM)</h2><span class="badge" style="background:var(--accent3)">NBR
+                    5410</span>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="dot dot-purple"></div>
+                    <h3>Dados Gerais do CCM</h3>
+                </div>
+                <div class="predial-input-grid">
+                    <div class="predial-input-group">
+                        <label>Tensão da rede de média tensão (kV)</label>
+                        <select id="ccm-tensao-mt" onchange="calcCCM()">
+                            <option value="13.8" selected>13,8 kV</option>
+                            <option value="23.1">23,1 kV</option>
+                            <option value="34.5">34,5 kV</option>
+                            <option value="69">69 kV</option>
+                        </select>
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Tensão do barramento (V)</label>
+                        <select id="ccm-tensao" onchange="calcCCM()">
+                            <option value="220">220 V</option>
+                            <option value="380" selected>380 V</option>
+                            <option value="440">440 V</option>
+                            <option value="660">660 V</option>
+                            <option value="2300">2.300 V (2,3 kV)</option>
+                            <option value="4160">4.160 V (4,16 kV)</option>
+                            <option value="6600">6.600 V (6,6 kV)</option>
+                            <option value="13800">13.800 V (13,8 kV)</option>
+                        </select>
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Fator de demanda geral</label>
+                        <input type="number" id="ccm-fd" value="0.75" min="0.1" max="1" step="0.05" oninput="calcCCM()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Fator de potência médio</label>
+                        <input type="number" id="ccm-fp" value="0.85" min="0.5" max="1" step="0.01" oninput="calcCCM()">
+                    </div>
+                    <div class="predial-input-group">
+                        <label>Corrente de curto-circuito (kA)</label>
+                        <input type="number" id="ccm-icc" value="25" min="1" step="0.5" oninput="calcCCM()">
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top:1rem">
+                <div class="card-header">
+                    <div class="dot dot-purple"></div>
+                    <h3>Lista de Motores</h3>
+                </div>
+                <div id="ccm-motor-list"></div>
+                <div class="eo-actionbar" role="group" aria-label="Ações — CCM">
+                    <div class="eo-ab-group" role="group" aria-label="Cálculo" data-label="Cálculo">
+                        <button type="button" class="btn secondary" onclick="ccmAddMotor()" data-eo-action="industrial:add-ccm-motor"><svg class="eo-icon" data-icon="file-plus" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M9 15h6"/><path d="M12 18v-6"/></svg> Adicionar Motor</button>
+                        <button type="button" class="btn eo-ab-primary" onclick="calcCCM()" data-eo-action="industrial:calc-ccm"><svg class="eo-icon" data-icon="calculator" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></svg> Calcular CCM</button>
+                    </div>
+                    <div class="eo-ab-group" role="group" aria-label="Saída" data-label="Saída">
+                        <button type="button" class="btn secondary" onclick="exportCCMXLSX()" data-eo-action="industrial:export-ccm-xlsx" data-eo-feature="ccm-xlsx"><svg class="eo-icon" data-icon="download" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 15V3"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/></svg> Exportar planilha (.xlsx)</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="ccm-result" class="predial-result">
+                <h4 style="color:var(--accent3)"><svg class="eo-icon" data-icon="settings" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"/><circle cx="12" cy="12" r="3"/></svg> Resultados — CCM</h4>
+                <div class="predial-result-grid" id="ccm-result-grid"></div>
+                <div id="ccm-detail"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ══ NAV I.A ══ -->
+
+
+    <!-- ══ NAV APOSTILAS ══ -->
+
+
+    <!-- ══ NAV SOBRE ══ -->
+
+
+
+    <!-- ══ TELA INICIAL DE SELEÇÃO DE MÓDULO ══ -->
+
+
+    <!-- ══ NAV DISTRIBUIÇÃO ELÉTRICA ══ -->
+
+
+    <!-- ══ NAV ELETRICIDADE II ══ -->
+
+    <!-- ══ NAV ACIONAMENTOS ══ -->
+
+
+    <!-- ══════════════════════════════════════════════════════════
+     MÓDULO: ACIONAMENTOS ELÉTRICOS
+══════════════════════════════════════════════════════════ -->
+
+    <!-- ══ NAV PROJETOS PREDIAIS ══ -->
+
+
+
+    <!-- ══ NAV PROJETOS INDUSTRIAIS ══ -->
+
+
+    <script src="assets/js/legacy/core.js"></script>
+    <script src="assets/js/legacy/industrial.js"></script>
+    <script src="assets/js/core/actionbar.js"></script>
+
+    <!-- ══ NAV LAEL ══ -->
+<script src="assets/js/core/nav.js"></script>
+</body></html>

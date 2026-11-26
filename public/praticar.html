@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Praticar — EletroLabz</title>
+    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+    <script src="assets/js/core/theme.js"></script>
+    <script src="assets/js/core/icons.js"></script>
+    <link rel="stylesheet" href="assets/css/fonts.css">
+    <link rel="stylesheet" href="assets/css/tokens.css">
+    <link rel="stylesheet" href="assets/css/legacy.css">
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/nav.css">
+    <link rel="stylesheet" href="assets/css/mobile.css">
+    <link rel="stylesheet" href="assets/css/praticar.css">
+</head>
+
+<body data-eo-module="praticar" data-eo-area="educacao">
+
+    <nav id="nav-praticar" aria-label="Módulo">
+        <div class="eo-topbar">
+            <a class="eo-brand" href="eletrotec.html" aria-label="EletroLabz: ir para o início"><img width="32" height="32" alt="" src="./assets/icons/favicon.svg"><span class="eo-brand__name">EletroLabz</span></a>
+            <a class="ms-back-btn eo-modules" href="eletrotec.html"><svg class="eo-icon" data-icon="arrow-left" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg> Módulos</a>
+            <button class="theme-toggle" type="button" onclick="toggleTheme()" data-eo-action="praticar:alternar-tema" id="theme-btn" aria-pressed="false"><svg class="eo-icon" data-icon="moon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg><svg class="eo-icon" data-icon="sun" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg><span class="tt-label"><span class="tt-to-dark">Modo escuro</span><span class="tt-to-light">Modo claro</span></span></button>
+        </div>
+        <div class="nav-inner">
+            <button class="nav-btn active" type="button" data-prpage="praticar-home" data-eo-action="praticar:aba-inicio" onclick="showPraticarPage('praticar-home',this)"><i data-eo-icon="house"></i> Início</button>
+            <button class="nav-btn" type="button" data-prpage="flashcards" data-eo-action="praticar:aba-flashcards" onclick="showPraticarPage('flashcards',this)"><i data-eo-icon="copy"></i> Flashcards</button>
+            <button class="nav-btn" type="button" data-prpage="quiz" data-eo-action="praticar:aba-quiz" onclick="showPraticarPage('quiz',this)"><i data-eo-icon="list-checks"></i> Quiz</button>
+        </div>
+    </nav>
+    <div class="eo-crumbs" role="navigation" aria-label="Trilha de navegação"><ol></ol></div>
+
+    <main id="main-praticar">
+        <p id="pr-aviso-storage" class="pr-aviso" role="status" hidden><i data-eo-icon="triangle-alert"></i> Este navegador não permite salvar o progresso: ele vale só enquanto a página estiver aberta.</p>
+
+        <!-- ══ INÍCIO ══ -->
+        <div id="page-praticar-home" class="page active">
+            <div class="pr-wrap">
+                <header class="pr-head">
+                    <h1 id="pr-h1-home" tabindex="-1">Praticar</h1>
+                    <p class="pr-lead">Revise com flashcards e teste o que aprendeu em quizzes por tópico. Funciona sem internet e o progresso fica só neste aparelho.</p>
+                </header>
+                <div class="pr-sel-grid" role="group" aria-label="Modos de prática">
+                    <a class="eo-sel-card" href="#flashcards">
+                        <span class="eo-sel-icon"><i data-eo-icon="copy"></i></span>
+                        <span class="eo-sel-body"><span class="eo-sel-title">Flashcards</span><span class="eo-sel-desc">Vire o cartão, lembre da resposta e marque o que já sabe.</span><span class="pr-sel-resumo" id="pr-home-fc"></span></span>
+                        <span class="eo-sel-chev"><i data-eo-icon="chevron-right"></i></span>
+                    </a>
+                    <a class="eo-sel-card" href="#quiz">
+                        <span class="eo-sel-icon"><i data-eo-icon="list-checks"></i></span>
+                        <span class="eo-sel-body"><span class="eo-sel-title">Quiz</span><span class="eo-sel-desc">Questões sorteadas por tópico, com correção e explicação.</span><span class="pr-sel-resumo" id="pr-home-qz"></span></span>
+                        <span class="eo-sel-chev"><i data-eo-icon="chevron-right"></i></span>
+                    </a>
+                </div>
+                <section class="pr-soon" aria-labelledby="pr-soon-t">
+                    <span class="pr-soon-icon"><i data-eo-icon="file-text"></i></span>
+                    <div class="pr-soon-body">
+                        <h2 id="pr-soon-t">Listas de exercícios</h2>
+                        <p>Listas para resolver com papel e calculadora. Ainda em preparação.</p>
+                    </div>
+                    <span class="eo-chip">Em breve</span>
+                </section>
+            </div>
+        </div>
+
+        <!-- ══ FLASHCARDS ══ -->
+        <div id="page-flashcards" class="page">
+            <div class="pr-wrap">
+                <header class="pr-head">
+                    <h1 id="pr-h1-fc" tabindex="-1">Flashcards</h1>
+                    <p class="pr-lead">Leia a frente, tente responder de cabeça e vire o cartão para conferir.</p>
+                </header>
+
+                <div class="pr-controls">
+                    <div class="pr-field">
+                        <label for="pr-fc-topico">Tópico</label>
+                        <select id="pr-fc-topico" data-eo-action="praticar:escolher-topico"></select>
+                    </div>
+                    <div class="pr-field">
+                        <span class="pr-label" id="pr-fc-filtro-l">Mostrar</span>
+                        <div class="pr-seg" role="group" aria-labelledby="pr-fc-filtro-l">
+                            <button type="button" class="pr-seg-btn" data-eo-action="praticar:filtrar-cards" data-filtro="todos" aria-pressed="true">Todos <span class="pr-seg-n" data-n="todos"></span></button>
+                            <button type="button" class="pr-seg-btn" data-eo-action="praticar:filtrar-cards" data-filtro="revisar" aria-pressed="false">Revisar <span class="pr-seg-n" data-n="revisar"></span></button>
+                            <button type="button" class="pr-seg-btn" data-eo-action="praticar:filtrar-cards" data-filtro="novos" aria-pressed="false">Novos <span class="pr-seg-n" data-n="novos"></span></button>
+                        </div>
+                    </div>
+                </div>
+                <p id="pr-fc-resumo" class="pr-resumo"></p>
+                <p id="pr-fc-ver" class="pr-ver" hidden></p>
+
+                <div id="pr-fc-vazio" class="eo-state" hidden><i data-eo-icon="circle-help"></i><p id="pr-fc-vazio-txt"></p></div>
+
+                <div id="pr-fc-palco" class="pr-palco">
+                    <p class="pr-contador"><span id="pr-fc-pos"></span> <span id="pr-fc-marca" class="pr-marca" hidden></span></p>
+                    <div class="pr-flip" id="pr-flip">
+                        <div class="pr-flip-inner">
+                            <div class="pr-face pr-face--frente" id="pr-face-frente" tabindex="-1">
+                                <span class="pr-face-rotulo">Frente</span>
+                                <p class="pr-face-txt" id="pr-card-frente"></p>
+                                <span class="pr-chips" id="pr-card-chips-f"></span>
+                            </div>
+                            <div class="pr-face pr-face--verso" id="pr-face-verso" tabindex="-1" aria-hidden="true" inert>
+                                <span class="pr-face-rotulo">Verso</span>
+                                <p class="pr-face-txt" id="pr-card-verso"></p>
+                                <span class="pr-chips" id="pr-card-chips-v"></span>
+                                <a class="pr-face-ver" id="pr-card-ver" href="#" hidden></a>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn secondary pr-virar" id="pr-btn-virar" data-eo-action="praticar:virar-card" aria-pressed="false" aria-keyshortcuts="Space Enter"><i data-eo-icon="rotate-ccw"></i> Virar cartão</button>
+                    <div class="pr-marcar">
+                        <button type="button" class="btn pr-btn-sei" id="pr-btn-sei" data-eo-action="praticar:marcar-sei" aria-disabled="true" aria-keyshortcuts="S"><i data-eo-icon="circle-check"></i> Sei</button>
+                        <button type="button" class="btn secondary pr-btn-rev" id="pr-btn-rev" data-eo-action="praticar:marcar-revisar" aria-disabled="true" aria-keyshortcuts="R"><i data-eo-icon="rotate-ccw"></i> Revisar</button>
+                    </div>
+                    <div class="pr-nav-cards">
+                        <button type="button" class="btn btn-tertiary pr-ant" id="pr-btn-ant" data-eo-action="praticar:card-anterior" aria-keyshortcuts="ArrowLeft"><i data-eo-icon="arrow-left"></i> Anterior</button>
+                        <button type="button" class="btn btn-tertiary" id="pr-btn-prox" data-eo-action="praticar:card-proximo" aria-keyshortcuts="ArrowRight">Próximo <i data-eo-icon="chevron-right"></i></button>
+                    </div>
+                </div>
+
+                <div class="pr-utils">
+                    <button type="button" class="btn btn-tertiary" data-eo-action="praticar:embaralhar-cards"><i data-eo-icon="shuffle"></i> Embaralhar</button>
+                    <button type="button" class="btn btn-tertiary pr-danger" data-eo-action="praticar:zerar-progresso"><i data-eo-icon="trash-2"></i> Zerar progresso do tópico</button>
+                </div>
+                <p class="pr-atalhos">Atalhos: Espaço ou Enter vira o cartão, S marca &quot;sei&quot;, R marca &quot;revisar&quot;, setas esquerda e direita trocam de cartão.</p>
+                <p id="pr-anuncio" class="sr-only" role="status" aria-live="polite"></p>
+            </div>
+        </div>
+
+        <!-- ══ QUIZ ══ -->
+        <div id="page-quiz" class="page">
+            <div class="pr-wrap">
+                <header class="pr-head">
+                    <h1 id="pr-h1-quiz" tabindex="-1">Quiz</h1>
+                    <p class="pr-lead">Escolha os tópicos e a quantidade. As questões são sorteadas a cada quiz.</p>
+                </header>
+
+                <section id="pr-quiz-retomar" class="pr-card" hidden aria-labelledby="pr-retomar-t">
+                    <h2 id="pr-retomar-t" tabindex="-1">Quiz em andamento</h2>
+                    <p id="pr-retomar-txt"></p>
+                    <div class="pr-row">
+                        <button type="button" class="btn" data-eo-action="praticar:retomar-quiz"><i data-eo-icon="play"></i> Retomar quiz</button>
+                        <button type="button" class="btn secondary" data-eo-action="praticar:novo-quiz">Começar outro</button>
+                    </div>
+                </section>
+
+                <section id="pr-quiz-config" class="pr-card" hidden aria-labelledby="pr-cfg-t">
+                    <h2 id="pr-cfg-t" tabindex="-1">Configurar quiz</h2>
+                    <div id="pr-cfg-vazio" class="eo-state" hidden><i data-eo-icon="circle-help"></i><p>Nenhum tópico disponível no momento.</p></div>
+                    <form id="pr-cfg-form" novalidate onsubmit="return false">
+                        <fieldset class="pr-fieldset">
+                            <legend>Tópicos</legend>
+                            <div id="pr-cfg-topicos" class="pr-checks"></div>
+                        </fieldset>
+                        <fieldset class="pr-fieldset">
+                            <legend>Quantidade de questões</legend>
+                            <div id="pr-cfg-qtd" class="pr-opts"></div>
+                        </fieldset>
+                        <div class="pr-field">
+                            <label for="pr-cfg-nivel">Nível (opcional)</label>
+                            <select id="pr-cfg-nivel">
+                                <option value="0">Todos os níveis</option>
+                                <option value="1">Básico</option>
+                                <option value="2">Intermediário</option>
+                                <option value="3">Avançado</option>
+                            </select>
+                        </div>
+                        <p id="pr-cfg-disp" class="pr-resumo" role="status"></p>
+                        <p id="pr-cfg-aviso" class="pr-erro" role="alert" hidden></p>
+                        <div class="pr-row">
+                            <button type="button" class="btn" id="pr-btn-iniciar" data-eo-action="praticar:iniciar-quiz"><i data-eo-icon="play"></i> Iniciar quiz</button>
+                        </div>
+                    </form>
+                </section>
+
+                <section id="pr-quiz-questao" class="pr-card" hidden aria-labelledby="pr-q-enunciado">
+                    <p class="pr-q-meta"><span id="pr-q-topico" class="eo-chip eo-chip--edu"></span><span id="pr-q-nivel" class="eo-chip"></span></p>
+                    <h2 id="pr-q-enunciado" tabindex="-1"><span class="pr-q-num" id="pr-q-num"></span><span class="pr-q-texto" id="pr-q-texto"></span></h2>
+                    <progress id="pr-q-progresso" class="pr-progress" max="1" value="0" aria-label="Progresso do quiz"></progress>
+                    <fieldset class="pr-fieldset pr-alts-set">
+                        <legend class="sr-only">Alternativas</legend>
+                        <div id="pr-q-alts" class="pr-alts"></div>
+                    </fieldset>
+                    <p id="pr-q-aviso" class="pr-erro" role="alert" hidden></p>
+                    <div id="pr-feedback" class="pr-feedback" tabindex="-1" hidden>
+                        <p class="pr-fb-titulo"><span class="pr-fb-icone" id="pr-fb-icone"></span><strong id="pr-fb-titulo"></strong></p>
+                        <p id="pr-fb-resposta" class="pr-fb-resposta" hidden></p>
+                        <p id="pr-fb-expl" class="pr-fb-expl"></p>
+                        <p id="pr-fb-porque" class="pr-fb-expl" hidden></p>
+                        <a id="pr-fb-ver" class="pr-fb-ver" href="#" hidden></a>
+                    </div>
+                    <div class="pr-row pr-q-botoes">
+                        <button type="button" class="btn" id="pr-btn-responder" data-eo-action="praticar:responder">Responder</button>
+                        <button type="button" class="btn" id="pr-btn-proxima" data-eo-action="praticar:proxima-questao" hidden>Próxima questão <i data-eo-icon="chevron-right"></i></button>
+                        <button type="button" class="btn" id="pr-btn-ver-res" data-eo-action="praticar:ver-resultado" hidden>Ver resultado <i data-eo-icon="chevron-right"></i></button>
+                        <button type="button" class="btn btn-tertiary pr-danger" data-eo-action="praticar:encerrar-quiz"><i data-eo-icon="x"></i> Encerrar quiz</button>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- ══ RESULTADO DO QUIZ ══ -->
+        <div id="page-quiz-resultado" class="page">
+            <div class="pr-wrap">
+                <header class="pr-head">
+                    <h1 id="pr-h1-res" tabindex="-1">Resultado do quiz</h1>
+                </header>
+                <section class="pr-card pr-placar" aria-label="Pontuação">
+                    <p class="pr-placar-num" id="pr-res-placar"></p>
+                    <p class="pr-placar-pct" id="pr-res-pct"></p>
+                </section>
+
+                <section class="pr-card" aria-labelledby="pr-res-t-top">
+                    <h2 id="pr-res-t-top">Por tópico</h2>
+                    <table class="eo-table pr-tabela">
+                        <caption class="sr-only">Acertos por tópico</caption>
+                        <thead><tr><th scope="col">Tópico</th><th scope="col" class="num">Acertos</th><th scope="col" class="num">%</th></tr></thead>
+                        <tbody id="pr-res-tabela"></tbody>
+                    </table>
+                </section>
+
+                <section class="pr-card" aria-labelledby="pr-res-t-err">
+                    <h2 id="pr-res-t-err">Questões erradas</h2>
+                    <p id="pr-res-sem-erro" hidden>Você acertou todas as questões.</p>
+                    <ol id="pr-res-erradas" class="pr-erradas"></ol>
+                </section>
+
+                <div class="pr-row">
+                    <button type="button" class="btn" data-eo-action="praticar:novo-quiz"><i data-eo-icon="play"></i> Novo quiz</button>
+                    <button type="button" class="btn secondary" id="pr-btn-refazer" data-eo-action="praticar:refazer-erradas"><i data-eo-icon="rotate-ccw"></i> Refazer erradas</button>
+                </div>
+
+                <section class="pr-card pr-share" aria-labelledby="pr-share-t">
+                    <h2 id="pr-share-t">Compartilhar resultado</h2>
+                    <div class="pr-share-prev">
+                        <img id="pr-preview" alt="" width="1080" height="1350" hidden>
+                        <p id="pr-preview-carga" class="pr-resumo">Gerando imagem do resultado...</p>
+                    </div>
+                    <p id="pr-share-nota" class="pr-resumo" hidden>Este navegador não compartilha arquivos direto. Baixe a imagem e envie pelo aplicativo que preferir.</p>
+                    <div class="pr-row">
+                        <button type="button" class="btn" id="pr-btn-compartilhar" data-eo-action="praticar:compartilhar-resultado" data-eo-feature="resultado-png"><i data-eo-icon="share-2"></i> Compartilhar resultado</button>
+                        <button type="button" class="btn secondary" id="pr-btn-baixar" data-eo-action="praticar:baixar-resultado" data-eo-feature="resultado-png"><i data-eo-icon="download"></i> Baixar imagem</button>
+                        <button type="button" class="btn secondary" id="pr-btn-copiar" data-eo-action="praticar:copiar-resultado"><i data-eo-icon="copy"></i> Copiar texto</button>
+                    </div>
+                    <label for="pr-share-manual" class="sr-only">Texto do resultado para copiar</label>
+                    <textarea id="pr-share-manual" class="pr-manual" rows="5" readonly hidden></textarea>
+                    <p id="pr-share-status" class="pr-resumo" role="status" aria-live="polite"></p>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <script src="assets/js/praticar/store.js"></script>
+    <script src="assets/js/praticar/core.js"></script>
+    <script src="assets/data/praticar/fundamentos.js" charset="utf-8"></script>
+    <script src="assets/data/praticar/kirchhoff.js" charset="utf-8"></script>
+    <script src="assets/data/praticar/ca.js" charset="utf-8"></script>
+    <script src="assets/data/praticar/trifasico.js" charset="utf-8"></script>
+    <script src="assets/js/praticar/share.js"></script>
+    <script src="assets/js/praticar/ui.js"></script>
+    <script src="assets/js/core/nav.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eletrotécnica — Módulos Interativos</title>
+    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+    <script src="assets/js/core/theme.js"></script>
+    <script src="assets/js/core/icons.js"></script>
+
+    <!-- Bibliotecas para exportação de Memorial de Cálculo (.docx) -->
+
+
+    <!-- ══ NAV PROJETOS INDUSTRIAIS ══ -->
+
+
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="assets/vendor/mathjax-3.2.2-tex-svg-full.js"></script>
+
+    <link rel="stylesheet" href="assets/css/fonts.css">
+    <link rel="stylesheet" href="assets/css/tokens.css">
+    <link rel="stylesheet" href="assets/css/legacy.css">
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/formula.css">
+    <link rel="stylesheet" href="assets/css/conceito.css">
+    <link rel="stylesheet" href="assets/css/nav.css">
+    <link rel="stylesheet" href="assets/css/mobile.css">
+</head>
+
+<body data-eo-module="elet" data-eo-area="educacao">
+
+    <!-- ══ NAV I.A ══ -->
+
+
+    <!-- ══ NAV APOSTILAS ══ -->
+
+
+    <!-- ══ NAV SOBRE ══ -->
+
+
+
+    <!-- ══ TELA INICIAL DE SELEÇÃO DE MÓDULO ══ -->
+
+
+    <!-- ══ NAV DISTRIBUIÇÃO ELÉTRICA ══ -->
+
+
+    <!-- ══ NAV ELETRICIDADE II ══ -->
+    <nav id="nav-elet" aria-label="Módulo">
+        <div class="eo-topbar">
+            <a class="eo-brand" href="eletrotec.html" aria-label="EletroLabz: ir para o início"><img width="32" height="32" alt="" src="./assets/icons/favicon.svg"><span class="eo-brand__name">EletroLabz</span></a>
+            <a class="ms-back-btn eo-modules" href="eletrotec.html"><svg class="eo-icon" data-icon="arrow-left" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg> Módulos</a>
+            <button class="theme-toggle" type="button" onclick="toggleTheme()" id="theme-btn" aria-pressed="false" data-eo-action="elet:alternar-tema"><svg class="eo-icon" data-icon="moon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg><svg class="eo-icon" data-icon="sun" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg><span class="tt-label"><span class="tt-to-dark">Modo escuro</span><span class="tt-to-light">Modo claro</span></span></button>
+        </div>
+        <div class="nav-inner">
+            <button class="nav-btn active" data-page="home" onclick="showPage('home',this)">Início</button>
+            <button class="nav-btn" data-page="rl" onclick="showPage('rl',this)">RL</button>
+            <button class="nav-btn" data-page="rc" onclick="showPage('rc',this)">RC</button>
+            <button class="nav-btn" data-page="rlc" onclick="showPage('rlc',this)">RLC</button>
+            <button class="nav-btn" data-page="fasores" onclick="showPage('fasores',this)">Fasores</button>
+            <button class="nav-btn" data-page="trifasico" onclick="showPage('trifasico',this)">Trifásico</button>
+            <button class="nav-btn" data-page="ydelta" onclick="showPage('ydelta',this)">Y ↔ Delta</button>
+            <button class="nav-btn" data-page="complexos" onclick="showPage('complexos',this)">Complexos</button>
+            <button class="nav-btn" data-page="cfp" onclick="showPage('cfp',this)">Correção FP</button>
+            <button class="nav-btn" data-page="calc" onclick="showPage('calc',this)">Calculadoras</button>
+        </div>
+    </nav>
+    <div class="eo-crumbs" role="navigation" aria-label="Trilha de navegação"><ol></ol></div>
+
+    <!-- ══ NAV ACIONAMENTOS ══ -->
+
+    <main id="main-elet" style="display:none">
+
+        <div id="page-home" class="page active">
+            <div class="hero">
+                <div class="hero-tag">Guia Interativo</div>
+                <h1>Eletricidade II</h1>
+                <p>Simulações interativas, calculadoras e visualizações dinâmicas para dominar circuitos CA.</p>
+                <div class="hero-grid">
+                    <a class="hero-card" href="#rl" onclick="showPage('rl',null);return false">
+                        <div class="icon"><svg class="eo-icon" data-icon="zap" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z"/></svg> </div>
+                        <div class="label">Circuito RL</div>
+                    </a>
+                    <a class="hero-card" href="#rc" onclick="showPage('rc',null);return false">
+                        <div class="icon"><svg class="eo-icon" data-icon="zap" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z"/></svg> </div>
+                        <div class="label">Circuito RC</div>
+                    </a>
+                    <a class="hero-card" href="#rlc" onclick="showPage('rlc',null);return false">
+                        <div class="icon"><svg class="eo-icon" data-icon="zap" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z"/></svg> </div>
+                        <div class="label">Circuito RLC</div>
+                    </a>
+                    <a class="hero-card" href="#fasores" onclick="showPage('fasores',null);return false">
+                        <div class="icon"><svg class="eo-icon" data-icon="gauge" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></svg> </div>
+                        <div class="label">Fasores</div>
+                    </a>
+                    <a class="hero-card" href="#trifasico" onclick="showPage('trifasico',null);return false">
+                        <div class="icon"><svg class="eo-icon" data-icon="zap" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z"/></svg> </div>
+                        <div class="label">Trifásico</div>
+                    </a>
+                    <a class="hero-card" href="#ydelta" onclick="showPage('ydelta',null);return false">
+                        <div class="icon"><svg class="eo-icon" data-icon="rotate-ccw" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg> </div>
+                        <div class="label">Y ↔ Delta</div>
+                    </a>
+                    <a class="hero-card" href="#complexos" onclick="showPage('complexos',null);return false">
+                        <div class="icon"><svg class="eo-icon" data-icon="calculator" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></svg> </div>
+                        <div class="label">Complexos</div>
+                    </a>
+                    <a class="hero-card" href="#cfp" onclick="showPage('cfp',null);return false">
+                        <div class="icon"><svg class="eo-icon" data-icon="gauge" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></svg> </div>
+                        <div class="label">Correção FP</div>
+                    </a>
+                    <a class="hero-card" href="#calc" onclick="showPage('calc',null);return false">
+                        <div class="icon"><svg class="eo-icon" data-icon="calculator" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></svg> </div>
+                        <div class="label">Calculadoras</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div id="page-rl" class="page">
+            <div class="section-title">
+                <h2>Circuito RL</h2><span class="badge">INDUTIVO</span>
+            </div>
+            <div data-eo-conceito="rl"></div>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="dot dot-blue"></div>
+                        <h3>Teoria</h3>
+                    </div>
+                    <div class="formula">\( Z = R + j\omega L \)<span>Impedância complexa</span></div>
+                    <div class="formula">\( \varphi = \arctan\left(\frac{\omega L}{R}\right) \)<span>Corrente atrasa a
+                            tensão</span></div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="dot dot-blue"></div>
+                        <h3>Simulador</h3>
+                    </div>
+                    <div class="slider-group">
+                        <div class="slider-label"><label>R (Ω)</label><span class="val" id="rl-r-val">100</span></div>
+                        <input type="range" id="rl-r" min="1" max="1000" value="100" oninput="updateRL()">
+                    </div>
+                    <div class="slider-group">
+                        <div class="slider-label"><label>L (mH)</label><span class="val" id="rl-l-val">100</span></div>
+                        <input type="range" class="orange" id="rl-l" min="1" max="500" value="100" oninput="updateRL()">
+                    </div>
+                    <div class="slider-group">
+                        <div class="slider-label"><label>f (Hz)</label><span class="val" id="rl-f-val">50</span></div>
+                        <input type="range" class="purple" id="rl-f" min="1" max="1000" value="50" oninput="updateRL()">
+                    </div>
+                    <div class="result-grid">
+                        <div class="result-item">
+                            <div class="r-label">X_L (Ω)</div>
+                            <div class="r-val" id="rl-xl">–</div>
+                        </div>
+                        <div class="result-item orange">
+                            <div class="r-label">|Z| (Ω)</div>
+                            <div class="r-val" id="rl-z">–</div>
+                        </div>
+                        <div class="result-item purple">
+                            <div class="r-label">φ (°)</div>
+                            <div class="r-val" id="rl-phi">–</div>
+                        </div>
+                        <div class="result-item green">
+                            <div class="r-label">FP</div>
+                            <div class="r-val" id="rl-fp">–</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="dot dot-blue"></div>
+                    <h3>Formas de Onda</h3>
+                </div><canvas id="rl-canvas" height="170"></canvas>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="dot dot-orange"></div>
+                    <h3>X_L vs Frequência</h3>
+                </div><canvas id="rl-freq-canvas" height="150"></canvas>
+            </div>
+            <div data-eo-formula="elet-rl"></div>
+        </div>
+
+        <div id="page-rc" class="page">
+            <div class="section-title">
+                <h2>Circuito RC</h2><span class="badge">CAPACITIVO</span>
+            </div>
+            <div data-eo-conceito="rc"></div>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="dot dot-orange"></div>
+                        <h3>Teoria</h3>
+                    </div>
+                    <div class="formula">\( Z = R - j\frac{1}{\omega C} \)<span>Impedância complexa</span></div>
+                    <div class="formula">\( f_c = \frac{1}{2\pi RC} \)<span>Frequência de corte</span></div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="dot dot-orange"></div>
+                        <h3>Simulador</h3>
+                    </div>
+                    <div class="slider-group">
+                        <div class="slider-label"><label>R (Ω)</label><span class="val" id="rc-r-val">100</span></div>
+                        <input type="range" id="rc-r" min="1" max="1000" value="100" oninput="updateRC()">
+                    </div>
+                    <div class="slider-group">
+                        <div class="slider-label"><label>C (µF)</label><span class="val" id="rc-c-val">100</span></div>
+                        <input type="range" class="orange" id="rc-c" min="1" max="1000" value="100"
+                            oninput="updateRC()">
+                    </div>
+                    <div class="slider-group">
+                        <div class="slider-label"><label>f (Hz)</label><span class="val" id="rc-f-val">50</span></div>
+                        <input type="range" class="purple" id="rc-f" min="1" max="1000" value="50" oninput="updateRC()">
+                    </div>
+                    <div class="result-grid">
+                        <div class="result-item">
+                            <div class="r-label">X_C (Ω)</div>
+                            <div class="r-val" id="rc-xc">–</div>
+                        </div>
+                        <div class="result-item orange">
+                            <div class="r-label">|Z| (Ω)</div>
+                            <div class="r-val" id="rc-z">–</div>
+                        </div>
+                        <div class="result-item purple">
+                            <div class="r-label">φ (°)</div>
+                            <div class="r-val" id="rc-phi">–</div>
+                        </div>
+                        <div class="result-item green">
+                            <div class="r-label">f_corte (Hz)</div>
+                            <div class="r-val" id="rc-fc">–</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="dot dot-orange"></div>
+                    <h3>Formas de Onda</h3>
+                </div><canvas id="rc-canvas" height="170"></canvas>
+            </div>
+            <div data-eo-formula="elet-rc"></div>
+        </div>
+
+        <div id="page-rlc" class="page">
+            <div class="section-title">
+                <h2>Circuito RLC</h2><span class="badge">RESSONÂNCIA</span>
+            </div>
+            <div data-eo-conceito="rlc"></div>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="dot dot-purple"></div>
+                        <h3>Teoria</h3>
+                    </div>
+                    <div class="formula">\( Z = R + j\left(\omega L - \frac{1}{\omega C}\right) \)<span>Impedância RLC
+                            série</span></div>
+                    <div class="formula">\( f_0 = \frac{1}{2\pi\sqrt{LC}} \quad | \quad Q = \frac{\omega_0 L}{R}
+                        \)<span>Ressonância e qualidade</span></div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="dot dot-purple"></div>
+                        <h3>Simulador</h3>
+                    </div>
+                    <div class="slider-group">
+                        <div class="slider-label"><label>R (Ω)</label><span class="val" id="rlc-r-val">10</span></div>
+                        <input type="range" id="rlc-r" min="1" max="200" value="10" oninput="updateRLC()">
+                    </div>
+                    <div class="slider-group">
+                        <div class="slider-label"><label>L (mH)</label><span class="val" id="rlc-l-val">100</span></div>
+                        <input type="range" class="orange" id="rlc-l" min="10" max="500" value="100"
+                            oninput="updateRLC()">
+                    </div>
+                    <div class="slider-group">
+                        <div class="slider-label"><label>C (µF)</label><span class="val" id="rlc-c-val">100</span></div>
+                        <input type="range" class="purple" id="rlc-c" min="10" max="1000" value="100"
+                            oninput="updateRLC()">
+                    </div>
+                    <div class="slider-group">
+                        <div class="slider-label"><label>f operação (Hz)</label><span class="val"
+                                id="rlc-fop-val">50</span></div>
+                        <input type="range" id="rlc-fop" min="1" max="500" value="50" oninput="updateRLC()">
+                    </div>
+                    <div class="result-grid">
+                        <div class="result-item">
+                            <div class="r-label">f₀ (Hz)</div>
+                            <div class="r-val" id="rlc-f0">–</div>
+                        </div>
+                        <div class="result-item orange">
+                            <div class="r-label">Q</div>
+                            <div class="r-val" id="rlc-q">–</div>
+                        </div>
+                        <div class="result-item purple">
+                            <div class="r-label">|Z| (Ω)</div>
+                            <div class="r-val" id="rlc-zop">–</div>
+                        </div>
+                        <div class="result-item green">
+                            <div class="r-label">φ (°)</div>
+                            <div class="r-val" id="rlc-phi">–</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="dot dot-purple"></div>
+                    <h3>Curva de Ressonância — |I| vs f</h3>
+                </div><canvas id="rlc-res-canvas" height="200"></canvas>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="dot dot-blue"></div>
+                    <h3>Diagrama Fasorial RLC</h3>
+                </div>
+                <canvas id="rlc-phasor-canvas" height="280"></canvas>
+                <div class="phase-indicator" style="margin-top:.6rem">
+                    <span><span class="phase-dot" style="background:var(--accent)"></span>V_R</span>
+                    <span><span class="phase-dot" style="background:var(--accent2)"></span>V_L</span>
+                    <span><span class="phase-dot" style="background:var(--accent3)"></span>V_C</span>
+                    <span><span class="phase-dot" style="background:var(--accent4)"></span>V_total</span>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="dot dot-orange"></div>
+                    <h3>Senoide e Defasagem — V(t) e I(t)</h3>
+                </div>
+                <canvas id="rlc-wave-canvas" height="200"></canvas>
+                <div class="phase-indicator" style="margin-top:.6rem">
+                    <span><span class="phase-dot" style="background:var(--accent)"></span>V(t)</span>
+                    <span><span class="phase-dot" style="background:var(--accent2)"></span>I(t) — tracejado</span>
+                </div>
+            </div>
+            <div data-eo-formula="elet-rlc"></div>
+        </div>
+
+        <div id="page-fasores" class="page">
+            <div class="section-title">
+                <h2>Diagrama Fasorial</h2><span class="badge">VETORES</span>
+            </div>
+            <div data-eo-conceito="fasores"></div>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="dot dot-green"></div>
+                        <h3>Teoria</h3>
+                    </div>
+                    <div class="formula">\( V_R = R \cdot I\angle 0^\circ \quad V_L = jX_L \cdot I\angle 90^\circ \quad
+                        V_C =
+                        -jX_C \cdot I\angle -90^\circ \)<span>Fasores por elemento</span></div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="dot dot-green"></div>
+                        <h3>Controles</h3>
+                    </div>
+                    <div class="tabs">
+                        <button class="tab active" id="ph-tab-slide" onclick="setPhMode('slide',this)" data-eo-action="elet:modo-fasores-slide"><svg class="eo-icon" data-icon="settings" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"/><circle cx="12" cy="12" r="3"/></svg> Sliders</button>
+                        <button class="tab" id="ph-tab-manual" onclick="setPhMode('manual',this)" data-eo-action="elet:modo-fasores-manual"><svg class="eo-icon" data-icon="puzzle" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15.39 4.39a1 1 0 0 0 1.68-.474 2.5 2.5 0 1 1 3.014 3.015 1 1 0 0 0-.474 1.68l1.683 1.682a2.414 2.414 0 0 1 0 3.414L19.61 15.39a1 1 0 0 1-1.68-.474 2.5 2.5 0 1 0-3.014 3.015 1 1 0 0 1 .474 1.68l-1.683 1.682a2.414 2.414 0 0 1-3.414 0L8.61 19.61a1 1 0 0 0-1.68.474 2.5 2.5 0 1 1-3.014-3.015 1 1 0 0 0 .474-1.68l-1.683-1.682a2.414 2.414 0 0 1 0-3.414L4.39 8.61a1 1 0 0 1 1.68.474 2.5 2.5 0 1 0 3.014-3.015 1 1 0 0 1-.474-1.68l1.683-1.682a2.414 2.414 0 0 1 3.414 0z"/></svg> Manual</button>
+                    </div>
+                    <div id="ph-slider-mode">
+                        <div class="slider-group">
+                            <div class="slider-label"><label>V_R (V)</label><span class="val" id="ph-vr-val">60</span>
+                            </div><input type="range" id="ph-vr-s" min="0" max="300" value="60" oninput="syncPh('s')">
+                        </div>
+                        <div class="slider-group">
+                            <div class="slider-label"><label>V_L (V)</label><span class="val" id="ph-vl-val">80</span>
+                            </div><input type="range" class="orange" id="ph-vl-s" min="0" max="300" value="80"
+                                oninput="syncPh('s')">
+                        </div>
+                        <div class="slider-group">
+                            <div class="slider-label"><label>V_C (V)</label><span class="val" id="ph-vc-val">40</span>
+                            </div><input type="range" class="purple" id="ph-vc-s" min="0" max="300" value="40"
+                                oninput="syncPh('s')">
+                        </div>
+                    </div>
+                    <div id="ph-manual-mode" style="display:none">
+                        <div class="input-row">
+                            <div class="input-group"><label>V_R (V)</label><input type="number" id="ph-vr-m" value="60"
+                                    min="0" step="any" oninput="syncPh('m')"></div>
+                            <div class="input-group"><label>V_L (V)</label><input type="number" id="ph-vl-m" value="80"
+                                    min="0" step="any" oninput="syncPh('m')"></div>
+                            <div class="input-group"><label>V_C (V)</label><input type="number" id="ph-vc-m" value="40"
+                                    min="0" step="any" oninput="syncPh('m')"></div>
+                        </div>
+                    </div>
+                    <div class="result-grid">
+                        <div class="result-item green">
+                            <div class="r-label">|V_total| (V)</div>
+                            <div class="r-val" id="ph-vtotal">–</div>
+                        </div>
+                        <div class="result-item orange">
+                            <div class="r-label">φ (°)</div>
+                            <div class="r-val" id="ph-angle">–</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="r-label">V_L−V_C (V)</div>
+                            <div class="r-val" id="ph-vx">–</div>
+                        </div>
+                        <div class="result-item purple">
+                            <div class="r-label">Natureza</div>
+                            <div class="r-val" id="ph-nat">–</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="dot dot-green"></div>
+                    <h3>Diagrama Fasorial</h3>
+                </div><canvas id="phasor-canvas" height="280"></canvas>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="dot dot-blue"></div>
+                    <h3>Gráfico Trigonométrico — V(t) e I(t)</h3>
+                </div>
+                <p class="theory" id="ph-wave-desc" style="margin-bottom:.5rem"></p>
+                <canvas id="ph-wave-canvas" height="190"></canvas>
+                <div class="phase-indicator" style="margin-top:.5rem">
+                    <span><span class="phase-dot" style="background:var(--accent)"></span>V(t)</span>
+                    <span><span class="phase-dot" style="background:var(--accent2)"></span>I(t) tracejado</span>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="dot dot-orange"></div>
+                    <h3>Triângulo de Impedâncias</h3>
+                </div><canvas id="impedance-triangle" height="190"></canvas>
+            </div>
+            <div data-eo-formula="elet-fasores"></div>
+        </div>
+
+        <div id="page-trifasico" class="page">
+            <div class="section-title">
+                <h2>Circuitos Trifásicos</h2><span class="badge">3Φ</span>
+            </div>
+            <div data-eo-conceito="trifasico"></div>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="dot dot-orange"></div>
+                        <h3>Parâmetros da Fonte</h3>
+                    </div>
+                    <div class="slider-group">
+                        <div class="slider-label"><label>V_fase (V)</label><span class="val" id="tri-vf-val">127</span>
+                        </div><input type="range" id="tri-vf" min="10" max="400" value="127" oninput="updateTri()">
+                    </div>
+                    <div class="slider-group">
+                        <div class="slider-label"><label>f (Hz)</label><span class="val" id="tri-freq-val">60</span>
+                        </div><input type="range" id="tri-freq" min="1" max="400" value="60" oninput="updateTri()">
+                    </div>
+                    <div class="result-grid">
+                        <div class="result-item">
+                            <div class="r-label">V_linha (V)</div>
+                            <div class="r-val" id="tri-vl">–</div>
+                        </div>
+                        <div class="result-item orange">
+                            <div class="r-label">P_total (kW)</div>
+                            <div class="r-val" id="tri-p">–</div>
+                        </div>
+                        <div class="result-item purple">
+                            <div class="r-label">Q_total (kVAr)</div>
+                            <div class="r-val" id="tri-q2">–</div>
+                        </div>
+                        <div class="result-item green">
+                            <div class="r-label">S_total (kVA)</div>
+                            <div class="r-val" id="tri-s">–</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="dot dot-purple"></div>
+                        <h3>Impedância por Fase (R + L + C)</h3>
+                    </div>
+                    <p class="theory" style="margin-bottom:.6rem">Configure R, L e C individualmente para cada fase. As
+                        ondas e o
+                        diagrama fasorial se sincronizam.</p>
+                    <div
+                        style="background:color-mix(in srgb, var(--brand) 7%, transparent);border:1px solid color-mix(in srgb, var(--brand) 25%, transparent);border-radius:var(--r-2);padding:.7rem;margin-bottom:.5rem">
+                        <div style="font-size:.78rem;font-weight:700;color:var(--accent);margin-bottom:.5rem">FASE A
+                        </div>
+                        <div class="input-row" style="margin-bottom:0">
+                            <div class="input-group"><label>R_A (Ω)</label><input type="number" id="tri-ra" value="10"
+                                    min="0" step="any" oninput="updateTri()"></div>
+                            <div class="input-group"><label>L_A (mH)</label><input type="number" id="tri-la" value="0"
+                                    min="0" step="any" oninput="updateTri()"></div>
+                            <div class="input-group"><label>C_A (µF)</label><input type="number" id="tri-ca" value="0"
+                                    min="0" step="any" oninput="updateTri()"></div>
+                        </div>
+                    </div>
+                    <div
+                        style="background:color-mix(in srgb, var(--area-pro) 7%, transparent);border:1px solid color-mix(in srgb, var(--area-pro) 25%, transparent);border-radius:var(--r-2);padding:.7rem;margin-bottom:.5rem">
+                        <div style="font-size:.78rem;font-weight:700;color:var(--accent2);margin-bottom:.5rem">FASE B
+                        </div>
+                        <div class="input-row" style="margin-bottom:0">
+                            <div class="input-group"><label>R_B (Ω)</label><input type="number" id="tri-rb" value="10"
+                                    min="0" step="any" oninput="updateTri()"></div>
+                            <div class="input-group"><label>L_B (mH)</label><input type="number" id="tri-lb" value="0"
+                                    min="0" step="any" oninput="updateTri()"></div>
+                            <div class="input-group"><label>C_B (µF)</label><input type="number" id="tri-cb" value="0"
+                                    min="0" step="any" oninput="updateTri()"></div>
+                        </div>
+                    </div>
+                    <div
+                        style="background:color-mix(in srgb, var(--viz-violet) 7%, transparent);border:1px solid color-mix(in srgb, var(--viz-violet) 25%, transparent);border-radius:var(--r-2);padding:.7rem">
+                        <div style="font-size:.78rem;font-weight:700;color:var(--accent3);margin-bottom:.5rem">FASE C
+                        </div>
+                        <div class="input-row" style="margin-bottom:0">
+                            <div class="input-group"><label>R_C (Ω)</label><input type="number" id="tri-rc" value="10"
+                                    min="0" step="any" oninput="updateTri()"></div>
+                            <div class="input-group"><label>L_C (mH)</label><input type="number" id="tri-lc" value="0"
+                                    min="0" step="any" oninput="updateTri()"></div>
+                            <div class="input-group"><label>C_C (µF)</label><input type="number" id="tri-cc" value="0"
+                                    min="0" step="any" oninput="updateTri()"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="dot dot-orange"></div>
+                    <h3>Ondas de Tensão (sincronizadas)</h3>
+                </div>
+                <canvas id="tri-v-canvas" height="180"></canvas>
+                <div class="phase-indicator" style="margin-top:.5rem">
+                    <span><span class="phase-dot" style="background:var(--accent)"></span>V_A</span>
+                    <span><span class="phase-dot" style="background:var(--accent2)"></span>V_B</span>
+                    <span><span class="phase-dot" style="background:var(--accent3)"></span>V_C</span>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="dot dot-blue"></div>
+                    <h3>Ondas de Corrente por Fase (defasagem individual)</h3>
+                </div>
+                <canvas id="tri-i-canvas" height="180"></canvas>
+                <div class="phase-indicator" style="margin-top:.5rem">
+                    <span><span class="phase-dot" style="background:var(--accent)"></span>I_A (φ_A)</span>
+                    <span><span class="phase-dot" style="background:var(--accent2)"></span>I_B (φ_B)</span>
+                    <span><span class="phase-dot" style="background:var(--accent3)"></span>I_C (φ_C)</span>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="dot dot-purple"></div>
+                    <h3>Diagrama Fasorial 3Φ</h3>
+                </div><canvas id="tri-phasor-canvas" height="260"></canvas>
+            </div>
+            <div data-eo-formula="elet-trifasico"></div>
+        </div>
+
+        <div id="page-ydelta" class="page">
+            <div class="section-title">
+                <h2>Conversão Y ↔ Delta</h2><span class="badge">TOPOLOGIA</span>
+            </div>
+            <div data-eo-conceito="ydelta"></div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="dot dot-blue"></div>
+                    <h3>Fórmulas</h3>
+                </div>
+                <div class="grid-2">
+                    <div>
+                        <div class="formula">\( \Sigma = R_1 R_2 + R_2 R_3 + R_3 R_1 \)<span>Y → Δ</span></div>
+                        <div class="formula">\( R_a = \frac{\Sigma}{R_1} \quad R_b = \frac{\Sigma}{R_2} \quad R_c =
+                            \frac{\Sigma}{R_3} \)<span>Y → Delta</span></div>
+                    </div>
+                    <div>
+                        <div class="formula">\( \Sigma = R_a + R_b + R_c \)<span>Δ → Y</span></div>
+                        <div class="formula">\( R_1 = \frac{R_b R_c}{\Sigma} \quad R_2 = \frac{R_a R_c}{\Sigma} \quad
+                            R_3 =
+                            \frac{R_a R_b}{\Sigma} \)<span>Delta → Y</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="card" style="max-width:700px;margin:0 auto">
+                <div class="yd-mode-bar">
+                    <button id="btn-y2d" class="yd-mode-btn active-y" onclick="setYDMode('y2d')" data-eo-action="elet:modo-ydelta-y2d">Y → Delta</button>
+                    <button id="btn-d2y" class="yd-mode-btn inactive" onclick="setYDMode('d2y')" data-eo-action="elet:modo-ydelta-d2y">Delta → Y</button>
+                </div>
+                <p id="yd-desc" style="font-size:.8rem;color:var(--text-muted);text-align:center;margin-bottom:.9rem">
+                </p>
+                <div id="yd-inputs-y2d" class="yd-input-grid">
+                    <div class="input-group"><label>R1 (Ω)</label><input type="number" id="yd-r1" placeholder="ex: 10"
+                            min="0" step="any" oninput="clearYDResult()"></div>
+                    <div class="input-group"><label>R2 (Ω)</label><input type="number" id="yd-r2" placeholder="ex: 20"
+                            min="0" step="any" oninput="clearYDResult()"></div>
+                    <div class="input-group"><label>R3 (Ω)</label><input type="number" id="yd-r3" placeholder="ex: 30"
+                            min="0" step="any" oninput="clearYDResult()"></div>
+                </div>
+                <div id="yd-inputs-d2y" class="yd-input-grid" style="display:none">
+                    <div class="input-group"><label>Ra (Ω)</label><input type="number" id="yd-ra" placeholder="ex: 30"
+                            min="0" step="any" oninput="clearYDResult()"></div>
+                    <div class="input-group"><label>Rb (Ω)</label><input type="number" id="yd-rb" placeholder="ex: 60"
+                            min="0" step="any" oninput="clearYDResult()"></div>
+                    <div class="input-group"><label>Rc (Ω)</label><input type="number" id="yd-rc" placeholder="ex: 90"
+                            min="0" step="any" oninput="clearYDResult()"></div>
+                </div>
+                <div class="btn-row">
+                    <button id="yd-btn-calc" class="btn" onclick="calcYDelta()" style="flex:1" data-eo-action="elet:calc-ydelta"><svg class="eo-icon" data-icon="zap" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z"/></svg> Calcular</button>
+                    <button class="btn secondary" onclick="clearYDelta()" data-eo-action="elet:limpar-ydelta"><svg class="eo-icon" data-icon="trash-2" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M10 11v6"/><path d="M14 11v6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg> Limpar</button>
+                </div>
+                <div id="yd-error" class="yd-error"></div>
+                <div id="yd-results" style="display:none">
+                    <div style="border-top:1px solid var(--border);padding-top:1rem">
+                        <div id="yd-res-label"
+                            style="font-size:.68rem;color:var(--text-muted);text-align:center;margin-bottom:.65rem">
+                        </div>
+                        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem">
+                            <div id="yd-card-a" class="result-item orange">
+                                <div class="r-label" id="yd-la">Ra</div>
+                                <div class="r-val" id="yd-va">—</div>
+                            </div>
+                            <div id="yd-card-b" class="result-item orange">
+                                <div class="r-label" id="yd-lb">Rb</div>
+                                <div class="r-val" id="yd-vb">—</div>
+                            </div>
+                            <div id="yd-card-c" class="result-item orange">
+                                <div class="r-label" id="yd-lc">Rc</div>
+                                <div class="r-val" id="yd-vc">—</div>
+                            </div>
+                        </div>
+                        <div id="yd-hint" class="formula-hint"></div>
+                    </div>
+                </div>
+            </div>
+            <div data-eo-formula="elet-yd-y2d"></div>
+            <div data-eo-formula="elet-yd-d2y"></div>
+        </div>
+
+        <div id="page-complexos" class="page">
+            <div class="section-title">
+                <h2>Números Complexos</h2><span class="badge">ÁLGEBRA</span>
+            </div>
+            <div data-eo-conceito="complexos"></div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="dot dot-blue"></div>
+                    <h3>Revisão Teórica</h3>
+                </div>
+                <div class="grid-2">
+                    <div>
+                        <div class="formula">\( Z = a + jb \)<span>Forma Retangular — Parte Real a e Imaginária b</span>
+                        </div>
+                        <div class="formula">\( Z = |Z|\angle\theta = |Z| \cdot e^{j\theta} \)<span>Forma Polar — Módulo
+                                |Z| e
+                                Argumento θ</span></div>
+                    </div>
+                    <div>
+                        <div class="formula">\( |Z| = \sqrt{a^2+b^2} \quad | \quad \theta =
+                            \arctan\left(\frac{b}{a}\right)
+                            \)<span>Conversão Retangular → Polar</span></div>
+                        <div class="formula">\( a = |Z|\cos\theta \quad | \quad b = |Z|\sin\theta \)<span>Conversão
+                                Polar →
+                                Retangular</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="card cx-block">
+                    <h4 style="color:var(--accent)"><svg class="eo-icon" data-icon="zap" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z"/></svg> Impedância Z1</h4>
+                    <div class="input-group" style="margin-bottom:.7rem">
+                        <label>Tipo de entrada</label>
+                        <select id="cx-type1" onchange="calcCX()">
+                            <option value="ret">Retangular — Parte Real (a) e Imaginária (b)</option>
+                            <option value="pol">Polar — Módulo |Z| e Ângulo θ (°)</option>
+                        </select>
+                    </div>
+                    <div id="cx-ret1" class="input-row" style="margin-bottom:0">
+                        <div class="input-group"><label>Parte Real a (Ω)</label><input type="number" id="cx-a1"
+                                value="3" step="any" oninput="calcCX()"></div>
+                        <div class="input-group"><label>Parte Imag. b (Ω)</label><input type="number" id="cx-b1"
+                                value="4" step="any" oninput="calcCX()"></div>
+                    </div>
+                    <div id="cx-pol1" class="input-row" style="display:none;margin-bottom:0">
+                        <div class="input-group"><label>Módulo |Z| (Ω)</label><input type="number" id="cx-m1" value="5"
+                                step="any" oninput="calcCX()"></div>
+                        <div class="input-group"><label>Ângulo θ (°)</label><input type="number" id="cx-t1"
+                                value="53.13" step="any" oninput="calcCX()"></div>
+                    </div>
+                    <div style="margin-top:.7rem">
+                        <div class="complex-display" id="cx-z1-ret" style="font-size:.82rem;padding:.5rem">—</div>
+                        <div class="complex-display" id="cx-z1-pol" style="font-size:.82rem;padding:.5rem">—</div>
+                    </div>
+                </div>
+                <div class="card cx-block">
+                    <h4 style="color:var(--accent2)"><svg class="eo-icon" data-icon="zap" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z"/></svg> Impedância Z2</h4>
+                    <div class="input-group" style="margin-bottom:.7rem">
+                        <label>Tipo de entrada</label>
+                        <select id="cx-type2" onchange="calcCX()">
+                            <option value="ret">Retangular — Parte Real (a) e Imaginária (b)</option>
+                            <option value="pol">Polar — Módulo |Z| e Ângulo θ (°)</option>
+                        </select>
+                    </div>
+                    <div id="cx-ret2" class="input-row" style="margin-bottom:0">
+                        <div class="input-group"><label>Parte Real a (Ω)</label><input type="number" id="cx-a2"
+                                value="1" step="any" oninput="calcCX()"></div>
+                        <div class="input-group"><label>Parte Imag. b (Ω)</label><input type="number" id="cx-b2"
+                                value="-2" step="any" oninput="calcCX()"></div>
+                    </div>
+                    <div id="cx-pol2" class="input-row" style="display:none;margin-bottom:0">
+                        <div class="input-group"><label>Módulo |Z| (Ω)</label><input type="number" id="cx-m2"
+                                value="2.236" step="any" oninput="calcCX()"></div>
+                        <div class="input-group"><label>Ângulo θ (°)</label><input type="number" id="cx-t2"
+                                value="-63.43" step="any" oninput="calcCX()"></div>
+                    </div>
+                    <div style="margin-top:.7rem">
+                        <div class="complex-display" id="cx-z2-ret" style="font-size:.82rem;padding:.5rem">—</div>
+                        <div class="complex-display" id="cx-z2-pol" style="font-size:.82rem;padding:.5rem">—</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="dot dot-green"></div>
+                    <h3>Resultados: Série e Paralelo</h3>
+                </div>
+                <div class="grid-2">
+                    <div>
+                        <div
+                            style="font-size:.76rem;color:var(--text-muted);margin-bottom:.5rem;font-weight:700">
+                            Zeq = Z1 + Z2</div>
+                        <div class="complex-display" id="cx-serie-ret" style="font-size:.85rem;padding:.55rem">—</div>
+                        <div class="complex-display" id="cx-serie-pol" style="font-size:.85rem;padding:.55rem">—</div>
+                    </div>
+                    <div>
+                        <div
+                            style="font-size:.76rem;color:var(--text-muted);margin-bottom:.5rem;font-weight:700">
+                            Zeq paralelo = Z1·Z2 / (Z1+Z2)</div>
+                        <div class="complex-display" id="cx-par-ret" style="font-size:.85rem;padding:.55rem">—</div>
+                        <div class="complex-display" id="cx-par-pol" style="font-size:.85rem;padding:.55rem">—</div>
+                    </div>
+                </div>
+                <div class="result-grid" style="margin-top:.8rem">
+                    <div class="result-item">
+                        <div class="r-label">|Z1|</div>
+                        <div class="r-val" id="cx-mod1">–</div>
+                    </div>
+                    <div class="result-item orange">
+                        <div class="r-label">∠Z1</div>
+                        <div class="r-val" id="cx-ang1">–</div>
+                    </div>
+                    <div class="result-item purple">
+                        <div class="r-label">|Z2|</div>
+                        <div class="r-val" id="cx-mod2">–</div>
+                    </div>
+                    <div class="result-item green">
+                        <div class="r-label">∠Z2</div>
+                        <div class="r-val" id="cx-ang2">–</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="r-label">|Zeq_série|</div>
+                        <div class="r-val" id="cx-serie-mod">–</div>
+                    </div>
+                    <div class="result-item orange">
+                        <div class="r-label">∠Zeq_série</div>
+                        <div class="r-val" id="cx-serie-ang">–</div>
+                    </div>
+                    <div class="result-item purple">
+                        <div class="r-label">|Zeq_paralelo|</div>
+                        <div class="r-val" id="cx-par-mod">–</div>
+                    </div>
+                    <div class="result-item green">
+                        <div class="r-label">∠Zeq_paralelo</div>
+                        <div class="r-val" id="cx-par-ang">–</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="dot dot-purple"></div>
+                    <h3>Diagrama Fasorial — Plano Complexo (sincronizado)</h3>
+                </div>
+                <canvas id="complex-canvas" height="300"></canvas>
+                <div class="phase-indicator" style="margin-top:.6rem">
+                    <span><span class="phase-dot" style="background:var(--accent)"></span>Z1</span>
+                    <span><span class="phase-dot" style="background:var(--accent2)"></span>Z2</span>
+                    <span><span class="phase-dot" style="background:var(--accent4)"></span>Z_série</span>
+                    <span><span class="phase-dot" style="background:var(--accent3)"></span>Z_paralelo</span>
+                </div>
+            </div>
+            <div data-eo-formula="elet-cx-forma"></div>
+            <div data-eo-formula="elet-cx-serie"></div>
+            <div data-eo-formula="elet-cx-paralelo"></div>
+        </div>
+
+        <div id="page-cfp" class="page">
+            <div class="section-title">
+                <h2>Correção de Fator de Potência</h2><span class="badge">EFICIÊNCIA</span>
+            </div>
+            <div data-eo-conceito="cfp"></div>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="dot dot-orange"></div>
+                        <h3>Parâmetros e Dados Conhecidos</h3>
+                    </div>
+
+                    <div class="input-row" style="margin-bottom:.8rem">
+                        <div class="input-group">
+                            <label>Sistema</label>
+                            <select id="cfppage-sys" onchange="calcCFPPage()">
+                                <option value="1">Monofásico</option>
+                                <option value="3">Trifásico</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label>Informação Base</label>
+                            <select id="cfppage-known" onchange="toggleCFPInputs()">
+                                <option value="p_fp">Potência Ativa (P) e FP Atual</option>
+                                <option value="s_fp">Potência Aparente (S) e FP Atual</option>
+                                <option value="p_q">Potência Ativa (P) e Reativa (Q)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="input-row" style="margin-bottom:.8rem">
+                        <div class="input-group"><label>Tensão (V)</label><input type="number" id="cfppage-v"
+                                value="220" oninput="calcCFPPage()"></div>
+                        <div class="input-group"><label>Frequência (Hz)</label><input type="number" id="cfppage-f"
+                                value="60" oninput="calcCFPPage()"></div>
+                    </div>
+
+                    <div class="input-row" id="cfppage-in-p-fp">
+                        <div class="input-group"><label>Potência P (kW)</label><input type="number" id="cfppage-val-p"
+                                value="10" step="any" oninput="calcCFPPage()"></div>
+                        <div class="input-group"><label>FP Atual</label><input type="number" id="cfppage-val-fp"
+                                value="0.70" step="0.01" oninput="calcCFPPage()"></div>
+                    </div>
+
+                    <div class="input-row" id="cfppage-in-s-fp" style="display:none">
+                        <div class="input-group"><label>Potência S (kVA)</label><input type="number" id="cfppage-val-s"
+                                value="14.28" step="any" oninput="calcCFPPage()"></div>
+                        <div class="input-group"><label>FP Atual</label><input type="number" id="cfppage-val-fps"
+                                value="0.70" step="0.01" oninput="calcCFPPage()"></div>
+                    </div>
+
+                    <div class="input-row" id="cfppage-in-p-q" style="display:none">
+                        <div class="input-group"><label>Potência P (kW)</label><input type="number" id="cfppage-val-p2"
+                                value="10" step="any" oninput="calcCFPPage()"></div>
+                        <div class="input-group"><label>Potência Q (kVAr)</label><input type="number" id="cfppage-val-q"
+                                value="10.20" step="any" oninput="calcCFPPage()"></div>
+                    </div>
+
+                    <div class="input-row"
+                        style="margin-top:.8rem; border-top:1px solid var(--border); padding-top:.8rem">
+                        <div class="input-group"><label style="color:var(--accent4)">FP Desejado (Alvo)</label><input
+                                type="number" id="cfppage-target" value="0.92" step="0.01" oninput="calcCFPPage()">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="dot dot-green"></div>
+                        <h3>Resultados da Correção</h3>
+                    </div>
+
+                    <div
+                        style="font-size:.76rem;color:var(--text-muted);margin-bottom:.5rem;font-weight:700">
+                        Antes da Correção</div>
+                    <div class="result-grid" style="margin-bottom:1rem; margin-top:0">
+                        <div class="result-item">
+                            <div class="r-label">S₁ (kVA)</div>
+                            <div class="r-val" id="cfppage-out-s1">–</div>
+                        </div>
+                        <div class="result-item orange">
+                            <div class="r-label">Q₁ (kVAr)</div>
+                            <div class="r-val" id="cfppage-out-q1">–</div>
+                        </div>
+                        <div class="result-item purple">
+                            <div class="r-label">Corrente I₁ (A)</div>
+                            <div class="r-val" id="cfppage-out-i1">–</div>
+                        </div>
+                    </div>
+
+                    <div
+                        style="font-size:.76rem;color:var(--text-muted);margin-bottom:.5rem;font-weight:700">
+                        Após a Correção</div>
+                    <div class="result-grid" style="margin-bottom:1rem; margin-top:0">
+                        <div class="result-item">
+                            <div class="r-label">S₂ (kVA)</div>
+                            <div class="r-val" id="cfppage-out-s2">–</div>
+                        </div>
+                        <div class="result-item orange">
+                            <div class="r-label">Q₂ (kVAr)</div>
+                            <div class="r-val" id="cfppage-out-q2">–</div>
+                        </div>
+                        <div class="result-item purple">
+                            <div class="r-label">Corrente I₂ (A)</div>
+                            <div class="r-val" id="cfppage-out-i2">–</div>
+                        </div>
+                    </div>
+
+                    <div
+                        style="font-size:.76rem;color:var(--accent);margin-bottom:.5rem;font-weight:700">
+                        Banco de Capacitores Necessário</div>
+                    <div class="result-grid" style="margin-top:0">
+                        <div class="result-item green">
+                            <div class="r-label">Qc (kVAr)</div>
+                            <div class="r-val" id="cfppage-out-qc">–</div>
+                        </div>
+                        <div class="result-item green">
+                            <div class="r-label">Capacitância C</div>
+                            <div class="r-val" id="cfppage-out-c" style="font-size:.75rem">–</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="dot dot-blue"></div>
+                    <h3>Triângulos de Potência (Sincronizados e Sobrepostos)</h3>
+                </div>
+                <canvas id="cfppage-canvas" height="320"></canvas>
+                <div class="phase-indicator" style="margin-top:.8rem; justify-content: center;">
+                    <span><span class="phase-dot" style="background:var(--accent)"></span>P (Ativa)</span>
+                    <span><span class="phase-dot" style="background:var(--text-dim)"></span>S₁ e Q₁ (Antes,
+                        tracejado)</span>
+                    <span><span class="phase-dot" style="background:var(--accent4)"></span>S₂ e Q₂ (Depois,
+                        sólido)</span>
+                    <span><span class="phase-dot" style="background:var(--accent3)"></span>Qc (Correção)</span>
+                </div>
+            </div>
+            <div data-eo-formula="elet-cfp-page"></div>
+        </div>
+
+        <div id="page-calc" class="page">
+            <div class="section-title">
+                <h2>Calculadoras</h2><span class="badge">FERRAMENTAS</span>
+            </div>
+            <div data-eo-conceito="calc"></div>
+            <div class="tabs">
+                <button class="tab active" onclick="setCalcTab('imp',this)">Impedância</button>
+                <button class="tab" onclick="setCalcTab('pot',this)">Potências</button>
+                <button class="tab" onclick="setCalcTab('conv',this)">Conversão</button>
+                <button class="tab" onclick="setCalcTab('res',this)">Ressonância</button>
+            </div>
+            <div id="calc-imp">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="dot dot-blue"></div>
+                        <h3>Calculadora de Impedância</h3>
+                    </div>
+                    <div class="input-row" style="margin-bottom:.5rem">
+                        <div class="input-group" style="grid-column:1/-1"><label>Operação</label>
+                            <select id="imp-op" onchange="onImpOpChange()">
+                                <optgroup label="Retangular (a+jb)">
+                                    <option value="ret-rlc">RLC série — R, L, C e f</option>
+                                    <option value="ret-rl">RL — R e X_L (reatância indutiva)</option>
+                                    <option value="ret-rc">RC — R e X_C (reatância capacitiva)</option>
+                                    <option value="ret-ab">Forma direta — Parte Real (a) e Imaginária (b)</option>
+                                </optgroup>
+                                <optgroup label="Polar (|Z|∠θ)">
+                                    <option value="pol">Polar — Módulo |Z| e Ângulo θ (°)</option>
+                                </optgroup>
+                                <optgroup label="Combinações">
+                                    <option value="serie">Série — Z1+Z2 (ambas em retangular)</option>
+                                    <option value="par">Paralelo — Z1‖Z2 (ambas em retangular)</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="imp-fields-rlc" class="input-row">
+                        <div class="input-group"><label>R (Ω)</label><input type="number" id="imp-R" value="100"
+                                step="any" oninput="calcImpedance()"></div>
+                        <div class="input-group"><label>L (mH)</label><input type="number" id="imp-L" value="100"
+                                step="any" oninput="calcImpedance()"></div>
+                        <div class="input-group"><label>C (µF)</label><input type="number" id="imp-C" value="100"
+                                step="any" oninput="calcImpedance()"></div>
+                        <div class="input-group"><label>f (Hz)</label><input type="number" id="imp-f" value="60"
+                                step="any" oninput="calcImpedance()"></div>
+                    </div>
+                    <div id="imp-fields-rl" class="input-row" style="display:none">
+                        <div class="input-group"><label>R — Resistência (Ω)</label><input type="number" id="imp-Rrl"
+                                value="100" step="any" oninput="calcImpedance()"></div>
+                        <div class="input-group"><label>X_L — Reat. Indutiva (Ω)</label><input type="number" id="imp-XL"
+                                value="50" step="any" oninput="calcImpedance()"></div>
+                    </div>
+                    <div id="imp-fields-rc" class="input-row" style="display:none">
+                        <div class="input-group"><label>R — Resistência (Ω)</label><input type="number" id="imp-Rrc"
+                                value="100" step="any" oninput="calcImpedance()"></div>
+                        <div class="input-group"><label>X_C — Reat. Capacitiva (Ω)</label><input type="number"
+                                id="imp-XC" value="50" step="any" oninput="calcImpedance()"></div>
+                    </div>
+                    <div id="imp-fields-ab" class="input-row" style="display:none">
+                        <div class="input-group"><label>Parte Real a (Ω)</label><input type="number" id="imp-a"
+                                value="100" step="any" oninput="calcImpedance()"></div>
+                        <div class="input-group"><label>Parte Imaginária b (Ω)</label><input type="number" id="imp-b"
+                                value="50" step="any" oninput="calcImpedance()"></div>
+                    </div>
+                    <div id="imp-fields-pol" class="input-row" style="display:none">
+                        <div class="input-group"><label>Módulo |Z| (Ω)</label><input type="number" id="imp-mod"
+                                value="111.8" step="any" oninput="calcImpedance()"></div>
+                        <div class="input-group"><label>Ângulo θ (°)</label><input type="number" id="imp-ang"
+                                value="26.57" step="any" oninput="calcImpedance()"></div>
+                    </div>
+                    <div id="imp-fields-2z" class="input-row" style="display:none">
+                        <div class="input-group"><label>Z1 Real (Ω)</label><input type="number" id="imp-z1r" value="50"
+                                step="any" oninput="calcImpedance()"></div>
+                        <div class="input-group"><label>Z1 Imag (Ω)</label><input type="number" id="imp-z1i" value="30"
+                                step="any" oninput="calcImpedance()"></div>
+                        <div class="input-group"><label>Z2 Real (Ω)</label><input type="number" id="imp-z2r" value="80"
+                                step="any" oninput="calcImpedance()"></div>
+                        <div class="input-group"><label>Z2 Imag (Ω)</label><input type="number" id="imp-z2i" value="-60"
+                                step="any" oninput="calcImpedance()"></div>
+                    </div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.65rem;margin-top:.5rem">
+                        <div class="complex-display" id="imp-ret-display" style="font-size:.85rem">Z = — Ω</div>
+                        <div class="complex-display" id="imp-pol-display" style="font-size:.85rem">Z = — Ω</div>
+                    </div>
+                    <div class="result-grid">
+                        <div class="result-item">
+                            <div class="r-label">Real (Ω)</div>
+                            <div class="r-val" id="imp-res-a">–</div>
+                        </div>
+                        <div class="result-item orange">
+                            <div class="r-label">Imag (Ω)</div>
+                            <div class="r-val" id="imp-res-b">–</div>
+                        </div>
+                        <div class="result-item purple">
+                            <div class="r-label">|Z| (Ω)</div>
+                            <div class="r-val" id="imp-res-mod">–</div>
+                        </div>
+                        <div class="result-item green">
+                            <div class="r-label">θ (°)</div>
+                            <div class="r-val" id="imp-res-ang">–</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="r-label">FP</div>
+                            <div class="r-val" id="imp-res-fp">–</div>
+                        </div>
+                        <div class="result-item orange">
+                            <div class="r-label">Tipo</div>
+                            <div class="r-val" id="imp-res-tipo">–</div>
+                        </div>
+                    </div>
+                </div>
+                <div data-eo-formula="elet-impedancia"></div>
+            </div>
+            <div id="calc-pot" style="display:none">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="dot dot-purple"></div>
+                        <h3>Triângulo de Potências</h3>
+                    </div>
+                    <div class="input-row">
+                        <div class="input-group"><label>P — Ativa (W)</label><input type="number" id="pot-p"
+                                value="3000" step="any" oninput="calcPot('p')"></div>
+                        <div class="input-group"><label>Q — Reativa (VAr)</label><input type="number" id="pot-q"
+                                value="4000" step="any" oninput="calcPot('q')"></div>
+                        <div class="input-group"><label>S — Aparente (VA)</label><input type="number" id="pot-s"
+                                value="5000" step="any" oninput="calcPot('s')"></div>
+                        <div class="input-group"><label>FP = cos(φ)</label><input type="number" id="pot-fp" value="0.6"
+                                step="0.001" oninput="calcPot('fp')"></div>
+                    </div>
+                    <div class="btn-row"><button class="btn secondary" onclick="clearPot()" data-eo-action="elet:limpar-potencias"><svg class="eo-icon" data-icon="trash-2" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M10 11v6"/><path d="M14 11v6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg> Limpar</button></div>
+                    <div class="result-grid">
+                        <div class="result-item">
+                            <div class="r-label">P (W)</div>
+                            <div class="r-val" id="pot-res-p">–</div>
+                        </div>
+                        <div class="result-item orange">
+                            <div class="r-label">Q (VAr)</div>
+                            <div class="r-val" id="pot-res-q">–</div>
+                        </div>
+                        <div class="result-item purple">
+                            <div class="r-label">S (VA)</div>
+                            <div class="r-val" id="pot-res-s">–</div>
+                        </div>
+                        <div class="result-item green">
+                            <div class="r-label">FP</div>
+                            <div class="r-val" id="pot-res-fp">–</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="r-label">φ (°)</div>
+                            <div class="r-val" id="pot-res-phi">–</div>
+                        </div>
+                        <div class="result-item orange">
+                            <div class="r-label">Natureza</div>
+                            <div class="r-val" id="pot-res-tipo">–</div>
+                        </div>
+                    </div>
+                    <div
+                        style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--r-2);padding:.4rem;margin-top:.8rem">
+                        <canvas id="pot-triangle-canvas" height="200"></canvas>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="dot dot-orange"></div>
+                        <h3>Correção de Fator de Potência Rápida</h3>
+                    </div>
+                    <div class="input-row">
+                        <div class="input-group"><label>P (kW)</label><input type="number" id="cfp-p" value="10"
+                                step="any" oninput="calcCFP()"></div>
+                        <div class="input-group"><label>FP atual</label><input type="number" id="cfp-fp1" value="0.70"
+                                step="0.01" oninput="calcCFP()"></div>
+                        <div class="input-group"><label>FP desejado</label><input type="number" id="cfp-fp2"
+                                value="0.95" step="0.01" oninput="calcCFP()"></div>
+                        <div class="input-group"><label>V (V)</label><input type="number" id="cfp-v" value="220"
+                                step="any" oninput="calcCFP()"></div>
+                        <div class="input-group"><label>f (Hz)</label><input type="number" id="cfp-f" value="60"
+                                step="any" oninput="calcCFP()"></div>
+                    </div>
+                    <div class="btn-row"><button class="btn secondary" onclick="clearCFP()" data-eo-action="elet:limpar-cfp"><svg class="eo-icon" data-icon="trash-2" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M10 11v6"/><path d="M14 11v6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg> Limpar</button></div>
+                    <div class="result-grid">
+                        <div class="result-item">
+                            <div class="r-label">Q₁ (kVAr)</div>
+                            <div class="r-val" id="cfp-q1">–</div>
+                        </div>
+                        <div class="result-item orange">
+                            <div class="r-label">Q₂ (kVAr)</div>
+                            <div class="r-val" id="cfp-q2">–</div>
+                        </div>
+                        <div class="result-item purple">
+                            <div class="r-label">Q_C comp.</div>
+                            <div class="r-val" id="cfp-qc">–</div>
+                        </div>
+                        <div class="result-item green">
+                            <div class="r-label">C (µF)</div>
+                            <div class="r-val" id="cfp-c">–</div>
+                        </div>
+                    </div>
+                    <div
+                        style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--r-2);padding:.4rem;margin-top:.8rem">
+                        <canvas id="cfp-canvas" height="180"></canvas>
+                    </div>
+                </div>
+                <div data-eo-formula="elet-potencia"></div>
+                <div data-eo-formula="elet-cfp"></div>
+            </div>
+            <div id="calc-conv" style="display:none">
+                <div class="grid-2">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="dot dot-orange"></div>
+                            <h3>Polar ↔ Retangular</h3>
+                        </div>
+                        <div class="tabs"><button class="tab active"
+                                onclick="setConvDir('pr',this)" data-eo-action="elet:conversao-pr">Polar→Ret.</button><button class="tab"
+                                onclick="setConvDir('rp',this)" data-eo-action="elet:conversao-rp">Ret.→Polar</button></div>
+                        <div id="conv-pr-inputs">
+                            <div class="input-row">
+                                <div class="input-group"><label>|A|</label><input type="number" id="conv-mod"
+                                        value="100" oninput="calcConv()"></div>
+                                <div class="input-group"><label>θ (°)</label><input type="number" id="conv-ang"
+                                        value="30" oninput="calcConv()"></div>
+                            </div>
+                        </div>
+                        <div id="conv-rp-inputs" style="display:none">
+                            <div class="input-row">
+                                <div class="input-group"><label>Real a</label><input type="number" id="conv-re"
+                                        value="86.6" oninput="calcConvRP()"></div>
+                                <div class="input-group"><label>Imag b</label><input type="number" id="conv-im"
+                                        value="50" oninput="calcConvRP()"></div>
+                            </div>
+                        </div>
+                        <div class="complex-display" id="conv-result" style="font-size:.85rem">–</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="dot dot-orange"></div>
+                            <h3>Unidades</h3>
+                        </div>
+                        <div class="tabs"><button class="tab active"
+                                onclick="setUnitTab('freq',this)">Freq.</button><button class="tab"
+                                onclick="setUnitTab('indut',this)">Indut.</button><button class="tab"
+                                onclick="setUnitTab('cap',this)">Cap.</button></div>
+                        <div id="unit-freq">
+                            <div class="input-row">
+                                <div class="input-group"><label>Hz</label><input type="number" id="u-hz" value="60"
+                                        oninput="convFreq('hz')"></div>
+                                <div class="input-group"><label>kHz</label><input type="number" id="u-khz" value="0.06"
+                                        oninput="convFreq('khz')"></div>
+                                <div class="input-group"><label>rad/s</label><input type="number" id="u-rads"
+                                        value="376.99" oninput="convFreq('rads')"></div>
+                                <div class="input-group"><label>RPM</label><input type="number" id="u-rpm" value="3600"
+                                        oninput="convFreq('rpm')"></div>
+                            </div>
+                        </div>
+                        <div id="unit-indut" style="display:none">
+                            <div class="input-row">
+                                <div class="input-group"><label>H</label><input type="number" id="u-h" value="1"
+                                        oninput="convIndut('h')"></div>
+                                <div class="input-group"><label>mH</label><input type="number" id="u-mh" value="1000"
+                                        oninput="convIndut('mh')"></div>
+                                <div class="input-group"><label>µH</label><input type="number" id="u-uh" value="1e6"
+                                        oninput="convIndut('uh')"></div>
+                            </div>
+                        </div>
+                        <div id="unit-cap" style="display:none">
+                            <div class="input-row">
+                                <div class="input-group"><label>µF</label><input type="number" id="u-uf" value="1"
+                                        oninput="convCap('uf')"></div>
+                                <div class="input-group"><label>nF</label><input type="number" id="u-nf" value="1000"
+                                        oninput="convCap('nf')"></div>
+                                <div class="input-group"><label>pF</label><input type="number" id="u-pf" value="1e6"
+                                        oninput="convCap('pf')"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div data-eo-formula="elet-conv-pr"></div>
+                <div data-eo-formula="elet-conv-rp"></div>
+                <div data-eo-formula="elet-conv-unidades"></div>
+            </div>
+            <div id="calc-res" style="display:none">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="dot dot-green"></div>
+                        <h3>Circuito Ressonante RLC</h3>
+                    </div>
+                    <div class="input-row">
+                        <div class="input-group"><label>R (Ω)</label><input type="number" id="res-r" value="10"
+                                oninput="calcRes()">
+                        </div>
+                        <div class="input-group"><label>L (mH)</label><input type="number" id="res-l" value="100"
+                                oninput="calcRes()"></div>
+                        <div class="input-group"><label>C (µF)</label><input type="number" id="res-c" value="100"
+                                oninput="calcRes()"></div>
+                    </div>
+                    <div class="result-grid">
+                        <div class="result-item">
+                            <div class="r-label">f₀ (Hz)</div>
+                            <div class="r-val" id="res-f0">–</div>
+                        </div>
+                        <div class="result-item orange">
+                            <div class="r-label">ω₀ (rad/s)</div>
+                            <div class="r-val" id="res-w0">–</div>
+                        </div>
+                        <div class="result-item purple">
+                            <div class="r-label">Q</div>
+                            <div class="r-val" id="res-q">–</div>
+                        </div>
+                        <div class="result-item green">
+                            <div class="r-label">BW (Hz)</div>
+                            <div class="r-val" id="res-bw">–</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="r-label">f₁ (Hz)</div>
+                            <div class="r-val" id="res-f1">–</div>
+                        </div>
+                        <div class="result-item orange">
+                            <div class="r-label">f₂ (Hz)</div>
+                            <div class="r-val" id="res-f2">–</div>
+                        </div>
+                    </div>
+                </div>
+                <div data-eo-formula="elet-res"></div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ══════════════════════════════════════════════════════════
+     MÓDULO: ACIONAMENTOS ELÉTRICOS
+══════════════════════════════════════════════════════════ -->
+
+    <!-- ══ NAV PROJETOS PREDIAIS ══ -->
+
+
+
+    <!-- ══ NAV PROJETOS INDUSTRIAIS ══ -->
+
+
+    <script src="assets/js/legacy/core.js"></script>
+    <script src="assets/js/legacy/elet.js"></script>
+    <script src="assets/js/core/formula.js"></script>
+    <script src="assets/data/formulas/elet.js"></script>
+    <script src="assets/data/conceitos/elet.js" charset="utf-8"></script>
+
+    <!-- ══ NAV LAEL ══ -->
+<script src="assets/js/core/nav.js"></script>
+</body>
+</html>

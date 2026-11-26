@@ -1,0 +1,6 @@
+contas.sqlite3*
+__pycache__/
+
+.env
+.env.*
+.vercel/

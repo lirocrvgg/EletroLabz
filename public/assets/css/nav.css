@@ -1,0 +1,256 @@
+/* Navegacao e hub (Fase 3). Carregado depois de components.css. Somente tokens (sem hex).
+   Cards arredondados: acento de area so no icone, chip e titulo de secao (sem borda grossa colorida, DESIGN_SYSTEM §4/§9). */
+
+/* ── Barra superior: logo > hub, Modulos, tema ───────────── */
+nav[id^="nav-"] { border-top: 3px solid transparent; }
+body[data-eo-area="educacao"] nav[id^="nav-"] { border-top-color: var(--area-edu); }
+body[data-eo-area="profissional"] nav[id^="nav-"] { border-top-color: var(--area-pro); }
+body[data-eo-area="documentacao"] nav[id^="nav-"] { border-top-color: var(--area-doc); }
+
+.eo-topbar { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; gap: var(--sp-2); padding: var(--sp-1) 0; min-height: 52px; }
+.eo-brand {
+  display: inline-flex; align-items: center; gap: var(--sp-2); min-height: 44px; padding: 0 var(--sp-2) 0 0;
+  font-family: var(--font-head); font-weight: 700; font-size: 1rem; color: var(--brand); text-decoration: none; white-space: nowrap; border-radius: var(--r-1);
+}
+.eo-brand .eo-icon { width: 1.25rem; height: 1.25rem; }
+.eo-brand:hover .eo-brand__name { text-decoration: underline; }
+.eo-topbar .ms-back-btn, .eo-topbar .theme-toggle { min-height: 44px; text-decoration: none; }
+.eo-topbar .ms-back-btn { margin: 0 0 0 auto !important; }
+.eo-topbar .theme-toggle { margin-left: 0; position: static; box-shadow: none; min-width: 44px; }
+/* hub: sem botao Modulos, o tema fica a direita */
+.eo-brand + .theme-toggle { margin-left: auto; }
+.eo-topbar + .nav-inner { padding-top: 0; }
+
+/* Modulos antigos: o logo/voltar/tema originais saem da .nav-inner (movidos para .eo-topbar) */
+.nav-inner > .nav-logo, .nav-inner > .ms-back-btn, .nav-inner > .theme-toggle { display: none; }
+
+/* ── Breadcrumb ──────────────────────────────────────────── */
+.eo-crumbs { max-width: 1400px; margin: 0 auto; padding: var(--sp-1) var(--sp-4) 0; }
+.eo-crumbs ol { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; align-items: center; font-size: .875rem; color: var(--text-muted); }
+.eo-crumbs li { display: flex; align-items: center; }
+.eo-crumbs li + li::before { content: "›" / ""; margin: 0 var(--sp-1); color: var(--text-muted); }
+.eo-crumbs a { display: inline-flex; align-items: center; min-height: 32px; padding: 0 var(--sp-1); color: var(--text-muted); text-decoration: none; border-radius: var(--r-1); }
+.eo-crumbs a:hover { color: var(--brand); text-decoration: underline; }
+.eo-crumbs [aria-current="page"] { color: var(--text); font-weight: 600; padding: 0 var(--sp-1); }
+body[data-eo-area="educacao"] .eo-crumbs li:nth-child(2) a { color: var(--area-edu); }
+body[data-eo-area="profissional"] .eo-crumbs li:nth-child(2) a { color: var(--area-pro); }
+body[data-eo-area="documentacao"] .eo-crumbs li:nth-child(2) a { color: var(--area-doc); }
+
+/* ── Pular para o conteudo ───────────────────────────────── */
+.eo-skip { position: absolute; left: var(--sp-2); top: -64px; z-index: 300; padding: var(--sp-2) var(--sp-4); background: var(--brand); color: var(--on-brand); border-radius: var(--r-1); font-weight: 600; text-decoration: none; }
+.eo-skip:focus { top: var(--sp-2); }
+
+/* Predial: a faixa de categorias fica logo abaixo da barra (antes cobria a barra ao rolar) */
+#cat-ribbon { top: var(--eo-nav-h, 0px) !important; z-index: 90 !important; }
+
+/* ── Mobile: alvos de toque >= 44px, sem rolagem horizontal da pagina ── */
+@media (max-width: 720px) {
+  .nav-inner .nav-btn { min-height: 44px; }
+  .eo-crumbs a { min-height: 44px; padding: 0 var(--sp-2); }
+  .eo-crumbs [aria-current="page"] { min-height: 44px; display: inline-flex; align-items: center; }
+  #cat-ribbon .cat-btn, #cat-ribbon .cat-back { min-height: 44px; }
+}
+@media (max-width: 480px) {
+  .eo-brand { min-width: 44px; justify-content: center; padding: 0; }
+  .eo-brand__name { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .eo-crumbs li:not(:nth-last-child(-n+2)) { display: none; }
+  .eo-crumbs li:nth-last-child(2)::before { content: none; }
+  .eo-topbar .ms-back-btn { padding: 0 var(--sp-3); }
+}
+
+/* ── Hub ─────────────────────────────────────────────────── */
+body[data-eo-module="hub"] #module-selector {
+  position: static; inset: auto; display: block; overflow: visible; padding: 0; min-height: 100vh;
+  background: var(--bg); transition: none;
+}
+body[data-eo-module="hub"] #nav-hub { position: sticky; top: 0; z-index: 100; padding: 0 var(--sp-4); }
+.hub { max-width: 1100px; margin: 0 auto; padding: var(--sp-6) var(--sp-4) var(--sp-8); }
+.hub-head { text-align: left; margin-bottom: var(--sp-6); }
+.hub-head .ms-logo { text-align: left; padding: 0; margin: 0 0 var(--sp-1); font-size: clamp(1.75rem, 5vw, 2.5rem); line-height: 1.15; }
+.hub-head .ms-sub { text-align: left; margin: 0; font-size: 1rem; }
+
+.hub-section { margin-bottom: var(--sp-7); scroll-margin-top: calc(var(--eo-nav-h, 64px) + var(--sp-4)); }
+.hub-section > h2 {
+  font-family: var(--font-head); font-size: 1.5rem; line-height: 1.15; margin: 0 0 var(--sp-1); padding-top: var(--sp-3);
+  border-top: 3px solid var(--border); color: var(--text); display: inline-block; min-width: 4rem;
+}
+.hub-section[data-area="educacao"] > h2 { border-top-color: var(--area-edu); color: var(--area-edu); }
+.hub-section[data-area="profissional"] > h2 { border-top-color: var(--area-pro); color: var(--area-pro); }
+.hub-section[data-area="documentacao"] > h2 { border-top-color: var(--area-doc); color: var(--area-doc); }
+.hub-section > h2 .eo-chip { vertical-align: .25em; margin-left: var(--sp-2); }
+.hub-section__lead { margin: 0 0 var(--sp-4); color: var(--text-muted); font-size: 1rem; }
+.hub-group { font-family: var(--font-head); font-size: 1.125rem; line-height: 1.15; margin: var(--sp-5) 0 var(--sp-3); color: var(--text); }
+
+.hub-grid { list-style: none; margin: 0 0 var(--sp-3); padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr)); gap: var(--sp-4); }
+.hub-grid > li { display: flex; }
+
+.hub .hub-card {
+  display: flex; flex-direction: row; align-items: flex-start; gap: var(--sp-3); width: 100%; min-height: 44px;
+  padding: var(--sp-4); background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--r-2); color: var(--text); text-decoration: none; cursor: pointer; position: relative; overflow: visible;
+}
+.hub .hub-card[data-area="educacao"] .ms-card-icon { color: var(--area-edu); }
+.hub .hub-card[data-area="profissional"] .ms-card-icon { color: var(--area-pro); }
+.hub .hub-card[data-area="documentacao"] .ms-card-icon { color: var(--area-doc); }
+.hub .hub-card[data-area="institucional"] .ms-card-icon { color: var(--text-muted); }
+.hub .hub-card .ms-card-icon { flex: 0 0 44px; margin: 0; }
+.hub .hub-card .ms-card-content { display: flex; flex-direction: column; gap: var(--sp-1); min-width: 0; flex: 1; }
+.hub .hub-card .ms-card-title { display: block; font-size: 1.125rem; line-height: 1.2; white-space: normal; overflow: visible; text-overflow: clip; }
+.hub .hub-card .ms-card-desc { display: block; font-size: .9375rem; line-height: 1.5; }
+.hub .hub-card .ms-card-desc, .hub .hub-card .ms-card-title { overflow-wrap: anywhere; }
+.hub-card__chips { display: flex; flex-wrap: wrap; gap: var(--sp-1); margin-top: var(--sp-2); }
+.eo-chip--beta { color: var(--warn); border-color: var(--warn); background: transparent; }
+.hub-card--soon { background: var(--surface-2); cursor: default; }
+.hub-card--soon .ms-card-title, .hub-card--soon .ms-card-icon { color: var(--text-muted); }
+
+@media (max-width: 600px) {
+  .hub { padding: var(--sp-5) var(--sp-4) var(--sp-7); }
+  .hub-grid { grid-template-columns: 1fr; gap: var(--sp-3); }
+  .hub .hub-card { padding: var(--sp-3) var(--sp-4); }
+  .hub .hub-card .ms-card-title { font-size: 1rem; }
+  .hub .hub-card .ms-card-desc { font-size: .875rem; }
+}
+
+/* Abas do modulo: indicador de overflow horizontal (sombras de borda que somem nas pontas) */
+@media (max-width: 720px) {
+  .nav-inner {
+    background:
+      linear-gradient(to right, var(--surface) 30%, transparent) left center / 28px 100% no-repeat local,
+      linear-gradient(to left, var(--surface) 30%, transparent) right center / 28px 100% no-repeat local,
+      radial-gradient(farthest-side at 0 50%, color-mix(in srgb, var(--text) 26%, transparent), transparent) left center / 12px 100% no-repeat scroll,
+      radial-gradient(farthest-side at 100% 50%, color-mix(in srgb, var(--text) 26%, transparent), transparent) right center / 12px 100% no-repeat scroll;
+    -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain;
+  }
+}
+
+
+/* ══ Interacao e profundidade (Fase 5 visual) ═══════════════════════════════════════════════════
+   Cards/botoes que levam a um projeto: repouso em camadas (--elev-1 + filete de luz), hover/foco elevam
+   (translateY + --elev-2), brilho direcional sutil que segue o ponteiro (opacity), icone e seta deslizam,
+   pressionar afunda. Selecao: indicador deslizante (.eo-ink, depth.js) e preenchimento/icone animados.
+   So transform, opacity, box-shadow e cores sao animados. Saida (--t-out) mais rapida que entrada (--t-in).
+   Toque (hover: none): nada depende de hover; foco/pressionar continuam. Reduced-motion: sem movimento. */
+
+/* Cards navegaveis */
+.hub a.hub-card, a.hero-card, a.aciona-card, .hero-card, .aciona-card, a.eo-sel-card {
+  position: relative; --accent-card: var(--brand);
+  box-shadow: var(--edge-hi), var(--elev-1);
+  transition: transform var(--t-out) var(--ease-exit), box-shadow var(--t-out) var(--ease-exit), border-color var(--t-out) var(--ease-exit), background-color var(--t-out) var(--ease-exit);
+  -webkit-tap-highlight-color: transparent;
+}
+.hub .hub-card[data-area="educacao"], .aciona-card, .hero-card { --accent-card: var(--area-edu); }
+.hub .hub-card[data-area="profissional"], a.eo-sel-card { --accent-card: var(--area-pro); }
+.hub .hub-card[data-area="documentacao"], a.eo-sel-card[data-area="documentacao"] { --accent-card: var(--area-doc); }
+.hub .hub-card[data-area="institucional"] { --accent-card: var(--brand); }
+.hub-card--soon { box-shadow: none; }
+
+/* brilho direcional: gradiente suave ancorado no ponteiro (--mx/--my por depth.js); so a opacidade anima */
+.hub a.hub-card::after, a.hero-card::after, a.aciona-card::after, .hero-card::after, .aciona-card::after, a.eo-sel-card::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0;
+  background: radial-gradient(280px circle at var(--mx, 24%) var(--my, 0%), color-mix(in srgb, var(--accent-card) 9%, transparent), transparent 72%);
+  transition: opacity var(--t-out) var(--ease-exit);
+}
+html.dark .hub a.hub-card::after, html.dark a.hero-card::after, html.dark a.aciona-card::after, html.dark .hero-card::after, html.dark .aciona-card::after, html.dark a.eo-sel-card::after {
+  background: radial-gradient(280px circle at var(--mx, 24%) var(--my, 0%), color-mix(in srgb, var(--accent-card) 14%, transparent), transparent 72%);
+}
+
+/* seta do card do hub: sempre visivel (afordancia no toque), desliza no hover */
+.hub a.hub-card::before {
+  content: ""; display: block; position: absolute; inset: var(--sp-4) var(--sp-4) auto auto; width: 18px; height: 18px; opacity: .55;
+  background: currentColor; color: var(--text-muted);
+  -webkit-mask: var(--arrow-mask) center / contain no-repeat; mask: var(--arrow-mask) center / contain no-repeat;
+  transition: transform var(--t-out) var(--ease-exit), opacity var(--t-out) var(--ease-exit), color var(--t-out) var(--ease-exit);
+}
+.hub a.hub-card { --arrow-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E"); }
+.hub a.hub-card .ms-card-content { padding-right: var(--sp-5); }
+
+/* icones: movem e ganham tinta da area */
+.hub .hub-card .ms-card-icon, .hero-card .icon .eo-icon, .aciona-card .icon .eo-icon, .eo-sel-icon, .eo-sel-chev {
+  transition: transform var(--t-out) var(--ease-exit), background-color var(--t-out) var(--ease-exit), border-color var(--t-out) var(--ease-exit), color var(--t-out) var(--ease-exit);
+}
+
+/* estado elevado: hover (so com ponteiro real) e foco visivel com a mesma animacao */
+@media (hover: hover) and (pointer: fine) {
+  .hub a.hub-card:hover, a.hero-card:hover, a.aciona-card:hover, .hero-card:hover, .aciona-card:hover, a.eo-sel-card:hover {
+    transform: perspective(900px) translateY(var(--lift)) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+    box-shadow: var(--edge-hi), var(--elev-2);
+    border-color: color-mix(in srgb, var(--accent-card) 55%, var(--border));
+    transition-duration: var(--t-in); transition-timing-function: var(--ease);
+  }
+  .hub a.hub-card:hover::after, a.hero-card:hover::after, a.aciona-card:hover::after, .hero-card:hover::after, .aciona-card:hover::after, a.eo-sel-card:hover::after { opacity: 1; transition-duration: var(--t-in); transition-timing-function: var(--ease); }
+  .hub a.hub-card:hover::before { transform: translateX(4px); opacity: 1; color: var(--accent-card); transition-duration: var(--t-in); transition-timing-function: var(--ease); }
+  .hub a.hub-card:hover .ms-card-icon, a.eo-sel-card:hover .eo-sel-icon {
+    transform: translateY(-1px) scale(1.07); background-color: color-mix(in srgb, var(--accent-card) 12%, var(--surface-2));
+    border-color: color-mix(in srgb, var(--accent-card) 45%, var(--border)); transition-duration: var(--t-in); transition-timing-function: var(--ease);
+  }
+  .hero-card:hover .icon .eo-icon, .aciona-card:hover .icon .eo-icon { transform: translateY(-2px) scale(1.12); transition-duration: var(--t-in); transition-timing-function: var(--ease); }
+  a.eo-sel-card:hover .eo-sel-chev { transform: translateX(4px); color: var(--accent-card); transition-duration: var(--t-in); transition-timing-function: var(--ease); }
+}
+.hub a.hub-card:focus-visible, a.hero-card:focus-visible, a.aciona-card:focus-visible, a.eo-sel-card:focus-visible {
+  transform: translateY(var(--lift)); box-shadow: var(--edge-hi), var(--elev-2);
+  border-color: color-mix(in srgb, var(--accent-card) 55%, var(--border));
+  transition-duration: var(--t-in); transition-timing-function: var(--ease);
+}
+.hub a.hub-card:focus-visible::after, a.hero-card:focus-visible::after, a.aciona-card:focus-visible::after, a.eo-sel-card:focus-visible::after { opacity: 1; }
+.hub a.hub-card:focus-visible::before { transform: translateX(4px); opacity: 1; color: var(--accent-card); }
+.hub a.hub-card:focus-visible .ms-card-icon, a.eo-sel-card:focus-visible .eo-sel-icon { transform: translateY(-1px) scale(1.07); background-color: color-mix(in srgb, var(--accent-card) 12%, var(--surface-2)); }
+a.eo-sel-card:focus-visible .eo-sel-chev { transform: translateX(4px); color: var(--accent-card); }
+/* pressionar: afunda */
+.hub a.hub-card:active, a.hero-card:active, a.aciona-card:active, a.eo-sel-card:active, .hero-card:active, .aciona-card:active {
+  transform: translateY(1px) scale(.988); box-shadow: var(--elev-press); border-color: var(--accent-card);
+  transition-duration: var(--t-fast); transition-timing-function: var(--ease);
+}
+.hub a.hub-card:active::before { transform: translateX(2px); }
+
+/* Botoes: elevacao leve, afunda ao pressionar, foco com o mesmo estado do hover */
+.btn, .nav-btn, .ms-back-btn, .theme-toggle, .diag-topbar-btn, .cta-btn, #cat-ribbon .cat-btn, #cat-ribbon .cat-back {
+  transition: transform var(--t-out) var(--ease-exit), box-shadow var(--t-out) var(--ease-exit), background-color var(--t-out) var(--ease-exit), border-color var(--t-out) var(--ease-exit), color var(--t-out) var(--ease-exit);
+}
+.btn:not(.btn-quiet):not(.btn-tertiary):not(.btn-danger-outline), .diag-topbar-btn { box-shadow: var(--edge-hi), var(--elev-1); }
+.btn.secondary, .btn-secondary { box-shadow: var(--elev-1); }
+@media (hover: hover) and (pointer: fine) {
+  .btn:not(:disabled):not([aria-disabled="true"]):hover, .diag-topbar-btn:not(:disabled):hover, .ms-back-btn:hover, .theme-toggle:hover, #cat-ribbon .cat-btn:hover, #cat-ribbon .cat-back:hover {
+    transform: translateY(-1px); transition-duration: var(--t-in); transition-timing-function: var(--ease);
+  }
+  .btn:not(.btn-quiet):not(.btn-tertiary):not(.btn-danger-outline):not(:disabled):hover, .diag-topbar-btn:not(:disabled):hover, .theme-toggle:hover, .ms-back-btn:hover { box-shadow: var(--edge-hi), var(--elev-2); }
+  .nav-btn:not(.active):hover { transform: translateY(-1px); transition-duration: var(--t-in); transition-timing-function: var(--ease); }
+  .theme-toggle:hover .eo-icon { transform: rotate(-14deg) scale(1.1); }
+  .ms-back-btn:hover .eo-icon { transform: translateX(-3px); }
+  .nav-btn:hover .eo-icon, .tab:hover .eo-icon, .predial-tab:hover .eo-icon { transform: scale(1.12); }
+}
+.theme-toggle .eo-icon, .ms-back-btn .eo-icon, .nav-btn .eo-icon, .tab .eo-icon, .predial-tab .eo-icon { transition: transform var(--t-out) var(--ease-exit); }
+.btn:not(:disabled):focus-visible, .nav-btn:focus-visible, .diag-topbar-btn:focus-visible, .theme-toggle:focus-visible, .ms-back-btn:focus-visible { transform: translateY(-1px); }
+.btn:not(:disabled):active, .nav-btn:active, .diag-topbar-btn:not(:disabled):active, .theme-toggle:active, .ms-back-btn:active, .tab:active, .predial-tab:active, .cta-btn:active, #cat-ribbon .cat-btn:active {
+  transform: translateY(1px) scale(.98); box-shadow: var(--elev-press); transition-duration: var(--t-fast); transition-timing-function: var(--ease);
+}
+.btn-quiet:active, .btn-tertiary:active, .tab:active, .predial-tab:active, .nav-btn:active { box-shadow: none; }
+
+/* Selecao: indicador deslizante (criado por depth.js) + preenchimento e icone animados */
+.nav-inner, .tabs, .predial-tabs, #cat-ribbon .cat-btns { position: relative; }
+.eo-ink {
+  position: absolute; left: 0; top: 0; width: 1px; height: 2px; border-radius: 2px; background: var(--brand); pointer-events: none;
+  transform-origin: 0 0; opacity: 0; transform: translate(var(--ink-x, 0px), var(--ink-y, 0px)) scale(var(--ink-w, 0), 1); z-index: 1;
+}
+.eo-ink.is-on { opacity: 1; }
+.eo-ink.is-ready { transition: transform var(--t-slow) var(--ease), opacity var(--t-mid) var(--ease); }
+.has-ink > .nav-btn.active { box-shadow: none; }
+.has-ink > .tab.active, .has-ink > .predial-tab.active { border-bottom-color: transparent; }
+.has-ink > .tab:hover, .has-ink > .predial-tab:hover { border-bottom-color: transparent; }
+.nav-btn, .tab, .predial-tab { position: relative; }
+/* sem JS: barra que cresce do centro na aba ativa */
+.nav-inner:not(.has-ink) > .nav-btn.active::after, .tabs:not(.has-ink) > .tab.active::after, .predial-tabs:not(.has-ink) > .predial-tab.active::after {
+  content: ""; position: absolute; left: var(--sp-2); right: var(--sp-2); bottom: 0; height: 2px; background: var(--brand); border-radius: 2px; animation: eo-grow var(--t-slow) var(--ease) both;
+}
+@keyframes eo-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes eo-pop { 0% { transform: scale(.8); } 60% { transform: scale(1.18); } 100% { transform: scale(1); } }
+.nav-btn.active .eo-icon, .tab.active .eo-icon, .predial-tab.active .eo-icon { animation: eo-pop var(--t-slow) var(--ease) both; color: var(--brand); }
+.nav-btn, .tab, .predial-tab { transition: transform var(--t-out) var(--ease-exit), background-color var(--t-out) var(--ease-exit), border-color var(--t-out) var(--ease-exit), color var(--t-out) var(--ease-exit), box-shadow var(--t-out) var(--ease-exit); }
+.nav-btn.active, .tab.active, .predial-tab.active { transition-duration: var(--t-in); }
+#cat-ribbon .cat-btn.active { box-shadow: var(--edge-hi), var(--elev-1); }
+
+/* Reduced-motion: mudanca instantanea de cor/sombra, nenhum deslocamento, escala, rotacao ou inclinacao */
+@media (prefers-reduced-motion: reduce) {
+  .hub a.hub-card, a.hero-card, a.aciona-card, .hero-card, .aciona-card, a.eo-sel-card, .btn, .nav-btn, .tab, .predial-tab, .ms-back-btn, .theme-toggle, .diag-topbar-btn, .cta-btn, #cat-ribbon .cat-btn,
+  .hub a.hub-card::before, .hub .hub-card .ms-card-icon, .eo-sel-icon, .eo-sel-chev, .eo-icon { transform: none !important; animation: none !important; }
+  .eo-ink.is-ready { transition: none !important; }
+}

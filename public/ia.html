@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eletrotécnica — Módulos Interativos</title>
+    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+    <script src="assets/js/core/theme.js"></script>
+    <script src="assets/js/core/icons.js"></script>
+
+    <!-- Bibliotecas para exportação de Memorial de Cálculo (.docx) -->
+
+
+    <!-- ══ NAV PROJETOS INDUSTRIAIS ══ -->
+
+
+
+    <link rel="stylesheet" href="assets/css/fonts.css">
+    <link rel="stylesheet" href="assets/css/tokens.css">
+    <link rel="stylesheet" href="assets/css/legacy.css">
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/nav.css">
+</head>
+
+<body data-eo-module="ia" data-eo-area="profissional">
+
+    <!-- ══ NAV I.A ══ -->
+    <nav id="nav-ia" aria-label="Módulo">
+        <div class="eo-topbar">
+            <a class="eo-brand" href="eletrotec.html" aria-label="EletroLabz: ir para o início"><img width="32" height="32" alt="" src="./assets/icons/favicon.svg"><span class="eo-brand__name">EletroLabz</span></a>
+            <a class="ms-back-btn eo-modules" href="eletrotec.html"><svg class="eo-icon" data-icon="arrow-left" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg> Módulos</a>
+            <button class="theme-toggle" type="button" onclick="toggleTheme()" data-eo-action="ia:alternar-tema" id="theme-btn" aria-pressed="false"><svg class="eo-icon" data-icon="moon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg><svg class="eo-icon" data-icon="sun" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg><span class="tt-label"><span class="tt-to-dark">Modo escuro</span><span class="tt-to-light">Modo claro</span></span></button>
+        </div>
+        <div class="nav-inner">
+            <button class="nav-btn active" data-iapage="ia-mcp" onclick="showIAPage('ia-mcp',this)"><svg class="eo-icon" data-icon="external-link" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg> Claude + Revit
+                MCP</button>
+        </div>
+    </nav>
+    <div class="eo-crumbs" role="navigation" aria-label="Trilha de navegação"><ol></ol></div>
+
+    <main id="main-ia">
+        <div id="page-ia-mcp" class="page active">
+            <div style="max-width:780px;margin:0 auto;padding:0 0 3rem">
+
+                <!-- Hero -->
+                <div
+                    style="text-align:center;padding:2.5rem 1rem 2rem;background:var(--surface-2);border-radius:var(--r-2);margin-bottom:1.5rem">
+                    <div style="font-size:3rem;margin-bottom:.6rem"><svg class="eo-icon" data-icon="brain-circuit" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 13h4"/><path d="M12 18h6a2 2 0 012 2v1"/><path d="M12 8h8"/><path d="M12 9a4.17 4.17 0 01-3 4"/><path d="M16 8V5a2 2 0 012-2"/><path d="M6 18a4 4 0 01-2-7.465"/><path d="M6.004 5.125a4 4 0 00-2.526 5.77"/><path d="M6.294 6.294A3 3 0 1112 5v13a4 4 0 11-7.967-.518"/><circle cx="16" cy="13" r="0.5" fill="currentColor"/><circle cx="18" cy="3" r="0.5" fill="currentColor"/><circle cx="20" cy="21" r="0.5" fill="currentColor"/><circle cx="20" cy="8" r="0.5" fill="currentColor"/></svg> </div>
+                    <h1 style="font-size:clamp(1.4rem,4vw,2rem);font-weight:800;color:var(--viz-violet);margin-bottom:.5rem">
+                        Integração Claude AI + Revit via MCP</h1>
+                    <p style="color:var(--text-dim);font-size:.9rem;max-width:560px;margin:0 auto;line-height:1.6">
+                        Conecte o Claude diretamente ao Revit usando o protocolo <strong>Model Context Protocol
+                            (MCP)</strong> e automatize projetos elétricos com inteligência artificial.</p>
+                </div>
+
+<section class="card" style="margin-bottom:1rem"><div class="card-header"><h2>1. Baixar o pyRevit com MCP</h2></div><div class="theory"><p>No Windows, feche o Revit e abra a página de versões do pyRevit. Escolha uma versão estável 7.x compatível com o seu Revit e baixe o <strong>pyRevit Installer</strong>. O Agent Runtime inclui o MCP desde a versão 7.0. Instale também o Claude Desktop e abra-o uma vez.</p><p><a href="https://github.com/pyrevitlabs/pyRevit/releases">Baixar pyRevit para Windows</a> · <a href="https://claude.com/download">Baixar Claude Desktop</a></p></div></section>
+<section class="card" style="margin-bottom:1rem"><div class="card-header"><h2>2. Habilitar o agente no Revit</h2></div><div class="theory"><p>Abra o Revit e acesse <strong>pyRevit → Settings → Agent Runtime (MCP)</strong>. Ative o host, salve e recarregue o pyRevit ou reinicie o Revit. Abra um projeto. O recurso é experimental e vem desativado por padrão.</p><p>No PowerShell, execute os comandos abaixo na mesma conta do Windows usada pelo Revit. A primeira linha mostra o caminho que você usará no Claude. A segunda deve identificar a sessão aberta.</p><pre><code>(Get-Command pyrevit.exe).Source
+pyrevit agent status</code></pre><p>Se o Windows não encontrar o comando, instale o <strong>pyRevit CLI</strong> da mesma versão na página de downloads e abra um novo PowerShell.</p></div></section>
+<section class="card" style="margin-bottom:1rem"><div class="card-header"><h2>3. Registrar o servidor no Claude Desktop</h2></div><div class="theory"><p>Abra <strong>Configurações → Desenvolvedor → Editar configuração</strong>. No Windows, o arquivo é <code>%APPDATA%\Claude\claude_desktop_config.json</code>. Se já houver servidores, acrescente apenas a entrada <code>pyrevit</code> dentro de <code>mcpServers</code>.</p><pre><code>{
+  "mcpServers": {
+    "pyrevit": {
+      "command": "C:/CAMINHO/pyrevit.exe",
+      "args": ["mcp"]
+    }
+  }
+}</code></pre><p>Substitua o caminho de exemplo pelo resultado do PowerShell. Use barras normais como no exemplo. Salve, encerre o Claude Desktop também pela bandeja do Windows e abra-o novamente. O aplicativo inicia o servidor local pelo comando <code>pyrevit mcp</code>.</p></div></section>
+<section class="card" style="margin-bottom:1rem"><div class="card-header"><h2>4. Confirmar a conexão</h2></div><div class="theory"><p>Com um projeto aberto no Revit, inicie uma conversa no Claude Desktop e peça:</p><blockquote>Use o pyRevit para consultar o nome do documento ativo e da vista atual. Faça apenas a leitura.</blockquote><p>Compare a resposta com o título do projeto e a vista aberta no Revit. Se o servidor não aparecer, confira o caminho de <code>pyrevit.exe</code>, a sintaxe do JSON e o registro em <code>%APPDATA%\Claude\logs</code>. Se o servidor aparecer sem uma sessão, repita <code>pyrevit agent status</code> e confira se o host está habilitado no Revit.</p></div></section>
+<section class="card" style="margin-bottom:1rem"><div class="card-header"><h2>Para quem usa Claude Code</h2></div><div class="theory"><p>Depois de habilitar o host, execute <code>pyrevit mcp install claude</code> para registrar o servidor no Claude Code. A configuração JSON acima corresponde ao aplicativo Claude Desktop.</p><p><a href="https://github.com/pyrevitlabs/pyRevit/blob/develop/docs/agent-runtime.md">Manual do Agent Runtime</a> · <a href="https://py.sdk.modelcontextprotocol.io/get-started/real-host/">Configuração de servidores locais no Claude Desktop</a></p></div></section>
+            </div>
+        </div>
+    </main>
+
+    <!-- ══ NAV APOSTILAS ══ -->
+
+
+    <!-- ══ NAV SOBRE ══ -->
+
+
+
+    <!-- ══ TELA INICIAL DE SELEÇÃO DE MÓDULO ══ -->
+
+
+    <!-- ══ NAV DISTRIBUIÇÃO ELÉTRICA ══ -->
+
+
+    <!-- ══ NAV ELETRICIDADE II ══ -->
+
+    <!-- ══ NAV ACIONAMENTOS ══ -->
+
+
+    <!-- ══════════════════════════════════════════════════════════
+     MÓDULO: ACIONAMENTOS ELÉTRICOS
+══════════════════════════════════════════════════════════ -->
+
+    <!-- ══ NAV PROJETOS PREDIAIS ══ -->
+
+
+
+    <!-- ══ NAV PROJETOS INDUSTRIAIS ══ -->
+
+
+    <script src="assets/js/legacy/core.js"></script>
+
+    <!-- ══ NAV LAEL ══ -->
+<script src="assets/js/core/nav.js"></script>
+</body></html>

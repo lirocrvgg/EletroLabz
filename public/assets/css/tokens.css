@@ -1,0 +1,95 @@
+/* Tokens do design system (DESIGN_SYSTEM.md 3-4). Unico lugar com valores de cor.
+   Claro em :root; escuro em html.dark / body.dark (theme.js aplica nos dois: <html> antes da pintura,
+   <body> quando existir; C('--x') dos canvases le de documentElement). */
+:root {
+  color-scheme: light;
+  --bg: #F6F7F9;
+  --surface: #FFFFFF;
+  --surface-2: #EEF1F4;
+  --border: #D5DAE1;
+  --text: #121821;
+  --text-muted: #4A5566;
+  --brand: #1F4E8C;
+  --on-brand: #FFFFFF;
+  --area-edu: #0F766E;
+  --area-pro: #9A4A12;
+  --area-doc: #5B3FA0;
+  --ok: #1E7B3C;
+  --warn: #8A5A00;
+  --danger: #B42318;
+  --info: #1F5F8B;
+  --live: #D97706;
+  --dead: #8C96A3;
+  --fault: var(--danger);
+  /* serie extra para graficos/simuladores (nao e cor de UI) */
+  --viz-violet: #5B3FA0;
+  --scrim: rgba(18, 24, 33, .55);
+
+  --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px; --sp-5: 24px; --sp-6: 32px; --sp-7: 48px; --sp-8: 64px;
+  --r-1: 4px; --r-2: 8px; --r-pill: 999px;
+  --shadow-1: 0 1px 2px rgba(18, 24, 33, .12);
+  --shadow-2: 0 4px 16px rgba(18, 24, 33, .16);
+
+  /* Profundidade em camadas (repouso -> elevado -> pressionado) para cards e botoes de navegacao/acao. */
+  --elev-1: 0 1px 1px rgba(18, 24, 33, .05), 0 1px 3px rgba(18, 24, 33, .08);
+  --elev-2: 0 1px 2px rgba(18, 24, 33, .06), 0 6px 12px -3px rgba(18, 24, 33, .12), 0 16px 28px -12px rgba(18, 24, 33, .16);
+  --elev-press: inset 0 1px 3px rgba(18, 24, 33, .16);
+  --edge-hi: inset 0 1px 0 rgba(255, 255, 255, .7);   /* filete de luz no topo */
+  --lift: -3px;       /* elevacao no hover de cards (zerada em reduced-motion) */
+  --tilt: 2.5deg;     /* inclinacao maxima por ponteiro */
+
+  --ease: cubic-bezier(.2, 0, 0, 1);
+  --ease-exit: cubic-bezier(.4, 0, 1, 1);
+  --t-fast: 120ms; --t-mid: 180ms; --t-slow: 240ms;
+  --t-in: 200ms; --t-out: 130ms;   /* entrada do hover mais lenta que a saida */
+
+  --font-head: 'IBM Plex Sans', 'Segoe UI', Roboto, Arial, sans-serif;
+  --font-ui: 'IBM Plex Sans', 'Segoe UI', Roboto, Arial, sans-serif;
+  --font-body: var(--font-ui);
+  --font-mono: 'JetBrains Mono', ui-monospace, Consolas, 'Courier New', monospace;
+  --track-head: -.015em;   /* titulos: tracking levemente negativo */
+  --control-h: 40px;
+
+  /* Aliases dos nomes antigos (legacy.css, inline styles e C('--x') dos canvases). Nao remover. */
+  --surface2: var(--surface-2);
+  --accent: var(--brand);
+  --accent2: var(--area-pro);
+  --accent3: var(--viz-violet);
+  --accent4: var(--ok);
+  --on-accent: var(--on-brand); /* texto sobre fundos solidos de --accent* (claro: branco; escuro: quase preto) */
+  --text-dim: var(--text-muted);
+  --radius: var(--r-2);
+  --nav-bg: var(--surface);
+  --glow: none;
+  --card-shadow: none;
+}
+html.dark, body.dark, .eo-dark-island {
+  color-scheme: dark;
+  --bg: #0E1116;
+  --surface: #161B22;
+  --surface-2: #1D232C;
+  --border: #2C3440;
+  --text: #E6EAF0;
+  --text-muted: #9AA5B4;
+  --brand: #6FA3E8;
+  --on-brand: #0E1116;
+  --area-edu: #3CC2B3;
+  --area-pro: #E08A4A;
+  --area-doc: #A58BEA;
+  --ok: #4CC27A;
+  --warn: #E2B341;
+  --danger: #F07167;
+  --info: #6CB6E6;
+  --live: #FFB020;
+  --dead: #59636F;
+  --viz-violet: #A58BEA;
+  --scrim: rgba(0, 0, 0, .65);
+  --shadow-1: none;
+  --shadow-2: 0 0 0 1px var(--border);
+  /* escuro: profundidade por superficie + filete de luz; sombra mais discreta */
+  --elev-1: 0 1px 2px rgba(0, 0, 0, .35);
+  --elev-2: 0 1px 2px rgba(0, 0, 0, .4), 0 8px 18px -6px rgba(0, 0, 0, .55);
+  --elev-press: inset 0 1px 3px rgba(0, 0, 0, .5);
+  --edge-hi: inset 0 1px 0 rgba(255, 255, 255, .05);
+}
+@media (prefers-reduced-motion: reduce) { :root { --lift: 0px; --tilt: 0deg; } }

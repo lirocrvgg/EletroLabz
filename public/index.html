@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EletroLabz — Módulos Interativos</title>
+<link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+<script src="assets/js/core/theme.js"></script>
+<link rel="stylesheet" href="assets/css/fonts.css">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/landing-lab.css">
+<script src="assets/js/landing-lab.js" defer></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: var(--font-ui); line-height: 1.55; min-height: 100vh; overflow-x: hidden; }
+  .wrapper { min-height: 100vh; display: flex; flex-direction: column; }
+
+  nav { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3); padding: var(--sp-3) var(--sp-6); border-bottom: 1px solid var(--border); background: var(--surface); position: sticky; top: 0; z-index: 100; }
+  .nav-logo { font-family: var(--font-head); font-weight: 700; font-size: 1.25rem; color: var(--text); display: flex; align-items: center; gap: var(--sp-2); }
+  .nav-logo .eo-icon { color: var(--live); }
+  .nav-right { display: flex; align-items: center; gap: var(--sp-3); }
+  .nav-badge { font-family: var(--font-mono); font-size: .75rem; color: var(--text-muted); padding: 2px var(--sp-2); border: 1px solid var(--border); border-radius: var(--r-1); background: var(--surface-2); white-space: nowrap; }
+  .theme-toggle { display: inline-flex; align-items: center; gap: .4em; min-height: var(--control-h); padding: 0 var(--sp-3); font-size: .875rem; font-weight: 600; background: var(--surface); color: var(--text); border: 1px solid var(--border); border-radius: var(--r-1); cursor: pointer; }
+  .theme-toggle:hover { background: var(--surface-2); border-color: var(--brand); }
+  .theme-toggle .tt-to-light, html.dark .theme-toggle .tt-to-dark { display: none; }
+  html.dark .theme-toggle .tt-to-light { display: inline; }
+  .theme-toggle [data-icon="sun"], html.dark .theme-toggle [data-icon="moon"] { display: none; }
+  html.dark .theme-toggle [data-icon="sun"] { display: inline; }
+
+  .hero { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: var(--sp-8) var(--sp-5) var(--sp-7); }
+  .hero-kicker { font-size: .875rem; color: var(--text-muted); margin-bottom: var(--sp-4); }
+  .hero-title { font-family: var(--font-head); font-weight: 700; font-size: clamp(2.5rem, 9vw, 5rem); line-height: 1.05; color: var(--text); }
+  .hero-title span { color: var(--brand); }
+  .hero-sub { font-size: 1.125rem; color: var(--text-muted); max-width: 560px; margin: var(--sp-5) auto 0; }
+  .hero-sub strong { color: var(--text); font-weight: 600; }
+  .cta-wrap { margin-top: var(--sp-6); }
+  .cta-btn { display: inline-flex; align-items: center; gap: var(--sp-2); min-height: 48px; padding: 0 var(--sp-5); background: var(--brand); color: var(--on-brand); font-weight: 700; font-size: 1rem; text-decoration: none; border: 1px solid var(--brand); border-radius: var(--r-1); transition: background var(--t-fast) var(--ease), transform var(--t-fast) var(--ease); }
+  .cta-btn:hover { background: color-mix(in srgb, var(--brand) 88%, var(--text)); }
+  .cta-btn:active { transform: translateY(1px); }
+
+  .modules { padding: var(--sp-7) var(--sp-6); }
+  .modules-label { font-family: var(--font-head); font-weight: 700; font-size: 1.5rem; text-align: center; margin-bottom: var(--sp-5); color: var(--text); }
+  .modules-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--sp-4); max-width: 1100px; margin: 0 auto; }
+  .mod-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-2); padding: var(--sp-5); display: flex; flex-direction: column; gap: var(--sp-2); }
+  .mod-icon { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: var(--r-2); border: 1px solid var(--border); background: var(--surface-2); color: var(--area-edu); }
+  .mod-icon .eo-icon { width: 22px; height: 22px; }
+  .mod-card.pro .mod-icon { color: var(--area-pro); }
+  .mod-name { font-family: var(--font-head); font-weight: 700; font-size: 1.125rem; color: var(--text); }
+  .mod-desc { font-size: .9375rem; color: var(--text-muted); }
+
+  .specs { padding: var(--sp-6); max-width: 1100px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--sp-5); border-top: 1px solid var(--border); }
+  .spec-num { font-family: var(--font-mono); font-weight: 700; font-size: 2rem; color: var(--text); line-height: 1.1; }
+  .spec-unit { font-size: 1rem; color: var(--text-muted); margin-left: 2px; }
+  .spec-label { font-size: .875rem; color: var(--text-muted); margin-top: var(--sp-1); }
+
+  footer { border-top: 1px solid var(--border); padding: var(--sp-4) var(--sp-6); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--sp-3); }
+  .footer-left, .footer-right { font-size: .8125rem; color: var(--text-muted); }
+  .footer-right { font-family: var(--font-mono); }
+
+  @media (max-width: 640px) {
+    nav { padding: var(--sp-2) var(--sp-4); }
+    .nav-badge { display: none; }
+    .theme-toggle .tt-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    .theme-toggle { min-width: var(--control-h); justify-content: center; }
+    .hero { padding: var(--sp-7) var(--sp-4) var(--sp-5); }
+    .modules { padding: var(--sp-6) var(--sp-4); }
+    .specs { padding: var(--sp-5) var(--sp-4); }
+    footer { padding: var(--sp-4); flex-direction: column; align-items: flex-start; }
+  }
+  @media (pointer: coarse) { :root { --control-h: 44px; } }
+  /* Interacao: elevacao em camadas, afunda ao pressionar, seta que desliza (so transform/box-shadow/cor) */
+  .cta-btn, .theme-toggle { box-shadow: var(--edge-hi), var(--elev-1); transition: transform var(--t-out) var(--ease-exit), box-shadow var(--t-out) var(--ease-exit), background-color var(--t-out) var(--ease-exit), border-color var(--t-out) var(--ease-exit); }
+  .cta-btn .eo-icon, .theme-toggle .eo-icon { transition: transform var(--t-out) var(--ease-exit); }
+  @media (hover: hover) and (pointer: fine) {
+    .cta-btn:hover, .theme-toggle:hover { transform: translateY(-2px); box-shadow: var(--edge-hi), var(--elev-2); transition-duration: var(--t-in); transition-timing-function: var(--ease); }
+    .cta-btn:hover .eo-icon { transform: translateX(4px); transition-duration: var(--t-in); transition-timing-function: var(--ease); }
+    .theme-toggle:hover .eo-icon { transform: rotate(-14deg) scale(1.1); }
+  }
+  .cta-btn:focus-visible { transform: translateY(-2px); box-shadow: var(--edge-hi), var(--elev-2); }
+  .cta-btn:focus-visible .eo-icon { transform: translateX(4px); }
+  .cta-btn:active, .theme-toggle:active { transform: translateY(1px) scale(.98); box-shadow: var(--elev-press); transition-duration: var(--t-fast); }
+  @media (prefers-reduced-motion: reduce) { .cta-btn, .theme-toggle, .cta-btn .eo-icon, .theme-toggle .eo-icon { transform: none !important; } }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <nav>
+    <div class="nav-logo"><img src="assets/icons/favicon.svg" width="34" height="34" alt=""> EletroLabz</div>
+    <div class="nav-right">
+      <div class="nav-badge">v2.0 — NBR 5410</div>
+      <button class="theme-toggle" type="button" onclick="toggleTheme()" data-eo-action="index:alternar-tema" id="theme-btn" aria-pressed="false"><svg class="eo-icon" data-icon="moon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg><svg class="eo-icon" data-icon="sun" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg><span class="tt-label"><span class="tt-to-dark">Modo escuro</span><span class="tt-to-light">Modo claro</span></span></button>
+    </div>
+  </nav>
+
+  <div class="showcase"><section class="hero">
+    <img src="assets/icons/favicon.svg" width="84" height="84" alt="">
+    <h1 class="hero-title">Eletro<span>Labz</span></h1>
+    <p class="hero-sub">O EletroLabz é um laboratório de eletrotécnica para quem estuda, ensina ou projeta. Experimente a automação de uma linha de produção, explore circuitos e pratique lógica de comando antes de partir para a montagem.</p>
+    <div class="cta-wrap">
+      <a href="eletrotec.html" class="cta-btn">
+        <span>Ir para o site</span>
+        <svg class="eo-icon" data-icon="chevron-right" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"/></svg>
+      </a>
+      <a href="#modulos" class="eo-lab-link">Saiba mais</a>
+    </div>
+  </section>
+
+  <section class="eo-lab" aria-labelledby="eo-lab-title">
+    <h2 id="eo-lab-title">EletroLabz em ação</h2>
+    <div class="orbit-frame"><button class="orbit-prev" type="button" aria-label="Atividade anterior">‹</button><button class="orbit-next" type="button" aria-label="Próxima atividade">›</button><div class="eo-lab-grid">
+      <article class="eo-lab-card" aria-labelledby="eo-sort-title">
+        <div class="orbit"><h3 id="eo-sort-title">Triagem industrial</h3><svg class="eo-sort-stage" viewBox="0 26 480 262" role="img" aria-labelledby="eo-sort-diagram">
+          <title id="eo-sort-diagram">Esteira com motor ligado à polia motriz, entrada de peças, caixa de metais e saída</title>
+          <defs>
+            <clipPath id="eo-belt-clip"><rect x="20" y="181" width="440" height="26" rx="13"/></clipPath>
+          </defs>
+          <path class="eo-machine" d="M50 227v-21m215 21v-21M286 179V48h116v61" fill="none" stroke-width="7"/>
+          <path class="eo-machine" d="M233 46h180" fill="none" stroke-width="12"/>
+          <path class="eo-machine" d="M168 149v-34h-24" fill="none" stroke-width="4"/>
+          <rect class="eo-housing" x="150" y="121" width="36" height="23" rx="4"/>
+          <circle id="eo-sensor-led" cx="168" cy="132" r="5"/>
+          <path id="eo-sensor-beam" d="M157 148l-9 28m20-28v28m11-28 9 28" fill="none" stroke-width="2" stroke-dasharray="3 4"/>
+          <rect class="eo-housing" x="20" y="181" width="440" height="26" rx="13"/>
+          <path id="eo-belt-treads" clip-path="url(#eo-belt-clip)" d="M0 194h480" fill="none" stroke-width="12" stroke-dasharray="4 14"/>
+          <path class="eo-machine" d="M442 194v46h-65" fill="none" stroke-width="9"/>
+          <rect class="eo-housing" x="427" y="225" width="30" height="30" rx="5"/>
+          <circle class="eo-housing" cx="442" cy="194" r="12"/>
+          <path id="eo-drive-pulley" class="eo-machine" d="M435 194h14m-7-7v14" stroke-width="2.5" stroke-linecap="round"/>
+          <path class="eo-machine" d="M319 257v5h61v-5" fill="none" stroke-width="4"/>
+          <rect class="eo-motor-body" x="314" y="222" width="79" height="36" rx="9"/>
+          <rect class="eo-motor-body" x="337" y="215" width="24" height="10" rx="2"/>
+          <path class="eo-motor-fins" d="M332 230h48m-48 10h48m-48 10h48" fill="none" stroke-width="2"/>
+          <text x="353" y="279" text-anchor="middle">Motor da esteira</text>
+          <path class="eo-housing" d="M355 111h92l-8 36h-76z"/>
+          <text x="401" y="134" text-anchor="middle">Metais</text>
+          <text x="20" y="234">Entrada</text>
+          <text x="460" y="168" text-anchor="end">Saída</text>
+          <g id="eo-sort-piece" visibility="hidden">
+            <rect class="eo-metal" x="-13" y="-12" width="26" height="24" rx="3"/>
+            <circle r="5" fill="var(--surface)"/>
+            <rect class="eo-polymer" x="-13" y="-12" width="26" height="24" rx="8"/>
+          </g>
+          <g id="eo-gripper">
+            <rect class="eo-housing" x="-20" y="39" width="40" height="24" rx="5"/>
+            <line id="eo-piston" class="eo-machine" x1="0" x2="0" y1="63" y2="75" stroke-width="6"/>
+            <path id="eo-jaws" class="eo-machine" d="M-15 14v-15H15v15" fill="none" stroke-width="4" stroke-linejoin="round"/>
+          </g>
+        </svg></div>
+        <dl class="eo-lab-stats">
+          <div><dt>Metais separados</dt><dd id="eo-sort-metal">0</dd></div>
+          <div><dt>Não metais na saída</dt><dd id="eo-sort-other">0</dd></div>
+        </dl>
+        <div class="eo-sort-panel" role="group" aria-labelledby="eo-sort-panel-title">
+          <div class="eo-sort-panel-info">
+            <h4 id="eo-sort-panel-title">Painel elétrico</h4>
+            <p id="eo-sort-status" role="status">Esteira desligada</p>
+          </div>
+          <div class="eo-sort-controls">
+            <button type="button" id="eo-sort-start"><span aria-hidden="true">I</span>Ligar</button>
+            <button type="button" id="eo-sort-stop" disabled><span aria-hidden="true">O</span>Desligar</button>
+          </div>
+        </div>
+      </article>
+      <article class="eo-lab-card" id="eo-snake" aria-labelledby="eo-snake-title">
+        <div class="orbit"><h3 id="eo-snake-title">EletroSnake</h3><div id="eo-snake-board" class="eo-snake-board" tabindex="0" role="group" aria-label="Tabuleiro da cobrinha" aria-describedby="eo-snake-help">
+          <div id="eo-snake-cells" aria-hidden="true"></div>
+        </div></div>
+        <dl class="eo-lab-stats">
+          <div><dt>Pontos</dt><dd id="eo-snake-score">0</dd></div>
+          <div><dt>Recorde</dt><dd id="eo-snake-best">0</dd></div>
+        </dl>
+        <p class="eo-lab-status" id="eo-snake-status" role="status">Pronto para jogar</p>
+        <div class="eo-lab-actions">
+          <button type="button" class="eo-lab-primary" id="eo-snake-start">Jogar</button>
+          <button type="button" id="eo-snake-pause" disabled>Pausar</button>
+        </div>
+        <p class="eo-snake-help" id="eo-snake-help">Use as setas, WASD ou os botões abaixo. Espaço pausa ou continua.</p>
+        <div class="eo-snake-dpad" role="group" aria-label="Controles direcionais">
+          <button type="button" data-direction="up" aria-label="Para cima">↑</button>
+          <button type="button" data-direction="left" aria-label="Para a esquerda">←</button>
+          <button type="button" data-direction="down" aria-label="Para baixo">↓</button>
+          <button type="button" data-direction="right" aria-label="Para a direita">→</button>
+        </div>
+      </article>
+      <article class="eo-lab-card meter-lab" aria-labelledby="ohm-title" hidden>
+        <div class="orbit"><h3 id="ohm-title">Desafio de Ohm</h3>
+          <div class="instrument"><span>Corrente medida</span><output id="ohm-current">20 mA</output><small>Fonte de 12 V</small></div>
+        </div>
+        <p>Ajuste a resistência até obter <strong id="ohm-target">40 mA</strong>.</p>
+        <label for="ohm-r">Resistência · <output id="ohm-value" for="ohm-r">600 Ω</output></label>
+        <input id="ohm-r" type="range" min="100" max="1200" step="10" value="600">
+        <div class="eo-lab-actions"><button id="ohm-next" type="button">Novo alvo</button></div>
+        <p id="ohm-result" role="status"></p>
+      </article>
+      <article class="eo-lab-card meter-lab" aria-labelledby="xf-title" hidden>
+        <div class="orbit"><h3 id="xf-title">Transformador ideal</h3>
+          <div class="instrument"><svg viewBox="0 0 140 64" width="140" aria-hidden="true" class="lab-lines"><path d="M8 10h41q18 5 0 11q18 5 0 11q18 5 0 11q18 5 0 11H8 M132 10H91q-18 5 0 11q-18 5 0 11q-18 5 0 11q-18 5 0 11h41 M67 6v52m6-52v52"/></svg>
+          <span>Tensão no secundário</span><output id="xf-v">110 V</output></div>
+        </div>
+        <p>O primário recebe 220 V e tem 400 espiras. Varie o enrolamento secundário para elevar ou reduzir a tensão.</p>
+        <label for="xf-n">Espiras no secundário · <output id="xf-count">200</output></label><input id="xf-n" type="range" min="40" max="800" step="20" value="200">
+      </article>
+      <article class="eo-lab-card meter-lab" aria-labelledby="harm-title" hidden>
+        <div class="orbit"><h3 id="harm-title">Motor e harmônicas</h3>
+          <svg class="lab-scope lab-lines" viewBox="0 0 290 134" role="img" aria-label="Motor à esquerda e correntes das três fases à direita">
+            <rect x="7" y="50" width="66" height="44" rx="10"/><path d="M73 68h12v7H73 M17 96v5h48v-5 M16 45h17v5"/><circle cx="30" cy="72" r="15"/>
+            <path id="harm-rotor" d="M30 72l11-5m-11 5-2 12m2-12-10-7"/><path d="M52 57v29m7-29v29m7-29v29"/>
+            <path d="M97 66h187" opacity=".35"/><path id="wave-a" stroke="#269c94"/><path id="wave-b" stroke="#d78630"/><path id="wave-c" stroke="#9673ce"/>
+            <g class="scope-text"><text x="108" y="121">A</text><text x="167" y="121">B</text><text x="224" y="121">C</text></g>
+            <path d="M98 116h8" stroke="#269c94"/><path d="M157 116h8" stroke="#d78630"/><path d="M214 116h8" stroke="#9673ce"/>
+          </svg>
+        </div>
+        <p>Parta o motor e observe o pico inicial das correntes. Ajuste a 3ª e a 5ª harmônicas nas correntes dos enrolamentos em triângulo. As fundamentais estão defasadas de 120°.</p>
+        <label for="harm-third">3ª harmônica em relação à fundamental · <output id="harm-third-percent">0%</output></label><input id="harm-third" type="range" min="0" max="40" value="0">
+        <label for="harm-level">5ª harmônica em relação à fundamental · <output id="harm-percent">0%</output></label><input id="harm-level" type="range" min="0" max="40" value="0">
+        <button type="button" id="harm-run">Partir motor</button><span role="status" id="harm-status"> Parado</span>
+      </article>
+      <article class="eo-lab-card meter-lab" aria-labelledby="dol-title" hidden>
+        <div class="orbit"><h3 id="dol-title">Partida direta</h3>
+          <svg id="dol-circuit" class="lab-lines lab-scope" viewBox="0 0 300 155" role="img" aria-label="Comando com parada e térmico normalmente fechados, partida em paralelo com selo K1 e bobina K1. Três polos K1 alimentam o motor.">
+            <path d="M8 39h22m0-8v16m7-16v16m-9 2 11-20m-2 10h23m0-8v16m7-16v16m-9 2 11-20m-2 10h18v39h16m8 0h24V39h15m-63 0h16m8 0h24m-32-8v16m8-16v16m-8 23v16m8-16v16"/>
+            <path class="dol-live" d="M133 39h15m0-9h25v18h-25z M173 39h18"/>
+            <path class="dol-seal" d="M101 78h8"/>
+            <path d="M214 24v23m21-23v23m21-23v23m-42 17v28l21 10m0-38v38m21-38v28l-21 10"/>
+            <path id="dol-poles" d="M214 64l-7-16m28 16-7-16m28 16-7-16"/>
+            <circle class="dol-live" cx="235" cy="119" r="17"/>
+            <g class="scope-text"><text x="9" y="21">L</text><text x="23" y="21">S0</text><text x="55" y="21">FT</text><text x="94" y="21">S1</text><text x="94" y="103">K1</text><text x="152" y="44">K1</text><text x="180" y="21">N</text><text x="202" y="16">L1 L2 L3</text><text x="226" y="124">M</text></g>
+          </svg>
+        </div>
+        <p>S1 aciona o contator K1. O contato auxiliar mantém a bobina energizada após soltar o botão. S0 ou o relé térmico interrompem o comando.</p>
+        <div class="eo-lab-actions"><button id="dol-start">S1 · Ligar</button><button id="dol-stop">S0 · Parar</button><button id="dol-trip">Atuar térmico</button></div>
+        <output id="dol-state">Motor parado</output>
+      </article>
+    </div>
+    </div>
+  </section>
+</div>
+  <div class="specs">
+    <div class="spec-item">
+      <div class="spec-num">7<span class="spec-unit">+</span></div>
+      <div class="spec-label">Módulos ativos</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-num">NBR</div>
+      <div class="spec-label">5410 / IEC 60617</div>
+    </div>
+
+    <div class="spec-item">
+      <div class="spec-num">Web</div>
+      <div class="spec-label">Abre direto no navegador, sem instalação</div>
+    </div>
+  </div>
+
+  <section class="modules" id="modulos" tabindex="-1">
+    <h2 class="modules-label">Módulos disponíveis</h2>
+    <div class="modules-grid">
+      <div class="mod-card">
+        <div class="mod-icon"><svg class="eo-icon" data-icon="zap" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z"/></svg></div>
+        <div class="mod-name">Eletricidade II</div>
+        <div class="mod-desc">Circuitos RLC, fasores, potência e fator de potência</div><details><summary>Ver detalhes<span class="sr-only"> de Eletricidade II</span></summary><p>Explore como resistência, indutância e capacitância afetam a corrente e a defasagem. Use os fasores para relacionar essas grandezas à potência do circuito.</p></details>
+      </div>
+      <div class="mod-card">
+        <div class="mod-icon"><svg class="eo-icon" data-icon="cpu" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 20v2"/><path d="M12 2v2"/><path d="M17 20v2"/><path d="M17 2v2"/><path d="M2 12h2"/><path d="M2 17h2"/><path d="M2 7h2"/><path d="M20 12h2"/><path d="M20 17h2"/><path d="M20 7h2"/><path d="M7 20v2"/><path d="M7 2v2"/><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="8" y="8" width="8" height="8" rx="1"/></svg></div>
+        <div class="mod-name">Acionamentos</div>
+        <div class="mod-desc">Diagramas de comando, botoeiras, contatos IEC</div><details><summary>Ver detalhes<span class="sr-only"> de Acionamentos</span></summary><p>Acompanhe o caminho da corrente nos diagramas de comando e observe como botoeiras e contatos determinam a partida e a parada de motores.</p></details>
+      </div>
+      <div class="mod-card">
+        <div class="mod-icon"><svg class="eo-icon" data-icon="table" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3v18"/><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/></svg></div>
+        <div class="mod-name">Ladder</div>
+        <div class="mod-desc">Simulador de lógica Ladder com scan em tempo real</div><details><summary>Ver detalhes<span class="sr-only"> de Ladder</span></summary><p>Monte uma lógica de comando e acompanhe cada ciclo de leitura das entradas, avaliação dos contatos e atualização das saídas.</p></details>
+      </div>
+      <div class="mod-card pro">
+        <div class="mod-icon"><svg class="eo-icon" data-icon="factory" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 16h.01"/><path d="M16 16h.01"/><path d="M3 19a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.5a.5.5 0 0 0-.769-.422l-4.462 2.844A.5.5 0 0 1 15 10.5v-2a.5.5 0 0 0-.769-.422L9.77 10.922A.5.5 0 0 1 9 10.5V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2z"/><path d="M8 16h.01"/></svg></div>
+        <div class="mod-name">Projetos Industriais</div>
+        <div class="mod-desc">Motores, transformadores, proteções e alimentadores</div><details><summary>Ver detalhes<span class="sr-only"> de Projetos Industriais</span></summary><p>Relacione as cargas de motores e transformadores ao dimensionamento dos alimentadores e à escolha das proteções da instalação.</p></details>
+      </div>
+      <div class="mod-card pro">
+        <div class="mod-icon"><svg class="eo-icon" data-icon="building-2" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M10 12h4"/><path d="M10 8h4"/><path d="M14 21v-3a2 2 0 0 0-4 0v3"/><path d="M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2"/><path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16"/></svg></div>
+        <div class="mod-name">Projetos Prediais</div>
+        <div class="mod-desc">Dimensionamento de circuitos conforme NBR 5410</div><details><summary>Ver detalhes<span class="sr-only"> de Projetos Prediais</span></summary><p>Estude os circuitos de uma instalação predial e consulte os critérios de dimensionamento usados nos cálculos de referência da NBR 5410.</p></details>
+      </div>
+      <div class="mod-card pro">
+        <div class="mod-icon"><svg class="eo-icon" data-icon="brain-circuit" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 13h4"/><path d="M12 18h6a2 2 0 012 2v1"/><path d="M12 8h8"/><path d="M12 9a4.17 4.17 0 01-3 4"/><path d="M16 8V5a2 2 0 012-2"/><path d="M6 18a4 4 0 01-2-7.465"/><path d="M6.004 5.125a4 4 0 00-2.526 5.77"/><path d="M6.294 6.294A3 3 0 1112 5v13a4 4 0 11-7.967-.518"/><circle cx="16" cy="13" r="0.5" fill="currentColor"/><circle cx="18" cy="3" r="0.5" fill="currentColor"/><circle cx="20" cy="21" r="0.5" fill="currentColor"/><circle cx="20" cy="8" r="0.5" fill="currentColor"/></svg></div>
+        <div class="mod-name">I.A.</div>
+        <div class="mod-desc">Guia de integração do Claude ao Revit via MCP Server</div><details><summary>Ver detalhes<span class="sr-only"> de I.A.</span></summary><p>Conheça o fluxo de integração entre Claude e Revit por meio de um servidor MCP para explorar aplicações de IA no ambiente BIM.</p></details>
+      </div>
+    </div>
+  </section>
+
+
+
+  <footer>
+    <div class="footer-left">
+      Desenvolvido por eryck e murilo para fins educacionais — EletroLabz © 2026
+    </div>
+    <div class="footer-right">NBR 5410 · IEC 60617 · ANSI/IEEE 315</div>
+  </footer>
+
+</div>
+</body>
+</html>

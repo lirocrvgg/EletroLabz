@@ -1,0 +1,270 @@
+/* Componentes do design system (DESIGN_SYSTEM.md 7). Carregado depois de legacy.css: ajusta as classes
+   legadas (.btn, .nav-btn, .card, .ms-card...) para o contrato novo e define os componentes novos
+   (.eo-*). Cores/raios/sombras somente via tokens. */
+
+/* ── Navegacao ───────────────────────────────────────────── */
+nav { background: var(--surface); backdrop-filter: none; -webkit-backdrop-filter: none; transition: none; }
+.nav-inner { gap: var(--sp-2); padding: var(--sp-2) 0; align-items: center; }
+.nav-logo {
+  display: inline-flex; align-items: center; gap: var(--sp-2); min-height: var(--control-h);
+  font-size: 1rem; font-weight: 700; color: var(--brand); margin-right: var(--sp-3);
+}
+.nav-logo .eo-icon, .nav-btn .eo-icon, .ms-back-btn .eo-icon { width: 1.15em; height: 1.15em; margin-right: 0; }
+.nav-btn, .ms-back-btn, .tab, .predial-tab, .diag-topbar-btn, .theme-toggle, .btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .4em;
+  min-height: var(--control-h); font-family: var(--font-ui); font-size: .875rem; font-weight: 600;
+  border-radius: var(--r-1); line-height: 1.2;
+  transition: background var(--t-fast) var(--ease), border-color var(--t-fast) var(--ease), color var(--t-fast) var(--ease), transform var(--t-fast) var(--ease);
+}
+.nav-btn:active, .btn:active, .tab:active, .diag-topbar-btn:active, .theme-toggle:active, .ms-back-btn:active { transform: translateY(1px); }
+.nav-btn { background: transparent; border: 1px solid transparent; color: var(--text-muted); padding: 0 var(--sp-3); }
+.nav-btn:hover { background: var(--surface-2); border-color: var(--border); color: var(--text); }
+.nav-btn.active { background: var(--surface-2); border-color: var(--border); color: var(--brand); box-shadow: inset 0 -2px 0 var(--brand); }
+.ms-back-btn {
+  flex-shrink: 0; white-space: nowrap; background: transparent; border: 1px solid var(--border);
+  color: var(--text); padding: 0 var(--sp-3); margin-right: var(--sp-2) !important;
+}
+.ms-back-btn:hover { background: var(--surface-2); border-color: var(--brand); color: var(--brand); }
+
+/* Botao de tema dentro da barra */
+.theme-toggle {
+  flex-shrink: 0; margin-left: auto; position: sticky; right: 0; z-index: 2;
+  background: var(--surface); border: 1px solid var(--border); color: var(--text); padding: 0 var(--sp-3); cursor: pointer;
+  box-shadow: -8px 0 0 var(--surface);
+}
+.theme-toggle:hover { background: var(--surface-2); border-color: var(--brand); }
+.theme-toggle .tt-label { white-space: nowrap; }
+.theme-toggle .tt-to-light, html.dark .theme-toggle .tt-to-dark { display: none; }
+html.dark .theme-toggle .tt-to-light { display: inline; }
+.theme-toggle [data-icon="sun"], html.dark .theme-toggle [data-icon="moon"] { display: none; }
+html.dark .theme-toggle [data-icon="sun"] { display: inline; }
+.ms-topbar { width: 100%; max-width: 800px; display: flex; justify-content: flex-end; margin-bottom: var(--sp-4); flex-shrink: 0; }
+.ms-topbar .theme-toggle { margin-left: 0; position: static; box-shadow: none; }
+@media (max-width: 600px) {
+  .nav-inner { padding-right: 0; }
+  .nav-logo { display: block; line-height: var(--control-h); padding: 0; max-width: 9rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-right: var(--sp-2); }
+  .nav-logo .eo-icon { vertical-align: -0.2em; margin-right: var(--sp-2); }
+  .theme-toggle .tt-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .theme-toggle { min-width: var(--control-h); }
+  .ms-topbar .theme-toggle .tt-label { position: static; width: auto; height: auto; overflow: visible; clip: auto; }
+}
+
+/* ── Botoes ──────────────────────────────────────────────── */
+.btn { background: var(--brand); color: var(--on-brand); border: 1px solid var(--brand); padding: 0 var(--sp-4); cursor: pointer; }
+.btn:hover { opacity: 1; transform: none; background: color-mix(in srgb, var(--brand) 88%, var(--text)); }
+.btn.secondary, .btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
+.btn.secondary:hover, .btn-secondary:hover { background: var(--surface-2); border-color: var(--brand); color: var(--brand); }
+.btn-tertiary { background: transparent; border-color: transparent; color: var(--brand); }
+.btn-tertiary:hover { background: var(--surface-2); }
+.btn-danger { background: var(--danger); border-color: var(--danger); color: var(--on-brand); }
+.btn-export { font-size: .875rem; padding: 0 var(--sp-4); }
+.btn:disabled, .btn[disabled], button:disabled { opacity: .5; cursor: not-allowed; }
+.btn .eo-icon, .diag-topbar-btn .eo-icon, .tab .eo-icon, .predial-tab .eo-icon { width: 1.15em; height: 1.15em; margin-right: 0; }
+.diag-topbar-btn { padding: 0 var(--sp-3); font-family: var(--font-ui); }
+.diag-topbar-btn.sim-run, .diag-topbar-btn.sim-stop, .diag-topbar-btn.active-tool { color: var(--on-brand); }
+.diag-topbar-btn.sim-stop { background: var(--danger); border-color: var(--danger); }
+button:not(.nav-btn):not(.sym-btn):not(.nav-logo) { min-height: var(--control-h); }
+
+/* ── Abas ────────────────────────────────────────────────── */
+.tabs, .predial-tabs { gap: 0; border-bottom: 1px solid var(--border); margin-bottom: var(--sp-4); flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+.tabs::-webkit-scrollbar, .predial-tabs::-webkit-scrollbar { display: none; }
+.tab, .predial-tab { background: transparent; border: 0; border-bottom: 2px solid transparent; border-radius: 0; color: var(--text-muted); padding: 0 var(--sp-4); white-space: nowrap; flex-shrink: 0; cursor: pointer; }
+.tab:hover, .predial-tab:hover { background: var(--surface-2); color: var(--text); border-color: transparent; border-bottom-color: var(--border); }
+.tab.active, .predial-tab.active { background: transparent; color: var(--brand); border-bottom-color: var(--brand); }
+
+/* ── Campos ──────────────────────────────────────────────── */
+.input-group label, .predial-input-group label, .prop-row label { font-size: .875rem; font-weight: 600; color: var(--text-muted); }
+.input-group input, .input-group select, .predial-input-group input, .predial-input-group select, select,
+.prop-row input, .prop-row select, input[type=text], input[type=number], input[type=search], input[type=email], textarea {
+  background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--r-1); color: var(--text); font-size: .875rem;
+}
+textarea { font-family: var(--font-ui); }
+.input-group input, .input-group select, .predial-input-group input, .predial-input-group select { min-height: var(--control-h); }
+input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; border-color: var(--brand); }
+input::placeholder, textarea::placeholder { color: var(--text-muted); opacity: .8; }
+input[type=range] { accent-color: var(--brand); }
+
+/* ── Cards, paineis ──────────────────────────────────────── */
+.card, .predial-result, .hero-card, .aciona-card, .cx-block { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-2); box-shadow: none; transition: border-color var(--t-fast) var(--ease); }
+.hero-card:hover, .aciona-card:hover { border-color: var(--brand); transform: none; box-shadow: none; }
+.hero-card .icon, .aciona-card .icon { display: flex; justify-content: center; font-size: 1rem; margin-bottom: var(--sp-2); color: var(--brand); }
+.hero-card .icon .eo-icon, .aciona-card .icon .eo-icon { width: 1.75rem; height: 1.75rem; margin: 0; }
+.aciona-card:hover { border-color: var(--area-edu); }
+.aciona-card .icon, .hero-card .icon { color: var(--area-edu); }
+.hero-tag, .badge { background: var(--surface-2); border: 1px solid var(--border); color: var(--text-muted); border-radius: var(--r-1); font-size: .75rem; font-weight: 600; padding: 2px var(--sp-2); display: inline-block; }
+.badge { background: var(--brand); border-color: var(--brand); color: var(--on-brand); }
+.info-box { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--r-2); }
+.info-box p, .theory, .hero p { font-size: .9375rem; line-height: 1.6; color: var(--text-muted); }
+.result-item, .predial-result-item { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--r-2); }
+.result-item .r-label { font-size: .75rem; color: var(--text-muted); }
+.r-val, .predial-result-item .value, .val { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.formula { border-radius: var(--r-2); }
+.section-title h2 { font-size: 1.5rem; }
+
+/* Home dos modulos: icones em vez de emojis */
+.ms-card, .ms-card.mod-elet, .ms-card.mod-aciona { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-2); }
+.ms-card:hover, .ms-card.mod-aciona:hover, .ms-card.mod-predial:hover, .ms-card.mod-industrial:hover, .ms-card.mod-ia:hover, .ms-card.mod-sobre:hover, .ms-card.mod-apostilas:hover { border-color: var(--brand); transform: none; }
+.ms-card::before { display: none; }
+.ms-card:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+.ms-card-icon { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; font-size: 1rem; margin-bottom: var(--sp-3); background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--r-2); color: var(--area-edu); overflow: visible; }
+.ms-card-icon .eo-icon { width: 1.5rem; height: 1.5rem; margin: 0; }
+.ms-card.mod-predial .ms-card-icon, .ms-card.mod-industrial .ms-card-icon, .ms-card.mod-distrib .ms-card-icon, .ms-card.mod-ia .ms-card-icon { color: var(--area-pro); }
+.ms-card .ms-card-title, .ms-card.mod-elet .ms-card-title, .ms-card.mod-aciona .ms-card-title, .ms-card.mod-predial .ms-card-title,
+.ms-card.mod-industrial .ms-card-title, .ms-card.mod-ia .ms-card-title, .ms-card.mod-sobre .ms-card-title, .ms-card.mod-apostilas .ms-card-title { color: var(--text); font-size: 1.25rem; }
+.ms-card-desc { font-size: .9375rem; line-height: 1.55; color: var(--text-muted); }
+.ms-tag { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--r-1); color: var(--text-muted); font-size: .75rem; font-weight: 500; padding: 2px var(--sp-2); }
+#module-selector { background: var(--bg); }
+.ms-logo { color: var(--text); font-size: clamp(1.75rem, 5vw, 2.5rem); }
+.ms-sub { font-size: 1rem; color: var(--text-muted); }
+@media (max-width: 600px) {
+  .ms-card { border-radius: var(--r-2); padding: var(--sp-4); gap: var(--sp-3); }
+  .ms-card-title { white-space: normal; overflow: visible; text-overflow: clip; font-size: 1rem; }
+  .ms-card-icon { margin-bottom: 0; flex: 0 0 44px; width: 44px; height: 44px; }
+  .ms-card-icon .eo-icon { width: 1.35rem; height: 1.35rem; }
+  .ms-card-desc { font-size: .8125rem; }
+  .ms-tag { font-size: .75rem; }
+}
+
+/* ── Tabelas ─────────────────────────────────────────────── */
+table { border-collapse: collapse; }
+th { text-align: left; font-weight: 700; color: var(--text-muted); background: var(--surface-2); }
+.predial-table th, .eo-table th { position: sticky; top: 0; background: var(--surface-2); }
+.predial-table tbody tr:nth-child(even), .eo-table tbody tr:nth-child(even) { background: var(--surface-2); }
+.eo-table { width: 100%; font-size: .875rem; }
+.eo-table th, .eo-table td { padding: var(--sp-2) var(--sp-3); border-bottom: 1px solid var(--border); }
+.eo-table td.num, .eo-table th.num { text-align: right; font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+
+/* ── Chips de area e estado ──────────────────────────────── */
+.eo-chip { display: inline-flex; align-items: center; gap: 4px; font-size: .75rem; font-weight: 600; line-height: 1.4; padding: 2px var(--sp-2); border: 1px solid var(--border); border-radius: var(--r-1); color: var(--text-muted); background: var(--surface-2); }
+.eo-chip .eo-icon { width: 12px; height: 12px; }
+.eo-chip--edu { color: var(--area-edu); border-color: var(--area-edu); background: transparent; }
+.eo-chip--pro { color: var(--area-pro); border-color: var(--area-pro); background: transparent; }
+.eo-chip--doc { color: var(--area-doc); border-color: var(--area-doc); background: transparent; }
+.eo-chip--alfa { color: var(--area-doc); border-color: var(--area-doc); background: transparent; text-transform: uppercase; letter-spacing: .06em; }
+.eo-chip--soon { color: var(--text); background: var(--surface-2); }
+
+/* ── Modal (role=dialog) ─────────────────────────────────── */
+.eo-modal-overlay { position: fixed; inset: 0; z-index: 99999; display: flex; align-items: center; justify-content: center; padding: var(--sp-4); background: var(--scrim); }
+.eo-modal { background: var(--surface); color: var(--text); border: 1px solid var(--border); border-radius: var(--r-2); box-shadow: var(--shadow-2); width: 100%; max-width: 560px; max-height: 90vh; overflow-y: auto; padding: var(--sp-5); }
+#ladder-addr-modal > div, #mc-pdf-design-modal > div, #mc-pdf-opts-modal > div { background: var(--surface); color: var(--text); border: 1px solid var(--border); border-radius: var(--r-2); }
+
+/* ── Toasts e estados ────────────────────────────────────── */
+.eo-toasts { position: fixed; z-index: 100000; right: var(--sp-4); bottom: max(var(--sp-4), env(safe-area-inset-bottom)); display: flex; flex-direction: column; gap: var(--sp-2); max-width: min(360px, calc(100vw - 32px)); }
+.eo-toast { display: flex; align-items: flex-start; gap: var(--sp-2); padding: var(--sp-3) var(--sp-4); background: var(--surface); color: var(--text); border: 1px solid var(--border); border-left: 0; border-radius: var(--r-2); box-shadow: var(--shadow-2); font-size: .875rem; }
+.eo-toast .eo-icon { margin-top: 2px; }
+.eo-toast--ok .eo-icon { color: var(--ok); }
+.eo-toast--error .eo-icon { color: var(--danger); }
+.eo-toast--warn .eo-icon { color: var(--warn); }
+.eo-state { display: flex; flex-direction: column; align-items: center; gap: var(--sp-2); text-align: center; padding: var(--sp-6) var(--sp-4); color: var(--text-muted); border: 1px dashed var(--border); border-radius: var(--r-2); }
+.eo-state .eo-icon { width: 32px; height: 32px; }
+.eo-state--error { color: var(--danger); border-style: solid; border-color: var(--danger); }
+.eo-skeleton { background: var(--surface-2); border-radius: var(--r-1); min-height: 1em; animation: eo-pulse 1.2s ease-in-out infinite; }
+@keyframes eo-pulse { 50% { opacity: .55; } }
+
+/* ── Estados semanticos legados (cor + texto/icone no conteudo) ── */
+.predial-warn, .yd-error { background: color-mix(in srgb, var(--warn) 12%, var(--surface)); border: 1px solid var(--warn); border-radius: var(--r-2); }
+.predial-ok { background: color-mix(in srgb, var(--ok) 12%, var(--surface)); border: 1px solid var(--ok); border-radius: var(--r-2); }
+.sim-status { border-radius: var(--r-1); }
+.sim-status.running { color: var(--ok); border-color: var(--ok); }
+
+/* ── Painel flutuante do editor e legendas ───────────────── */
+.diag-toolbar, .diag-props, .sim-legend { border-radius: var(--r-2); box-shadow: var(--shadow-2); }
+.sym-btn { min-height: 0; }
+
+/* ── Toque ───────────────────────────────────────────────── */
+@media (pointer: coarse) {
+  :root { --control-h: 44px; }
+  input:not([type=range]):not([type=checkbox]):not([type=radio]), select { min-height: 44px; }
+}
+
+/* Modal de enderecamento do Ladder: o estilo inline original se perdeu na extracao e o modal ficava
+   permanentemente visivel; ladder.js alterna style.display = 'flex'/'none'. */
+#ladder-addr-modal { display: none; position: fixed; inset: 0; z-index: 99999; align-items: center; justify-content: center; padding: var(--sp-4); background: var(--scrim); }
+@media (max-width: 360px) { .nav-logo { max-width: 6.5rem; } }
+
+/* Ilha escura: o editor Ladder (ladder.js) desenha em fundo escuro fixo nos dois temas; os paineis ao redor
+   usam os tokens escuros para manter contraste. Ladder sera integrado ao tema na Fase 3. */
+.eo-dark-island { background: var(--surface); color: var(--text); }
+
+/* Entradas de arquivo dentro de <label> (importar PDF/.zld): o rotulo e o controle; o input fica
+   visualmente oculto mas continua focavel e acionavel por teclado. */
+label:has(> input[type=file]) { position: relative; }
+label > input[type=file] { position: absolute; width: 1px; height: 1px; opacity: 0; overflow: hidden; pointer-events: none; }
+label:has(> input[type=file]:focus-visible) { outline: 2px solid var(--brand); outline-offset: 2px; }
+
+@media (max-width: 700px) {
+  #page-ladder > div[style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; }
+}
+
+/* ── Tabelas de resultado no mobile (DESIGN_SYSTEM 7: pares rotulo/valor ou rolagem com indicador) ──
+   Tabelas sem cabecalho (rotulo|valor|rotulo|valor) viram pares empilhados; as demais quebram texto e,
+   se ainda nao couberem, rolam na horizontal com desvanecimento nas bordas (onde ha animation-timeline). */
+@media (max-width: 600px) {
+  .predial-table, .eo-table { display: block; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .predial-table th, .predial-table td, .eo-table th, .eo-table td { overflow-wrap: anywhere; }
+  .predial-table:not(:has(thead)) tbody, .predial-table:not(:has(thead)) tr { display: block; }
+  .predial-table:not(:has(thead)) tr { padding: var(--sp-2) 0; border-bottom: 1px solid var(--border); }
+  .predial-table:not(:has(thead)) td { display: block; border: 0; padding: 0 var(--sp-3); }
+  .predial-table:not(:has(thead)) td:nth-child(odd) { font-family: var(--font-ui); font-size: .75rem; color: var(--text-muted); padding-top: var(--sp-1); }
+  .predial-table:not(:has(thead)) td:nth-child(even) { padding-bottom: var(--sp-1); }
+}
+@supports (animation-timeline: scroll()) {
+  @media (max-width: 600px) {
+    .predial-table:has(thead), .eo-table { animation: eo-edge-fade linear both; animation-timeline: scroll(self inline); }
+    @keyframes eo-edge-fade {
+      0% { mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent); }
+      4%, 96% { mask-image: linear-gradient(to right, transparent, #000 28px, #000 calc(100% - 28px), transparent); }
+      100% { mask-image: linear-gradient(to right, transparent, #000 28px); }
+    }
+  }
+}
+
+/* ── Icones inseridos por JS (<i data-eo-icon=nome>) e botoes de remover linha ── */
+i[data-eo-icon] { display: inline-flex; align-items: center; vertical-align: -0.2em; font-style: normal; }
+i[data-eo-icon] .eo-icon { width: 1.1em; height: 1.1em; margin: 0; }
+.eo-row-remove { min-height: var(--control-h); padding: 0 var(--sp-3); font-size: .8125rem; }
+@media (max-width: 640px) { .eo-row-remove { min-height: 44px; min-width: 44px; } }
+
+/* ── Seletor de categorias (cartoes como links) ── */
+.eo-selector { display: flex; flex-direction: column; gap: var(--sp-3); max-width: 560px; margin: 0 auto; padding: var(--sp-6) var(--sp-4) var(--sp-7); }
+.eo-selector-title { display: flex; align-items: center; justify-content: center; gap: var(--sp-3); font-size: 2rem; font-weight: 800; line-height: 1.15; text-align: center; color: var(--text); }
+.eo-selector-title .eo-icon { width: 1.75rem; height: 1.75rem; color: var(--area-pro); }
+.eo-selector-sub { text-align: center; color: var(--text-muted); font-size: .9375rem; margin: 0 0 var(--sp-2); }
+.eo-selector-list { display: flex; flex-direction: column; gap: var(--sp-3); }
+.eo-sel-card {
+  display: flex; align-items: center; gap: var(--sp-4); min-height: 72px; padding: var(--sp-4);
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-2); color: var(--text); text-decoration: none;
+  transition: border-color var(--t-fast) var(--ease), transform var(--t-fast) var(--ease); -webkit-tap-highlight-color: transparent;
+}
+.eo-sel-card:hover { border-color: var(--brand); }
+.eo-sel-card:active { transform: translateY(1px); }
+.eo-sel-card:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+.eo-sel-icon { flex: 0 0 44px; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--r-2); color: var(--area-pro); }
+.eo-sel-icon .eo-icon { width: 1.5rem; height: 1.5rem; margin: 0; }
+.eo-sel-body { flex: 1; min-width: 0; }
+.eo-sel-title { display: block; font-weight: 700; font-size: 1rem; margin-bottom: 2px; }
+.eo-sel-desc { display: block; font-size: .8125rem; line-height: 1.45; color: var(--text-muted); }
+.eo-sel-chev { flex: 0 0 auto; color: var(--text-muted); }
+.eo-sel-chev .eo-icon { width: 1.25rem; height: 1.25rem; margin: 0; }
+@media (prefers-reduced-motion: reduce) { .eo-sel-card { transition: none; } .eo-sel-card:active { transform: none; } }
+#cat-ribbon .eo-icon { width: 1.1em; height: 1.1em; vertical-align: -0.2em; margin-right: 2px; }
+.eo-selector-title { flex-wrap: wrap; font-size: clamp(1.5rem, 6vw, 2rem); }
+.eo-selector-title { flex-wrap: wrap; font-size: clamp(1.5rem, 6vw, 2rem); }
+@media (max-width: 600px) {
+  .section-title { flex-wrap: wrap; gap: var(--sp-1) var(--sp-3); }
+  .section-title h2 { font-size: 1.25rem; min-width: 0; overflow-wrap: anywhere; }
+}
+
+/* Mensagens de aviso/ok geradas por JS: texto corrido com icone inline (antes o flex separava cada trecho) */
+.predial-warn, .predial-ok { display: block; line-height: 1.5; }
+.predial-warn i[data-eo-icon], .predial-ok i[data-eo-icon] { margin-right: var(--sp-1); color: var(--warn); }
+.predial-ok i[data-eo-icon] { color: var(--ok); }
+
+/* Cartoes da home como links */
+a.hero-card { display: block; color: var(--text); text-decoration: none; min-height: 44px; }
+a.hero-card:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+
+/* Fonte nova e mais larga: celulas de resultado podem encolher e quebrar o texto em vez de estourar a pagina (320px) */
+.predial-result-grid { grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr)); }
+.predial-result-item, .result-item { min-width: 0; overflow-wrap: anywhere; }
+@media (max-width: 600px) { .predial-result-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

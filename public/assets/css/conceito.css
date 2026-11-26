@@ -1,0 +1,38 @@
+/* css/conceito.css - bloco "Entenda o conceito" (modulo Eletricidade). Somente tokens do design system. */
+.eo-conceito {
+  margin: var(--sp-4, 16px) 0;
+  background: var(--surface, #fff);
+  color: var(--text, #121821);
+  border: 1px solid var(--border, #d5dae1);
+  border-radius: var(--r-2, 8px);
+  line-height: 1.6;
+  max-width: 100%;
+  min-width: 0;
+}
+.eo-conceito__sum {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--sp-1, 4px) var(--sp-3, 12px);
+  cursor: pointer; list-style: none; min-height: 44px;
+  padding: var(--sp-3, 12px) var(--sp-4, 16px);
+  border-radius: var(--r-2, 8px);
+}
+.eo-conceito__sum::-webkit-details-marker { display: none; }
+.eo-conceito__sum::before {
+  content: "\25B8"; color: var(--area-edu, #0f766e);
+  transition: transform 120ms cubic-bezier(.2, 0, 0, 1);
+}
+.eo-conceito__det[open] > .eo-conceito__sum::before { transform: rotate(90deg); }
+.eo-conceito__sum:hover { background: var(--surface-2, #eef1f4); }
+.eo-conceito__sum:focus-visible { outline: 2px solid var(--area-edu, #0f766e); outline-offset: 2px; }
+.eo-conceito__tag {
+  font-size: .8125rem; font-weight: 600;
+  color: var(--area-edu, #0f766e); padding: 2px var(--sp-2, 8px); border: 1px solid var(--area-edu, #0f766e); border-radius: var(--r-1, 4px);
+}
+.eo-conceito__titulo { font-weight: 600; font-size: 1.125rem; flex: 1 1 14rem; min-width: 0; overflow-wrap: anywhere; }
+.eo-conceito__corpo { padding: 0 var(--sp-4, 16px) var(--sp-4, 16px); border-top: 1px solid var(--border, #d5dae1); }
+.eo-conceito__h { margin: var(--sp-4, 16px) 0 var(--sp-2, 8px); font-size: .875rem; font-weight: 600; color: var(--text-muted, #4a5566); }
+.eo-conceito__corpo p { margin: 0 0 var(--sp-2, 8px); font-size: .9375rem; overflow-wrap: anywhere; }
+.eo-conceito__lista { margin: 0; padding-left: 1.25rem; font-size: .9375rem; }
+.eo-conceito__lista li { margin: 0 0 var(--sp-2, 8px); overflow-wrap: anywhere; }
+.eo-conceito__lista--erro li::marker { color: var(--warn, #8a5a00); }
+.eo-conceito__lista--calc li::marker { color: var(--area-edu, #0f766e); }
+.eo-conceito mjx-container { max-width: 100%; overflow-x: auto; overflow-y: hidden; }

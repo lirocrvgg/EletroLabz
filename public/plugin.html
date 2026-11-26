@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plugin para Revit — EletroLabz</title>
+    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+    <script src="assets/js/core/theme.js"></script>
+    <script src="assets/js/core/icons.js"></script>
+    <link rel="stylesheet" href="assets/css/fonts.css">
+    <link rel="stylesheet" href="assets/css/tokens.css">
+    <link rel="stylesheet" href="assets/css/legacy.css">
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/nav.css">
+    <link rel="stylesheet" href="assets/css/mobile.css">
+    <link rel="stylesheet" href="assets/css/plugin.css">
+</head>
+
+<body data-eo-module="plugin" data-eo-area="profissional">
+
+    <nav id="nav-plugin" aria-label="Módulo">
+        <div class="eo-topbar">
+            <a class="eo-brand" href="eletrotec.html" aria-label="EletroLabz: ir para o início"><img width="32" height="32" alt="" src="./assets/icons/favicon.svg"><span class="eo-brand__name">EletroLabz</span></a>
+            <a class="ms-back-btn eo-modules" href="eletrotec.html"><svg class="eo-icon" data-icon="arrow-left" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg> Módulos</a>
+            <button class="theme-toggle" type="button" onclick="toggleTheme()" data-eo-action="plugin:alternar-tema" id="theme-btn" aria-pressed="false"><svg class="eo-icon" data-icon="moon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg><svg class="eo-icon" data-icon="sun" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg><span class="tt-label"><span class="tt-to-dark">Modo escuro</span><span class="tt-to-light">Modo claro</span></span></button>
+        </div>
+    </nav>
+    <div class="eo-crumbs" role="navigation" aria-label="Trilha de navegação"><ol></ol></div>
+
+    <main id="main-plugin">
+        <div class="plg-wrap">
+            <header class="plg-head">
+                <span class="plg-mark" aria-hidden="true"><svg class="eo-icon" data-icon="puzzle" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15.39 4.39a1 1 0 0 0 1.68-.474 2.5 2.5 0 1 1 3.014 3.015 1 1 0 0 0-.474 1.68l1.683 1.682a2.414 2.414 0 0 1 0 3.414L19.61 15.39a1 1 0 0 1-1.68-.474 2.5 2.5 0 1 0-3.014 3.015 1 1 0 0 1 .474 1.68l-1.683 1.682a2.414 2.414 0 0 1-3.414 0L8.61 19.61a1 1 0 0 0-1.68.474 2.5 2.5 0 1 1-3.014-3.015 1 1 0 0 0 .474-1.68l-1.683-1.682a2.414 2.414 0 0 1 0-3.414L4.39 8.61a1 1 0 0 1 1.68.474 2.5 2.5 0 1 0 3.014-3.015 1 1 0 0 1-.474-1.68l1.683-1.682a2.414 2.414 0 0 1 3.414 0z"/></svg></span>
+                <div class="plg-head__text">
+                    <h1 id="plg-h1" tabindex="-1">Plugin para Revit <span class="eo-chip eo-chip--soon plg-seal">Em breve</span></h1>
+                    <p class="plg-lead">Complemento para o Autodesk Revit, em desenvolvimento.</p>
+                </div>
+            </header>
+
+            <section class="plg-card plg-card--lead" aria-labelledby="plg-h-what">
+                <h2 id="plg-h-what">O que é</h2>
+                <p>É um <strong>plugin (complemento) instalado dentro do Autodesk Revit</strong>. Não é um aplicativo de terceiros, não é uma versão paga deste site e não reúne as ferramentas web do EletroLabz em outro programa. As calculadoras, simuladores e ferramentas de projeto do site continuam livres e funcionando no navegador.</p>
+            </section>
+
+            <section class="plg-card" aria-labelledby="plg-h-status">
+                <h2 id="plg-h-status">Situação</h2>
+                <p>Em desenvolvimento. Recursos, versões do Revit compatíveis e forma de distribuição serão informados quando o plugin estiver disponível.</p>
+                <div class="plg-access">
+                    <button class="plg-locked" id="plg-open" type="button" aria-disabled="true" aria-haspopup="dialog" data-eo-action="plugin:acessar-bloqueado"><svg class="eo-icon" data-icon="lock" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span>Acessar o Plugin</span></button>
+                </div>
+            </section>
+
+            <section class="plg-card" aria-labelledby="plg-h-rel">
+                <h2 id="plg-h-rel">Relacionado</h2>
+                <a class="plg-rel" href="ia.html" data-eo-action="plugin:abrir-ia">
+                    <span class="plg-rel__icon" aria-hidden="true"><svg class="eo-icon" data-icon="brain-circuit" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 13h4"/><path d="M12 18h6a2 2 0 012 2v1"/><path d="M12 8h8"/><path d="M12 9a4.17 4.17 0 01-3 4"/><path d="M16 8V5a2 2 0 012-2"/><path d="M6 18a4 4 0 01-2-7.465"/><path d="M6.004 5.125a4 4 0 00-2.526 5.77"/><path d="M6.294 6.294A3 3 0 1112 5v13a4 4 0 11-7.967-.518"/><circle cx="16" cy="13" r="0.5" fill="currentColor"/><circle cx="18" cy="3" r="0.5" fill="currentColor"/><circle cx="20" cy="21" r="0.5" fill="currentColor"/><circle cx="20" cy="8" r="0.5" fill="currentColor"/></svg></span>
+                    <span class="plg-rel__body">
+                        <span class="plg-rel__title">IA: Claude com o Revit</span>
+                        <span class="plg-rel__desc">Integração do Claude com o Revit via servidor MCP: tutorial disponível na área de IA. É outra coisa, não é o Plugin.</span>
+                    </span>
+                    <span class="plg-rel__chev" aria-hidden="true"><svg class="eo-icon" data-icon="chevron-right" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"/></svg></span>
+                </a>
+            </section>
+
+            <p class="plg-note">Autodesk e Revit são marcas da Autodesk, Inc. Este plugin não é um produto da Autodesk.</p>
+        </div>
+    </main>
+
+    <dialog class="plg-dialog" id="plg-dialog" aria-labelledby="plg-dlg-title" aria-describedby="plg-dlg-text">
+        <div class="plg-dialog__icon" aria-hidden="true"><svg class="eo-icon" data-icon="lock" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+        <h2 id="plg-dlg-title">Recurso bloqueado</h2>
+        <p id="plg-dlg-text">O Plugin para Revit ainda não está disponível. Em breve estará disponível.</p>
+        <button class="plg-dialog__ok" id="plg-ok" type="button" data-eo-action="plugin:fechar-aviso">Entendi</button>
+    </dialog>
+
+    <script src="assets/js/core/nav.js"></script>
+    <script>
+    (function () {
+        'use strict';
+        var btn = document.getElementById('plg-open');
+        var dlg = document.getElementById('plg-dialog');
+        var ok = document.getElementById('plg-ok');
+        if (!btn || !dlg || !ok) { return; }
+        var native = typeof dlg.showModal === 'function';
+        function open() {
+            if (dlg.hasAttribute('open')) { return; }
+            if (native) { dlg.showModal(); }
+            else { dlg.setAttribute('open', ''); dlg.classList.add('plg-dialog--fallback'); document.body.classList.add('plg-lock'); }
+            ok.focus();
+        }
+        function close() {
+            if (native) { if (dlg.open) { dlg.close(); } }
+            else { dlg.removeAttribute('open'); dlg.classList.remove('plg-dialog--fallback'); document.body.classList.remove('plg-lock'); btn.focus(); }
+        }
+        btn.addEventListener('click', open);
+        ok.addEventListener('click', close);
+        dlg.addEventListener('close', function () { btn.focus(); });
+        dlg.addEventListener('click', function (ev) { if (ev.target === dlg) { close(); } });   /* clique no fundo */
+        document.addEventListener('keydown', function (ev) {
+            if (native || !dlg.hasAttribute('open')) { return; }
+            /* reserva sem <dialog>: Esc fecha e o foco fica dentro do aviso */
+            if (ev.key === 'Escape') { ev.preventDefault(); close(); }
+            if (ev.key === 'Tab') { ev.preventDefault(); ok.focus(); }
+        });
+    })();
+    </script>
+</body>
+
+</html>
