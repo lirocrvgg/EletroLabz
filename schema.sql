@@ -1,4 +1,5 @@
-BEGIN;
+DO $eletrolabz$
+BEGIN
 CREATE TABLE IF NOT EXISTS accounts (
     cpf TEXT PRIMARY KEY,
     name TEXT NOT NULL,
@@ -13,4 +14,5 @@ CREATE TABLE IF NOT EXISTS sessions (
 CREATE TABLE IF NOT EXISTS attempts (ip TEXT NOT NULL, ts BIGINT NOT NULL);
 CREATE INDEX IF NOT EXISTS sessions_expiry ON sessions(expires);
 CREATE INDEX IF NOT EXISTS attempts_window ON attempts(ip, ts);
-COMMIT;
+END;
+$eletrolabz$;
